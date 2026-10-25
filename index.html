@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#16131d">
+  <title>Zoobumon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&family=Rubik:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main class="wrap">
+  <div class="top">
+    <h1>Zoobumon</h1>
+    <p>Crie seu treinador, cace zoobumons e duele com seus amigos</p>
+  </div>
+
+  <!-- LOGIN -->
+  <section id="auth" class="sheet" hidden aria-label="Entrar">
+    <h2>Entrar</h2>
+    <p class="muted">Sua conta guarda seu treinador e seus zoobumons. Dá pra começar no celular e continuar no computador.</p>
+    <form id="authForm" class="col" novalidate>
+      <label class="lbl" for="em">Email</label>
+      <input id="em" class="inp" type="email" autocomplete="email" required>
+      <label class="lbl" for="pw">Senha</label>
+      <input id="pw" class="inp" type="password" autocomplete="current-password" minlength="6" required>
+      <div class="row"><button class="btn" type="submit">Entrar</button><button id="btnSignup" class="btn ghost" type="button">Criar conta</button></div>
+      <p id="authMsg" class="dmsg" role="status"></p>
+    </form>
+  </section>
+
+  <!-- CRIAÇÃO -->
+  <section id="create" class="sheet" hidden aria-label="Criar treinador">
+    <div class="acct"><span id="acctInfo"></span><button id="btnLogout" class="link" type="button" hidden>Sair da conta</button></div>
+    <div id="cont" class="cont" hidden>
+      <span>Tem uma aventura salva: <b id="contname"></b></span>
+      <button id="btnCont" class="btn sm" type="button">Continuar</button>
+    </div>
+    <h2>Novo treinador</h2>
+    <div class="grid">
+      <div class="col">
+        <label class="lbl" for="nm">Nome</label>
+        <input id="nm" class="inp" maxlength="10" placeholder="Seu nome" autocomplete="off">
+        <div class="lbl">Personagem</div>
+        <div id="sexes" class="chips"></div>
+        <div class="lbl">Cabelo</div>
+        <div id="styles" class="chips"></div>
+        <div id="beardRow"><div class="lbl">Barba</div><div id="beards" class="chips"></div></div>
+        <div class="lbl">Cores</div>
+        <div id="looks" class="looks"></div>
+      </div>
+      <div class="col">
+        <div class="lbl">Prévia</div>
+        <div class="pvwrap"><div class="pvbox"><canvas id="pv" width="96" height="96"></canvas><div class="rot"><button id="rotL" class="chipbtn" type="button" aria-label="Girar para a esquerda">↺ Girar</button><button id="rotR" class="chipbtn" type="button" aria-label="Girar para a direita">Girar ↻</button></div></div><small>Seu boneco no mapa. Os amigos te veem assim quando estão online.</small></div>
+        <div class="lbl">Primeiro zoobumon</div>
+        <div id="starters" class="cards three"></div>
+      </div>
+    </div>
+    <button id="btnStart" class="btn big" type="button">Começar aventura</button>
+  </section>
+
+  </main>
+
+<!-- JOGO (tela cheia) -->
+<div id="game" hidden aria-label="Jogo">
+  <canvas id="cv" width="240" height="160"></canvas>
+  <div id="stage" hidden>
+    <canvas id="bcv" width="480" height="320"></canvas>
+    <div id="ehud" class="hbox e" hidden>
+      <div class="hn"><b><span id="en"></span> <span id="et" class="tchip"></span></b><span id="el"></span></div>
+      <div class="bar"><span>PV</span><div class="hpbar"><i id="ehp"></i></div></div>
+    </div>
+    <div id="phud" class="hbox p" hidden>
+      <div class="hn"><b><span id="pn"></span> <span id="pt" class="tchip"></span></b><span id="pl"></span></div>
+      <div class="bar"><span>PV</span><div class="hpbar"><i id="php"></i></div></div>
+      <div class="hpt" id="phpt"></div>
+      <div class="xpbar"><i id="pxp"></i></div>
+    </div>
+  </div>
+  <div id="tags"></div>
+  <div id="loc" class="loc"></div>
+  <div id="online" class="chip" hidden></div>
+  <div id="toast" class="toast" role="status"></div>
+  <button id="menuBtn" type="button" hidden>☰ Menu</button>
+  <div id="fade"></div>
+  <div id="panel" class="panel box" hidden>
+    <div class="ph"><b id="ptitle"></b><button id="pclose" type="button">✕ Voltar</button></div>
+    <div id="pbody" class="pbody" hidden></div>
+    <div id="plist" class="plist"></div>
+    <div id="pfoot" class="pfoot"></div>
+  </div>
+  <div id="dock">
+    <div id="textbox" class="tb box" hidden><span class="txt"></span><span class="more" hidden>▼</span></div>
+    <div id="menu" class="menu box" hidden></div>
+    <div id="minfo" class="box" hidden></div>
+  </div>
+</div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/mapa.js"></script>
+  <script src="js/regras.js"></script>
+  <script src="js/entrada.js"></script>
+  <script src="js/interface.js"></script>
+  <script src="js/mundo.js"></script>
+  <script src="js/desenho.js"></script>
+  <script src="js/batalha.js"></script>
+  <script src="js/menus.js"></script>
+  <script src="js/duelo.js"></script>
+  <script src="js/nuvem.js"></script>
+  <script src="js/online.js"></script>
+  <script src="js/criacao.js"></script>
+  <script src="js/inicio.js"></script>
+</body>
+</html>

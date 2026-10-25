@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Zoobudex</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;600;700&family=Rubik:wght@400;500&display=swap">
+  <style>
+    :root{--room:#16131d;--card:#221d2e;--line:#3b3350;--ink:#f1ecf8;--mute:#a59cb9;--gold:#f2c14e;--f-pix:'Pixelify Sans','Courier New',monospace}
+    body{margin:0;background:var(--room);color:var(--ink);font-family:'Rubik',system-ui,sans-serif}
+    main{max-width:1100px;margin:0 auto;padding:24px max(16px,env(safe-area-inset-left))}
+    h1{font:700 34px var(--f-pix);color:var(--gold);margin:0 0 4px;text-shadow:3px 3px 0 #6b3b20}
+    p{color:var(--mute);margin:0 0 20px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px}
+    .card{background:var(--card);border:2px solid var(--line);border-radius:14px;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .imgs{display:flex;gap:6px;justify-content:center;background:#e9f0d8;border-radius:10px;padding:6px}
+    .imgs img{width:96px;height:96px;image-rendering:pixelated}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+    .n{font:600 19px var(--f-pix)}
+    .num{font:600 13px var(--f-pix);color:var(--mute)}
+    .chip{font:600 12px var(--f-pix);color:#fff;border-radius:6px;padding:1px 8px}
+    small{color:var(--mute);font-size:12.5px;line-height:1.45}
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;text-align:center;font:600 12px var(--f-pix)}
+    .stats span{background:#2c2540;border-radius:6px;padding:3px 0}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Zoobudex</h1>
+    <p>Todos os zoobumons do Zoobumon. À esquerda a frente, à direita as costas (como aparece na batalha).</p>
+    <div id="grid" class="grid"></div>
+  </main>
+  <script src="js/util.js"></script>
+  <script src="js/dados.js"></script>
+  <script src="js/sprites.js"></script>
+  <script>
+    const where={};
+    for(const[z,list]of Object.entries(ENC))for(const[s,,a,b]of list)(where[s]=where[s]||[]).push(`${ZNAME[z]} (${a}–${b})`);
+    const from={};for(const[k,s]of Object.entries(SPECIES))if(s.evo)from[s.evo[0]]=[k,s.evo[1]];
+    const starters=['pintobrasa','gotinho','brotelo'];
+    document.getElementById('grid').innerHTML=Object.entries(SPECIES).map(([k,s],i)=>{
+      const sp=SPR(k),b=sp.b.toDataURL();
+      const info=[
+        starters.includes(k)?'Inicial':'',
+        where[k]?'Aparece em: '+where[k].join(', '):(starters.includes(k)?'':'Só evoluindo'),
+        s.evo?`Evolui para ${SPECIES[s.evo[0]].n} no nível ${s.evo[1]}`:'',
+        from[k]?`Evolução de ${SPECIES[from[k][0]].n}`:'',
+      ].filter(Boolean).join(' · ');
+      return`<div class="card"><div class="top"><span class="n">${s.n}</span><span class="num">#${String(i+1).padStart(2,'0')}</span></div>
+        <div class="imgs"><img src="${sp.url}" alt="${s.n} de frente"><img src="${b}" alt="${s.n} de costas"></div>
+        <div class="top"><span class="chip" style="background:${TYPEC[s.t]}">${s.t}</span></div>
+        <div class="stats"><span>PV ${s.b.hp}</span><span>ATQ ${s.b.atk}</span><span>DEF ${s.b.def}</span><span>VEL ${s.b.spd}</span></div>
+        <small>${info}</small></div>`;
+    }).join('');
+  </script>
+</body>
+</html>
