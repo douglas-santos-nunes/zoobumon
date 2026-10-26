@@ -29,8 +29,6 @@ const LS={
   planta:[[1,'investida'],[1,'folha'],[6,'arranhao'],[11,'raiz'],[18,'golpeduro'],[24,'furia']],
   rato:[[1,'investida'],[3,'arranhao'],[7,'mordida'],[14,'golpeduro']],
   inseto:[[1,'investida'],[1,'folha'],[8,'arranhao'],[12,'raiz']],
-  faisca:[[1,'investida'],[1,'choque'],[7,'arranhao'],[11,'faisca'],[17,'trovao']],
-  pedra:[[1,'investida'],[1,'pedrada'],[9,'mordida'],[13,'desabamento'],[18,'golpeduro']],
   cao:[[1,'investida'],[1,'arranhao'],[4,'latido'],[8,'mordida'],[15,'golpeduro'],[22,'furia']],
   lemure:[[1,'investida'],[1,'arranhao'],[6,'cauda'],[11,'mordida'],[18,'salto'],[24,'golpeduro']],
   zap:[[1,'investida'],[1,'notificacao'],[7,'figurinha'],[12,'corrente'],[18,'audio']],
@@ -52,9 +50,6 @@ const SPECIES={
   ratuxo:{n:'Ratuxo',t:'Normal',b:{hp:38,atk:50,def:35,spd:70},xp:40,cr:.7,ls:LS.rato,evo:['ratazao',12],pal:GREY,sh:{rx:.5,ry:.5,cy:.64,sp:2,seed:41,nz:.6}},
   ratazao:{n:'Ratatuile',t:'Normal',b:{hp:62,atk:78,def:56,spd:92},xp:110,cr:.3,ls:LS.rato,pal:GREY,sh:{rx:.72,ry:.7,cy:.57,sp:2,seed:41,nz:.6}},
   zumbel:{n:'Abelhume',t:'Planta',b:{hp:42,atk:56,def:40,spd:66},xp:50,cr:.6,ls:LS.inseto,pal:{base:'#f2c228',light:'#ffe680',dark:'#2a2420',belly:'#fff2b0',accent:'#e83028',ferrao:'#3a3036'},sh:{rx:.5,ry:.62,cy:.56,sp:2,seed:53,nz:.75}},
-  faiscol:{n:'Faíscol',t:'Elétrico',b:{hp:40,atk:56,def:38,spd:82},xp:55,cr:.45,ls:LS.faisca,evo:['voltaro',15],sh:{rx:.48,ry:.55,cy:.62,sp:3,seed:71,nz:.65}},
-  voltaro:{n:'Voltaro',t:'Elétrico',b:{hp:62,atk:88,def:58,spd:106},xp:160,cr:.12,ls:LS.faisca,pal:{accent:'#3058d0'},sh:{rx:.7,ry:.78,cy:.54,sp:3,seed:71,nz:.65}},
-  pedrugo:{n:'Pedrugo',t:'Pedra',b:{hp:56,atk:62,def:82,spd:25},xp:60,cr:.5,ls:LS.pedra,sh:{rx:.8,ry:.6,cy:.62,sp:0,seed:83,nz:.9}},
   caramelo:{n:'Caramelo',t:'Normal',b:{hp:55,atk:58,def:48,spd:66},xp:58,cr:.45,ls:LS.cao,evo:['caramelao',16],pal:{base:'#d8914a',light:'#f0bc78',dark:'#a8642c',belly:'#f6e2bc',accent:'#d84040'},sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:7,nz:.5}},
   caramelao:{n:'Caramelo BR',t:'Normal',b:{hp:82,atk:88,def:68,spd:90},xp:150,cr:.15,ls:LS.cao,pal:{base:'#c98240',light:'#eab06a',dark:'#94562a',belly:'#f4dcb0',accent:'#3a3440'},sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:7,nz:.5}},
   zubumafilho:{n:'Zubumafilho',t:'Normal',b:{hp:48,atk:52,def:44,spd:80},xp:62,cr:.4,ls:LS.lemure,evo:['zubumapai',18],pal:{base:'#9a96a2',light:'#c9c5cf',dark:'#3a3640',belly:'#f4f1ea',accent:'#f2a024'},sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:5,nz:.5}},
@@ -123,9 +118,9 @@ const CLASSES={
   sabio:{n:'Sábio',d:'Seus zoobumons ganham +35% de XP',xp:.35},
 };
 const ENC={
-  rota:[['ratuxo',42,2,4],['zumbel',32,2,4],['faiscol',12,3,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
-  pedreira:[['pedrugo',40,6,9],['faiscol',28,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
-  bosque:[['zumbel',25,9,13],['ratazao',20,10,13],['pedrugo',10,10,13],['voltaro',8,12,15],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
+  rota:[['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
+  pedreira:[['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
+  bosque:[['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
 const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];

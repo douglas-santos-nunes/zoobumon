@@ -247,7 +247,7 @@ function rivalTeam(){
   if(L>=14)s=SPECIES[s].evo[0];
   const t=[];
   if(L>=8)t.push(mkMon(L>=12?'ratazao':'ratuxo',L-2));
-  if(L>=11)t.push(mkMon(L>=15?'voltaro':'faiscol',L-1));
+  if(L>=11)t.push(mkMon(L>=16?'caramelao':'caramelo',L-1));
   t.push(mkMon(s,L));
   return t;
 }
