@@ -211,7 +211,7 @@ async function fight(opt){
   // duelo ao vivo: luta com o time do código trocado e o time de verdade volta no fim
   const real=opt.pvp?S.party:null;
   if(opt.pvp){S.party=opt.mine;brnd=mulberry32(opt.pvp.seed)}
-  if(!S.party.some(m=>m.hp>0)){await say('Seus zoobumons estão sem forças! Vá até o Centro Zoobumon.');return}
+  if(!S.party.some(m=>m.hp>0)){await say('Seus zoobumons estão sem forças! Vá até a UPA.');return}
   const snap=opt.friendly&&!opt.pvp?S.party.map(m=>m.hp):null;
   const r=await battle(opt);
   await fadeTo(1,300,'#000');
@@ -221,7 +221,7 @@ async function fight(opt){
   if(r==='lose'&&!opt.friendly){
     const lost=Math.floor(S.coins/2);S.coins-=lost;
     await say('Todos os seus zoobumons desmaiaram...');
-    await say(`Você correu pro Centro Zoobumon e deixou cair ${lost} moedas no caminho.`);
+    await say(`Você correu pra UPA e deixou cair ${lost} moedas no caminho.`);
     healAll();scene='mundo';P.x=S.respawn.x;P.y=S.respawn.y;P.dir='down';P.moving=false;curZone=zoneAt(P.x,P.y);
     hideText();
   }

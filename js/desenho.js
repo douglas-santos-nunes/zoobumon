@@ -58,9 +58,9 @@ function paintCentro(g,X,Y,W,H,dxo){
     R(g,o,wx,wy+4,16,22);R(g,o,wx+2,wy+2,12,2);R(g,o,wx+4,wy,8,2);
     R(g,'#5e9ad6',wx+2,wy+5,12,19);R(g,'#5e9ad6',wx+4,wy+2,8,4);R(g,'#8cc4f2',wx+2,wy+5,12,5);R(g,'#eaf6ff',wx+4,wy+6,2,6);R(g,'#fdf7ea',wx+7,wy+2,2,22);R(g,'#fdf7ea',wx+2,wy+14,12,2);
     R(g,'#e9e2d6',wx-1,wy+26,18,3);R(g,'#f05858',wx+2,wy+24,3,2);R(g,'#f2c03a',wx+11,wy+24,3,2)}
-  // letreiro vermelho com CENTRO em cima da porta
-  const tw=pixTextW('CENTRO'),bw=tw+14,bx=Math.round(cx-bw/2),by=base+4;
-  R(g,o,bx-1,by-1,bw+2,16);R(g,red[1],bx,by,bw,14);R(g,red[2],bx,by,bw,2);R(g,red[0],bx,by+12,bw,2);pixText(g,'CENTRO',bx+7,by+2,'#ffffff',red[0]);
+  // letreiro vermelho com UPA em cima da porta
+  const tw=pixTextW('UPA'),bw=tw+14,bx=Math.round(cx-bw/2),by=base+4;
+  R(g,o,bx-1,by-1,bw+2,16);R(g,red[1],bx,by,bw,14);R(g,red[2],bx,by,bw,2);R(g,red[0],bx,by+12,bw,2);pixText(g,'UPA',bx+7,by+2,'#ffffff',red[0]);
   // porta de vidro automática com moldura vermelha e luz verde
   const dh=36,dy=Y+H-dh;
   R(g,o,dx+1,dy-2,30,dh+2);R(g,red[1],dx+2,dy-1,28,dh+1);R(g,'#c8ccd8',dx+4,dy+2,24,dh-2);

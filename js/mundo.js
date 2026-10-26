@@ -26,7 +26,7 @@ const NPCS=[
 // gente de dentro do Centro e da Loja
 const INT_NPCS={
   centro:[{x:6,y:2,dir:'down',name:'Enfermeira',fixed:1,look:{sex:'f',style:'coque',hair:'#f08aa8',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#e8e8f0',acc:{cabeca:'touca'}},talk:async()=>{
-    await say('Enfermeira: Bem-vindo ao Centro Zoobumon! Vou cuidar do seu time.');
+    await say('Enfermeira: Bem-vindo à UPA! Vou cuidar do seu time.');
     await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
     await say('Pronto! Seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
@@ -120,7 +120,7 @@ function worldPress(b){
   const t=tileAt(fx,fy);
   if(t==='~')run(()=>say('A água está calma e funda. Melhor não nadar.'));
   else if(t==='R')run(()=>say('Uma pedra enorme. Não dá pra mover.'));
-  else if(bd)run(()=>say(bd.kind==='centro'?'Centro Zoobumon: cura grátis e o PC pra guardar seus zoobumons.':'Loja da Vila: itens, equipamentos e skins.'));
+  else if(bd)run(()=>say(bd.kind==='centro'?'UPA: cura grátis e o PC pra guardar seus zoobumons.':'Loja da Vila: itens, equipamentos e skins.'));
 }
 // entra no Centro ou na Loja: troca de cena e aparece em cima do tapete da porta
 async function enterBuilding(b){

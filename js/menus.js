@@ -20,11 +20,11 @@ async function pickParty(title,{force=false}={}){
   const i=await choose(S.party.map(m=>({html:monRow(m)})),{root:p.list,cancel:!force});
   hidePanel();return i;
 }
-// o time anda com até 6; os outros ficam guardados e só saem pelo PC do Centro Zoobumon
+// o time anda com até 6; os outros ficam guardados e só saem pelo PC da UPA
 async function zoobumonsMenu(){
   let sel=0;
   while(true){
-    const p=showPanel(`Seu time (${S.party.length}/6)`,{foot:S.box.length?`${S.box.length} guardado(s) no PC do Centro Zoobumon.`:''});
+    const p=showPanel(`Seu time (${S.party.length}/6)`,{foot:S.box.length?`${S.box.length} guardado(s) no PC da UPA.`:''});
     const i=await choose(S.party.map(m=>({html:monRow(m)})),{root:p.list,start:sel});
     if(i<0)return;
     sel=i;
@@ -43,7 +43,7 @@ async function monSheet(m){
     <div class="mvs">${m.moves.map(k=>`<div>${chip(MOVES[k].t)} ${MOVES[k].n} <small>Poder ${MOVES[k].p}</small></div>`).join('')}</div>`});
   await choose([{label:'Voltar'}],{root:p.list});
 }
-// PC do Centro Zoobumon: retirar e guardar
+// PC da UPA: retirar e guardar
 async function pcMenu(){
   await say(`${S.name} ligou o PC. Sistema de guarda de zoobumons aberto.`);hideText();
   let msg='';
@@ -84,7 +84,7 @@ async function bagMenu(){
     const t=await pickParty('Usar em qual zoobumon?');
     if(t<0){msg='';continue}
     const m=S.party[t],mx=maxHP(m,S);
-    if(m.hp<=0){msg='Zoobumon desmaiado: leve ao Centro Zoobumon.';continue}
+    if(m.hp<=0){msg='Zoobumon desmaiado: leve à UPA.';continue}
     if(m.hp>=mx){msg='Esse já está com a vida cheia.';continue}
     const h=Math.min(it.heal,mx-m.hp);m.hp+=h;S.bag[ids[i]]--;msg=`${nameOf(m)} recuperou ${h} PV.`;
   }

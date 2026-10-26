@@ -36,7 +36,7 @@ function zoneAt(x,y){if(y<15&&x<25)return'vila';if(y<=16&&x>=25)return'pedreira'
 // interiores: cada um é um mapinha próprio. '#' parede, '_' piso, 'C' balcão, 'M' máquina de cura, 'P' PC,
 // 'p' planta, 'b' banco, 'S' prateleira, 'E' tapete de saída
 const INT={
-  centro:{name:'Centro Zoobumon',floor:'xadrez',entry:[6,7],rows:[
+  centro:{name:'UPA',floor:'xadrez',entry:[6,7],rows:[
     '############',
     '############',
     '#__M______P#',
