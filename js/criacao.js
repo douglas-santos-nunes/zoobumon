@@ -44,6 +44,11 @@ function drawPreview(ts){
 function startGame(s,isNew){
   S=s;
   S.bag=S.bag||{};S.gear=S.gear||[];S.eq=S.eq||[];S.box=S.box||[];S.wins=S.wins||0;S.caught=S.caught||1;S.txp=S.txp||0;
+  // zoobumons de espécies que saíram do jogo somem do save; golpes que saíram também
+  const ok=m=>m&&SPECIES[m.s];
+  for(const m of [...S.party,...S.box].filter(ok)){m.moves=(m.moves||[]).filter(k=>MOVES[k]);if(!m.moves.length)m.moves=['investida']}
+  S.party=S.party.filter(ok);S.box=S.box.filter(ok);
+  while(S.party.length<1&&S.box.length)S.party.push(S.box.shift());
   S.respawn=S.respawn||{x:6,y:7};
   S.skins=S.skins||[];S.look.acc=S.look.acc||{};
   scene=S.pos&&INT[S.pos.sc]?S.pos.sc:'mundo';
