@@ -24,6 +24,7 @@ const MOVES={
   bote:{n:'Bote',t:'Normal',p:60,a:100}, veneno:{n:'Veneno Verde',t:'Planta',p:75,a:90}, constricao:{n:'Constrição',t:'Normal',p:85,a:85}, botedobro:{n:'Bote em Dobro',t:'Planta',p:100,a:80},
   expresso:{n:'Expresso Fervendo',t:'Fogo',p:65,a:95}, filacopa:{n:'Fila da Copa',t:'Normal',p:70,a:90}, cafeina:{n:'Overdose de Cafeína',t:'Fogo',p:85,a:85}, ultimogole:{n:'Quem Bebeu o Último?',t:'Fogo',p:100,a:80},
   maisumponto:{n:'Só Mais Um Ponto',t:'Normal',p:50,a:100}, agendar:{n:'Vamos Agendar Outra',t:'Normal',p:75,a:90}, camerafechada:{n:'Câmera Desligada',t:'Normal',p:60,a:100}, alinhado:{n:'Alinhamento Total',t:'Normal',p:100,a:75},
+  feijaorequentado:{n:'Feijão Requentado',t:'Normal',p:45,a:100}, tampavoadora:{n:'Tampa Voadora',t:'Normal',p:60,a:95}, microondas:{n:'Esquenta no Micro-ondas',t:'Fogo',p:70,a:90}, devolve:{n:'Devolve Meu Pote!',t:'Normal',p:90,a:85},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -39,6 +40,7 @@ const LS={
   serpente:[[1,'investida'],[1,'folha'],[6,'bote'],[11,'veneno'],[18,'constricao'],[24,'furia'],[30,'botedobro']],
   cafeteria:[[1,'investida'],[1,'brasa'],[5,'cafe'],[10,'expresso'],[16,'filacopa'],[22,'cafeina'],[30,'ultimogole']],
   daily:[[1,'investida'],[1,'maisumponto'],[6,'cafe'],[11,'camerafechada'],[16,'reuniao'],[22,'agendar'],[30,'alinhado']],
+  marmita:[[1,'investida'],[1,'feijaorequentado'],[7,'tampavoadora'],[13,'microondas'],[20,'golpeduro'],[27,'devolve']],
   cigarro:[[1,'tosse'],[1,'brasa'],[7,'fumaca'],[13,'cinzas'],[21,'inferno']],
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
   cerveja:[[1,'investida'],[1,'espuma'],[6,'brinde'],[12,'saideira'],[18,'arroto'],[28,'ressaca']],
@@ -85,6 +87,8 @@ const SPECIES={
     pal:{base:'#f4ecd8',belly:'#ffffff',accent:'#3a6ad8',dark:'#7a6a50',light:'#fffaf0',envelope:'#f4ecd8',dobra:'#ddd0b2',gravata:'#3a6ad8',selo:'#d83a3a',luz:'#ff3a2a'}},
   alinhamento:{n:'Alinhamento Semanal',t:'Normal',b:{hp:96,atk:86,def:84,spd:46},xp:200,cr:.08,ls:LS.daily,sh:{rx:.85,ry:.85,cy:.55,sp:0,seed:47,nz:.4},
     pal:{base:'#ffffff',belly:'#ffffff',accent:'#d83a3a',dark:'#5a5a66',light:'#ffffff',folha:'#fbfbfe',topo:'#d83a3a',argola:'#5a5a66',grade:'#c4c4d2'}},
+  marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
+    pal:{base:'#eef4f6',belly:'#ffffff',accent:'#3a8ad8',dark:'#5a6a7a',light:'#ffffff',pote:'#eaf2f6',tampa:'#3a8ad8',arroz:'#fbf6e8',feijao:'#5a3020',farofa:'#e8c070',tomate:'#e04848',fita:'#f0e0a8'}},
   cervejinha:{n:'Cervejinha',t:'Água',b:{hp:45,atk:45,def:40,spd:55},xp:52,cr:.55,ls:LS.cerveja,evo:['chopp',22],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:31,nz:.4},
     pal:{base:'#f2a81c',belly:'#fff8e8',accent:'#ffffff',dark:'#b8700c',light:'#ffd860',vidro:'#e2f0fa',cerveja:'#f2a81c',faceta:'#d88a10',espuma:'#fffaf0'}},
   chopp:{n:'Chopp Artesanal',t:'Água',b:{hp:65,atk:70,def:60,spd:65},xp:130,cr:.22,ls:LS.cerveja,evo:['litraco',38],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:31,nz:.4},
@@ -141,8 +145,8 @@ const CLASSES={
 };
 const ENC={
   rota:[['daily',7,3,5],['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
-  pedreira:[['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
-  bosque:[['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
+  pedreira:[['marmitiol',6,7,9],['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
+  bosque:[['marmitiol',8,10,13],['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
 const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];
