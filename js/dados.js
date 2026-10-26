@@ -92,7 +92,7 @@ const SPECIES={
   marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
     pal:{base:'#eef4f6',belly:'#ffffff',accent:'#3a8ad8',dark:'#5a6a7a',light:'#ffffff',pote:'#eaf2f6',tampa:'#3a8ad8',arroz:'#fbf6e8',feijao:'#5a3020',farofa:'#e8c070',tomate:'#e04848',fita:'#f0e0a8'}},
   texugo:{n:'Texugo',t:'Normal',b:{hp:70,atk:92,def:60,spd:84},xp:120,cr:.18,ls:LS.texugo,sh:{rx:.75,ry:.65,cy:.58,sp:0,seed:59,nz:.5},
-    pal:{base:'#2c2830',belly:'#3a3440',accent:'#e83a2a',dark:'#16121a',light:'#4a4452',capa:'#d8d4cc',baba:'#cfe8f8'}},
+    pal:{base:'#8e8a94',belly:'#b4b0ba',accent:'#e83a2a',dark:'#1e1a22',light:'#c4c0ca',capa:'#f6f4ee'}},
   cervejinha:{n:'Cervejinha',t:'Água',b:{hp:45,atk:45,def:40,spd:55},xp:52,cr:.55,ls:LS.cerveja,evo:['chopp',22],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:31,nz:.4},
     pal:{base:'#f2a81c',belly:'#fff8e8',accent:'#ffffff',dark:'#b8700c',light:'#ffd860',vidro:'#e2f0fa',cerveja:'#f2a81c',faceta:'#d88a10',espuma:'#fffaf0'}},
   chopp:{n:'Chopp Artesanal',t:'Água',b:{hp:65,atk:70,def:60,spd:65},xp:130,cr:.22,ls:LS.cerveja,evo:['litraco',38],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:31,nz:.4},
