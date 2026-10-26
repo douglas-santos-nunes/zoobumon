@@ -22,6 +22,8 @@ const MOVES={
   espuma:{n:'Espuma Gelada',t:'Água',p:40,a:100}, brinde:{n:'Brinde',t:'Normal',p:55,a:100}, saideira:{n:'Saideira',t:'Água',p:70,a:90}, arroto:{n:'Arroto Trovão',t:'Normal',p:80,a:90}, ressaca:{n:'Ressaca',t:'Água',p:95,a:80},
   larica:{n:'Larica',t:'Normal',p:60,a:100}, vibe:{n:'Boa Vibe',t:'Planta',p:85,a:90},
   bote:{n:'Bote',t:'Normal',p:60,a:100}, veneno:{n:'Veneno Verde',t:'Planta',p:75,a:90}, constricao:{n:'Constrição',t:'Normal',p:85,a:85}, botedobro:{n:'Bote em Dobro',t:'Planta',p:100,a:80},
+  expresso:{n:'Expresso Fervendo',t:'Fogo',p:65,a:95}, filacopa:{n:'Fila da Copa',t:'Normal',p:70,a:90}, cafeina:{n:'Overdose de Cafeína',t:'Fogo',p:85,a:85}, ultimogole:{n:'Quem Bebeu o Último?',t:'Fogo',p:100,a:80},
+  maisumponto:{n:'Só Mais Um Ponto',t:'Normal',p:50,a:100}, agendar:{n:'Vamos Agendar Outra',t:'Normal',p:75,a:90}, camerafechada:{n:'Câmera Desligada',t:'Normal',p:60,a:100}, alinhado:{n:'Alinhamento Total',t:'Normal',p:100,a:75},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -35,6 +37,8 @@ const LS={
   zap:[[1,'investida'],[1,'notificacao'],[7,'figurinha'],[12,'corrente'],[18,'audio']],
   coco:[[1,'investida'],[1,'cheirinho'],[8,'mosquinhas'],[13,'fedido'],[19,'golpeduro']],
   serpente:[[1,'investida'],[1,'folha'],[6,'bote'],[11,'veneno'],[18,'constricao'],[24,'furia'],[30,'botedobro']],
+  cafeteria:[[1,'investida'],[1,'brasa'],[5,'cafe'],[10,'expresso'],[16,'filacopa'],[22,'cafeina'],[30,'ultimogole']],
+  daily:[[1,'investida'],[1,'maisumponto'],[6,'cafe'],[11,'camerafechada'],[16,'reuniao'],[22,'agendar'],[30,'alinhado']],
   cigarro:[[1,'tosse'],[1,'brasa'],[7,'fumaca'],[13,'cinzas'],[21,'inferno']],
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
   cerveja:[[1,'investida'],[1,'espuma'],[6,'brinde'],[12,'saideira'],[18,'arroto'],[28,'ressaca']],
@@ -69,6 +73,18 @@ const SPECIES={
     pal:{base:'#6a6e7e',belly:'#ffffff',accent:'#d83a3a',dark:'#2a2226',light:'#c8ccd8',pele:'#f2c8a0',camisa:'#f4f4f8',terno:'#6a6e7e',gravata:'#d83a3a',cabelo:'#2a2220',sapato:'#2a2226'}},
   lider:{n:'Líder Despreparado',t:'Normal',b:{hp:85,atk:90,def:75,spd:60},xp:190,cr:.1,ls:LS.escritorio,sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:21,nz:.4},
     pal:{base:'#2c3450',belly:'#ffffff',accent:'#d83a3a',dark:'#2a2226',light:'#9aa4c0',pele:'#f2c8a0',camisa:'#f4f4f8',terno:'#2c3450',gravata:'#d83a3a',cabelo:'#7a7a84',sapato:'#2a2226',papel:'#fbfbf4',vermelho:'#e04848'}},
+  cafezinho:{n:'Cafezinho',t:'Fogo',b:{hp:44,atk:52,def:40,spd:60},xp:52,cr:.55,ls:LS.cafeteria,evo:['cafeteira',14],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:43,nz:.4},
+    pal:{base:'#f6f1e8',belly:'#ffffff',accent:'#c8803a',dark:'#9a8a7a',light:'#ffffff',xicara:'#f6f1e8',pires:'#e6ddd0',cafe:'#5a3420',crema:'#c8904e'}},
+  cafeteira:{n:'Cafeteira da Copa',t:'Fogo',b:{hp:66,atk:70,def:64,spd:60},xp:130,cr:.22,ls:LS.cafeteria,evo:['garrafa',26],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:43,nz:.4},
+    pal:{base:'#3a3a44',belly:'#d8ecf6',accent:'#ff3a2a',dark:'#1e1e26',light:'#6a6a78',maquina:'#3a3a44',painel:'#8a8a98',vidro:'#d8ecf6',cafe:'#4a2a18',luz:'#ff3a2a'}},
+  garrafa:{n:'Garrafa Térmica Vazia',t:'Fogo',b:{hp:90,atk:92,def:72,spd:52},xp:200,cr:.08,ls:LS.cafeteria,sh:{rx:.85,ry:.85,cy:.55,sp:0,seed:43,nz:.4},
+    pal:{base:'#d83a3a',belly:'#c8ccd4',accent:'#c8ccd4',dark:'#6a1418',light:'#f07060',garrafa:'#d83a3a',metal:'#c8ccd4',tampa:'#2a2a32',botao:'#c8ccd4',cafe:'#4a2a18'}},
+  daily:{n:'Daily',t:'Normal',b:{hp:48,atk:44,def:46,spd:58},xp:50,cr:.6,ls:LS.daily,evo:['reuniaoemail',14],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:47,nz:.4},
+    pal:{base:'#f8f8fc',belly:'#ffffff',accent:'#f2c03a',dark:'#7a7a90',light:'#ffffff',balao:'#f8f8fc',relogio:'#f2c03a'}},
+  reuniaoemail:{n:'Reunião Que Podia Ser Um Email',t:'Normal',b:{hp:68,atk:64,def:70,spd:58},xp:130,cr:.22,ls:LS.daily,evo:['alinhamento',26],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:47,nz:.4},
+    pal:{base:'#f4ecd8',belly:'#ffffff',accent:'#3a6ad8',dark:'#7a6a50',light:'#fffaf0',envelope:'#f4ecd8',dobra:'#ddd0b2',gravata:'#3a6ad8',selo:'#d83a3a',luz:'#ff3a2a'}},
+  alinhamento:{n:'Alinhamento Semanal',t:'Normal',b:{hp:96,atk:86,def:84,spd:46},xp:200,cr:.08,ls:LS.daily,sh:{rx:.85,ry:.85,cy:.55,sp:0,seed:47,nz:.4},
+    pal:{base:'#ffffff',belly:'#ffffff',accent:'#d83a3a',dark:'#5a5a66',light:'#ffffff',folha:'#fbfbfe',topo:'#d83a3a',argola:'#5a5a66',grade:'#c4c4d2'}},
   cervejinha:{n:'Cervejinha',t:'Água',b:{hp:45,atk:45,def:40,spd:55},xp:52,cr:.55,ls:LS.cerveja,evo:['chopp',14],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:31,nz:.4},
     pal:{base:'#f2a81c',belly:'#fff8e8',accent:'#ffffff',dark:'#b8700c',light:'#ffd860',vidro:'#e2f0fa',cerveja:'#f2a81c',faceta:'#d88a10',espuma:'#fffaf0'}},
   chopp:{n:'Chopp Artesanal',t:'Água',b:{hp:65,atk:70,def:60,spd:65},xp:130,cr:.22,ls:LS.cerveja,evo:['litraco',26],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:31,nz:.4},
@@ -124,9 +140,9 @@ const CLASSES={
   sabio:{n:'Sábio',d:'Seus zoobumons ganham +35% de XP',xp:.35},
 };
 const ENC={
-  rota:[['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
-  pedreira:[['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
-  bosque:[['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
+  rota:[['daily',7,3,5],['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
+  pedreira:[['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
+  bosque:[['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
 const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];
