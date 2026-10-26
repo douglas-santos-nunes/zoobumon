@@ -226,7 +226,7 @@ async function fight(opt){
     hideText();
   }
   await fadeTo(0,300);
-  for(const m of S.party)if(m.evoPending)await evolve(m);
+  for(const m of S.party)if(m.evoPending){const ev=SPECIES[m.s].evo;if(ev&&m.lv>=ev[1])await evolve(m);else m.evoPending=false}
   save();
   return r;
 }
@@ -244,10 +244,10 @@ async function evolve(m){
 function rivalTeam(){
   const L=Math.max(5,...S.party.map(m=>m.lv));
   let s={pintobrasa:'gotinho',gotinho:'brotelo',brotelo:'pintobrasa'}[S.starter]||'gotinho';
-  if(L>=14)s=SPECIES[s].evo[0];
+  if(L>=SPECIES[s].evo[1])s=SPECIES[s].evo[0];
   const t=[];
-  if(L>=8)t.push(mkMon(L>=12?'ratazao':'ratuxo',L-2));
-  if(L>=11)t.push(mkMon(L>=16?'caramelao':'caramelo',L-1));
+  if(L>=8)t.push(mkMon(L-2>=SPECIES.ratuxo.evo[1]?'ratazao':'ratuxo',L-2));
+  if(L>=11)t.push(mkMon(L-1>=SPECIES.caramelo.evo[1]?'caramelao':'caramelo',L-1));
   t.push(mkMon(s,L));
   return t;
 }
@@ -263,6 +263,10 @@ async function startWild(){
   const z=zoneAt(P.x,P.y),tb=ENC[z]||ENC.rota;
   let r=rnd()*tb.reduce((a,e)=>a+e[1],0),pk=tb[0];
   for(const e of tb){if((r-=e[1])<0){pk=e;break}}
-  await fight({team:[mkMon(pk[0],ri(pk[2],pk[3]))],wild:true,bg:z});
+  // quem já passou do nível da área encontra bichos mais fortes, pra continuar valendo a pena treinar ali
+  const top=Math.max(...S.party.map(m=>m.lv));let lv=ri(pk[2],pk[3]);
+  if(top>pk[3])lv=Math.min(top,lv+Math.floor((top-pk[3])*.75));
+  let sp=pk[0];while(SPECIES[sp].evo&&lv>=SPECIES[sp].evo[1])sp=SPECIES[sp].evo[0];
+  await fight({team:[mkMon(sp,lv)],wild:true,bg:z});
 }
 
