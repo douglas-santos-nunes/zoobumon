@@ -21,6 +21,7 @@ const MOVES={
   cafe:{n:'Café Requentado',t:'Normal',p:40,a:100}, bajular:{n:'Bajulação',t:'Normal',p:55,a:100}, reuniao:{n:'Reunião Inútil',t:'Normal',p:65,a:95}, planilha:{n:'Planilha Errada',t:'Normal',p:80,a:90}, microgestao:{n:'Microgestão',t:'Normal',p:100,a:75},
   espuma:{n:'Espuma Gelada',t:'Água',p:40,a:100}, brinde:{n:'Brinde',t:'Normal',p:55,a:100}, saideira:{n:'Saideira',t:'Água',p:70,a:90}, arroto:{n:'Arroto Trovão',t:'Normal',p:80,a:90}, ressaca:{n:'Ressaca',t:'Água',p:95,a:80},
   larica:{n:'Larica',t:'Normal',p:60,a:100}, vibe:{n:'Boa Vibe',t:'Planta',p:85,a:90},
+  bote:{n:'Bote',t:'Normal',p:60,a:100}, veneno:{n:'Veneno Verde',t:'Planta',p:75,a:90}, constricao:{n:'Constrição',t:'Normal',p:85,a:85}, botedobro:{n:'Bote em Dobro',t:'Planta',p:100,a:80},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -33,6 +34,7 @@ const LS={
   lemure:[[1,'investida'],[1,'arranhao'],[6,'cauda'],[11,'mordida'],[18,'salto'],[24,'golpeduro']],
   zap:[[1,'investida'],[1,'notificacao'],[7,'figurinha'],[12,'corrente'],[18,'audio']],
   coco:[[1,'investida'],[1,'cheirinho'],[8,'mosquinhas'],[13,'fedido'],[19,'golpeduro']],
+  serpente:[[1,'investida'],[1,'folha'],[6,'bote'],[11,'veneno'],[18,'constricao'],[24,'furia'],[30,'botedobro']],
   cigarro:[[1,'tosse'],[1,'brasa'],[7,'fumaca'],[13,'cinzas'],[21,'inferno']],
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
   cerveja:[[1,'investida'],[1,'espuma'],[6,'brinde'],[12,'saideira'],[18,'arroto'],[28,'ressaca']],
@@ -45,8 +47,10 @@ const SPECIES={
   galardente:{n:'Galardente',t:'Fogo',b:{hp:66,atk:92,def:60,spd:88},xp:150,cr:.15,ls:LS.fogo,pal:{base:'#e8552a',light:'#ff9a4a',dark:'#9a2a18',belly:'#ffd27a',accent:'#ffe14a'},sh:{rx:.78,ry:.8,cy:.54,sp:3,seed:11,nz:.55}},
   gotinho:{n:'Gotinho',t:'Água',b:{hp:50,atk:48,def:60,spd:46},xp:64,cr:.45,ls:LS.agua,evo:['zegotinha',14],sh:{rx:.62,ry:.55,cy:.62,sp:0,seed:23,nz:.4}},
   zegotinha:{n:'Zé Gotinha',t:'Água',b:{hp:76,atk:74,def:86,spd:62},xp:150,cr:.15,ls:LS.agua,pal:{base:'#9ccff4',light:'#d6efff',dark:'#4a88cc',belly:'#ffffff',accent:'#ffffff'},sh:{rx:.85,ry:.72,cy:.56,sp:1,seed:23,nz:.4}},
-  brotelo:{n:'Brotelo',t:'Planta',b:{hp:52,atk:50,def:52,spd:48},xp:64,cr:.45,ls:LS.planta,evo:['floresko',14],sh:{rx:.58,ry:.58,cy:.62,sp:1,seed:37,nz:.5}},
-  floresko:{n:'Floresko',t:'Planta',b:{hp:78,atk:78,def:78,spd:66},xp:150,cr:.15,ls:LS.planta,sh:{rx:.82,ry:.8,cy:.54,sp:3,seed:37,nz:.5}},
+  brotelo:{n:'Cobrume',t:'Planta',b:{hp:50,atk:56,def:46,spd:56},xp:64,cr:.45,ls:LS.serpente,evo:['floresko',14],sh:{rx:.62,ry:.58,cy:.6,sp:0,seed:37,nz:.4},
+    pal:{base:'#4c9a3a',light:'#8ad060',dark:'#1c4220',belly:'#e8dc98',accent:'#f2d030',lingua:'#e83a4a'}},
+  floresko:{n:'Cobrume Duplo',t:'Planta',b:{hp:76,atk:90,def:68,spd:76},xp:150,cr:.15,ls:LS.serpente,sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:37,nz:.4},
+    pal:{base:'#2f7a36',light:'#6ab84e',dark:'#0f2a14',belly:'#d8c470',accent:'#ff3a24',lingua:'#e83a4a',chifre:'#e8e0c8'}},
   ratuxo:{n:'Ratuxo',t:'Normal',b:{hp:38,atk:50,def:35,spd:70},xp:40,cr:.7,ls:LS.rato,evo:['ratazao',12],pal:GREY,sh:{rx:.5,ry:.5,cy:.64,sp:2,seed:41,nz:.6}},
   ratazao:{n:'Ratatuile',t:'Normal',b:{hp:62,atk:78,def:56,spd:92},xp:110,cr:.3,ls:LS.rato,pal:GREY,sh:{rx:.72,ry:.7,cy:.57,sp:2,seed:41,nz:.6}},
   zumbel:{n:'Abelhume',t:'Planta',b:{hp:42,atk:56,def:40,spd:66},xp:50,cr:.6,ls:LS.inseto,pal:{base:'#f2c228',light:'#ffe680',dark:'#2a2420',belly:'#fff2b0',accent:'#e83028',ferrao:'#3a3036'},sh:{rx:.5,ry:.62,cy:.56,sp:2,seed:53,nz:.75}},
