@@ -144,11 +144,16 @@ const CLASSES={
   sabio:{n:'Sábio',d:'Seus zoobumons ganham +35% de XP',xp:.35},
 };
 const ENC={
+  praia:[['cervejinha',24,14,18],['gotinho',12,14,18],['zap',12,14,18],['caramelo',12,14,18],['marmitiol',10,15,19],['zumbel',10,14,18],['chopp',4,22,24]],
+  cidade:[['estagiario',22,12,16],['daily',22,12,16],['cafezinho',20,12,16],['marmitiol',10,13,17],['ratuxo',10,12,16],['cocozinho',8,12,16],['puxasaco',5,20,22],['reuniaoemail',4,22,24],['cafeteira',4,22,24]],
+  boteco:[['cervejinha',18,16,20],['gudang',16,16,20],['caramelo',14,16,20],['cocozinho',12,16,20],['zubumafilho',12,16,20],['marmitiol',8,17,21],['chopp',8,22,25],['ratazao',8,20,24],['caramelao',4,24,27]],
+  serra:[['zubumapai',14,26,32],['rastafolha',12,26,32],['caramelao',12,26,32],['ratazao',12,24,30],['chopp',10,24,30],['puxasaco',10,24,30],['cafeteira',8,24,30],['reuniaoemail',8,24,30],
+    ['galardente',3,28,32],['zegotinha',3,28,32],['floresko',3,28,32],['garrafa',2,38,40],['alinhamento',2,38,40],['litraco',2,38,40],['lider',2,36,38]],
   rota:[['daily',7,3,5],['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
   pedreira:[['marmitiol',6,7,9],['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
   bosque:[['marmitiol',8,10,13],['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
-const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio'};
+const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio',praia:'Praia Brava',cidade:'Distrito Corporativo',boteco:'Rua do Boteco',serra:'Serra Alta'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];
 const BEARDC=['#3a2a22','#6a4428','#a05828','#d8b048','#c83030','#8a8a92','#e4e4ec'];
 const SKIN=['#f8d4ac','#dca474','#a8703e','#6e4626'];

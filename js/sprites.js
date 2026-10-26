@@ -542,6 +542,27 @@ function buildTiles(){
     for(let i=0;i<5;i++){const h=hash(i,v,82),x=h%29,y=(h>>>6)%29;R(g,'#9a948e',x,y,2,1);R(g,'#c8c2ba',x,y-1,1,1)}}));
   const rock=renderSprite(TS,TS,[E(8,10,6.6,5.2,'stone'),E(11.6,12,2.8,2.1,'stone'),E(4.6,12.4,2.2,1.7,'stone')],{stone:ramp('#a8a2b0')},false,2);
   T.rock=mk(TS,TS,g=>{g.drawImage(T.dirt[0],0,0);g.fillStyle='rgba(60,40,20,.3)';g.beginPath();g.ellipse(16,27,14,4,0,0,7);g.fill();g.drawImage(rock,0,0)});
+  T.sand=[0,1].map(v=>mk(TS,TS,g=>{texture(g,110+v,['#e8d398','#f0dea8','#f8eabe']);
+    for(let i=0;i<4;i++){const h=hash(i,v,111),x=2+h%27,y=2+(h>>>6)%27;R(g,'#d2b878',x,y,2,1);R(g,'#fff6dc',x,y-1,1,1)}
+    if(v){R(g,'#f4b8b0',20,9,3,2);R(g,'#ffffff',20,9,1,1);R(g,'#d89088',21,11,2,1)}}));
+  T.pave=[0,1].map(v=>mk(TS,TS,g=>{texture(g,120+v,['#b4b6c0','#c0c2cc','#cacdd6']);
+    for(let k=0;k<TS;k+=16){R(g,'#9a9ca8',0,k+15,TS,1);R(g,'#9a9ca8',(k?8:0)+(v?8:0),k,1,16);R(g,'#d6d8e0',0,k,TS,1)}}));
+  const palm=renderSprite(32,48,[Cp(8.6,23,9.4,15,1.15,'trunk'),Cp(9.4,15,8.2,7.6,1.05,'trunk'),
+    Cp(8.2,20,10,20,.25,'trunkd',{noLine:1}),Cp(8.6,16.4,10.4,16.4,.25,'trunkd',{noLine:1}),Cp(8.4,12.6,10,12.6,.25,'trunkd',{noLine:1}),
+    E(3.8,8.6,3.8,1.1,'leafd',{rot:.85,g:1}),E(12.4,8.6,3.8,1.1,'leafd',{rot:-.85,g:1}),
+    E(3.6,6.2,4.4,1.3,'leaf',{rot:.45,g:1}),E(12.4,6.2,4.4,1.3,'leaf',{rot:-.45,g:1}),E(5,4.4,4,1.2,'leaf',{rot:-.35,g:1}),E(11,4.4,4,1.2,'leaf',{rot:.35,g:1}),E(8,4.2,1.4,3.4,'leaf',{g:1}),
+    E(7.2,8,1,1,'coco'),E(9.2,8.2,1,1,'coco')],{leaf:ramp('#3fae4a'),leafd:ramp('#2c8a3a'),trunk:ramp('#b88a52'),trunkd:ramp('#8a6236'),coco:ramp('#7a5a2a')},false,2);
+  T.palm=mk(TS,48,g=>{g.fillStyle='rgba(60,40,10,.28)';g.beginPath();g.ellipse(18,44.5,11,3.4,0,0,7);g.fill();g.drawImage(palm,0,0)});
+  // prédio de vidro: topo com laje, janelas azuis (algumas acesas)
+  const win=(g,x,y,lit)=>{R(g,'#3a4a62',x,y,12,11);R(g,lit?'#f2d880':'#6aa8d8',x+1,y+1,10,9);R(g,lit?'#fff0b8':'#a8d4f2',x+1,y+1,10,2);R(g,'#ffffff',x+2,y+4,1,3)};
+  const officeBase=(g,lit)=>{R(g,'#5a6274',0,0,TS,TS);R(g,'#6c7488',0,0,TS,1);win(g,3,4,lit&1);win(g,17,4,lit&2);win(g,3,18,lit&4);win(g,17,18,0);R(g,'#4a5062',15,0,2,TS)};
+  T.office={mid:[0,1,6].map(l=>mk(TS,TS,g=>officeBase(g,l))),top:mk(TS,TS,g=>{officeBase(g,0);R(g,'#8a909c',0,0,TS,10);R(g,'#a8aeba',0,0,TS,2);R(g,'#6a7080',0,9,TS,2);R(g,'#c84040',24,3,3,3)})};
+  // casinha: telhado de telha, parede colorida com janela, porta de madeira
+  const wallC=['#f2e2c0','#cfe6f0','#f4cfd0','#d8ecc0'];
+  const wallBase=(g,c)=>{R(g,c,0,0,TS,TS);R(g,darker(c,.9),0,TS-4,TS,4);R(g,darker(c,.75),0,TS-1,TS,1);R(g,darker(c,.92),0,0,TS,1)};
+  T.house={roof:mk(TS,TS,g=>{for(let r=0;r<4;r++){const y=r*8;R(g,'#c84a3a',0,y,TS,8);R(g,'#e06a52',0,y,TS,2);R(g,'#8e2e24',0,y+7,TS,1);for(let x=(r%2)*6;x<TS;x+=12)R(g,'#8e2e24',x,y+2,1,5)}}),
+    wall:wallC.map(c=>mk(TS,TS,g=>{wallBase(g,c);R(g,'#7a4a2a',7,7,18,14);R(g,'#6aa8d8',9,9,14,10);R(g,'#a8d4f2',9,9,14,3);R(g,'#7a4a2a',15,9,2,10);R(g,'#e8d8b8',6,21,20,2)})),
+    door:wallC.map(c=>mk(TS,TS,g=>{wallBase(g,c);R(g,'#4a2a18',8,6,16,26);R(g,'#8a5a30',9,7,14,25);R(g,'#a87040',9,7,14,2);R(g,'#f2c03a',19,19,2,2)}))};
   T.flower=[0,1].map(f=>mk(TS,TS,g=>{grassBase(g,3);
     for(const[x,y,c]of[[5,6,'#f05858'],[20,18,'#f8f8f8'],[18,4,'#f8a8c8'],[6,22,'#f8f8f8'],[26,10,'#ffd84a']]){
       const o=f&&(x+y)%2?1:0,cc=darker(c,.78);

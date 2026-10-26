@@ -114,6 +114,16 @@ function paintLoja(g,X,Y,W,H,dxo){
   const rx=X+W-22;R(g,o,rx-1,cy-5,18,19);R(g,'#8a5a30',rx,cy-4,16,17);R(g,'#a87040',rx+3,cy-4,10,17);R(g,'#5a5a64',rx,cy,16,2);R(g,'#5a5a64',rx,cy+8,16,2);
   for(let q=0;q<3;q++){R(g,'#8a5a30',rx+3+q*5,cy-14,1,10);R(g,'#e8e8f0',rx+1+q*5,cy-15,5,3)}
 }
+// chão embaixo da árvore combina com a região
+function groundUnder(tx,ty,h){const z=zoneAt(tx,ty);return z==='pedreira'||z==='serra'?T.dirt[h%2]:z==='praia'?T.sand[h%2]:z==='cidade'?T.pave[h%2]:T.grass[3]}
+// casinha da Rua do Boteco: telhado na fileira de cima, porta no meio da fileira de baixo
+function houseTile(tx,ty,h){
+  if(tileAt(tx,ty-1)!=='H')return T.house.roof;
+  let l=tx,r=tx;while(tileAt(l-1,ty)==='H')l--;while(tileAt(r+1,ty)==='H')r++;
+  const col=hash(l,ty-(tileAt(tx,ty-2)==='H'?2:1),5)%T.house.wall.length;
+  if(tileAt(tx,ty+1)!=='H'&&tx===Math.floor((l+r)/2))return T.house.door[col];
+  return T.house.wall[col];
+}
 function drawInteriorTile(ch,tx,ty,X,Y,h){
   const I=INT[scene],fl=I.floor;
   if(ch==='#'){
@@ -149,7 +159,11 @@ function drawWorld(ts){
     switch(ch){
       case',':img=(rustle&&rustle.x===tx&&rustle.y===ty&&ts<rustle.until?T.tallRustle:T.tall)[h%4];break;case'~':img=T.water[(wf3+tx+ty)%3];break;
       case'=':img=T.path[h%2];break;case'f':img=T.flower[wf];break;case'd':img=T.dirt[h%2];break;case'R':img=T.rock;break;
-      case'T':img=ty<=15&&tx>=25?T.dirt[h%2]:T.grass[3];actors.push({x:tx*TS,y:ty*TS,img:T.tree,tree:true});break;
+      case'T':img=groundUnder(tx,ty,h);actors.push({x:tx*TS,y:ty*TS,img:T.tree,tree:true});break;
+      case'Y':img=T.sand[h%2];actors.push({x:tx*TS,y:ty*TS,img:T.palm,tree:true});break;
+      case's':img=T.sand[h%2];break;case'c':img=T.pave[h%2];break;
+      case'O':img=tileAt(tx,ty-1)!=='O'?T.office.top:T.office.mid[h%3];break;
+      case'H':img=houseTile(tx,ty,h);break;
       default:img=T.grass[[0,1,2,3,3,3,1][h%7]];
     }
     ctx.drawImage(img,X,Y);
@@ -175,7 +189,7 @@ function drawWorld(ts){
   actors.sort((a,b)=>a.y-b.y||(a.tree?-1:1));
   for(const a of actors){
     const X=a.x-cx,Y=a.y-cy;
-    if(a.tree){ctx.drawImage(a.img,X,Y-8);continue}
+    if(a.tree){ctx.drawImage(a.img,X,Y-(a.img.height-TS));continue}
     ctx.fillStyle='rgba(20,40,20,.26)';ctx.beginPath();ctx.ellipse(X+16,Y+29,9,3.5,0,0,7);ctx.fill();
     ctx.drawImage(a.img,X,Y-18);
     if(a.me){const sx=P.moving&&P.t>.5?P.tx:P.x,sy=P.moving&&P.t>.5?P.ty:P.y;
@@ -183,7 +197,7 @@ function drawWorld(ts){
   }
   if(VIG)ctx.drawImage(VIG,0,0);
 }
-const BG={vila:['#eef0f6','#d6dbe9','#b9c2d8','#8f9ab8'],rota:['#eef4d8','#d2e6a8','#a8d070','#7cad4c'],pedreira:['#f4ead6','#e6d0a6','#ccac7c','#9e7e56'],bosque:['#d6e4cc','#aecaa0','#82ad6c','#56834a']};
+const BG={vila:['#eef0f6','#d6dbe9','#b9c2d8','#8f9ab8'],rota:['#eef4d8','#d2e6a8','#a8d070','#7cad4c'],pedreira:['#f4ead6','#e6d0a6','#ccac7c','#9e7e56'],bosque:['#d6e4cc','#aecaa0','#82ad6c','#56834a'],praia:['#e2f2fa','#f2e2b0','#e2c88a','#c8a868'],cidade:['#e6eaf2','#c8ccd6','#a8aebc','#7c8494'],boteco:['#f6ead8','#d8e6a8','#b0d078','#86ac56'],serra:['#e0e6f0','#cfc0a4','#a8936e','#7a6448']};
 // fundo da batalha em 480x320: céu em faixas, morros e árvores ao longe, chão com textura (guardado pronto por área)
 const BGC={};
 function battleBg(key){

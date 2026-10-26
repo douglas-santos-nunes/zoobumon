@@ -6,8 +6,9 @@ const NPCS=[
   {x:9,y:10,dir:'down',name:'Prof. Ipê',look:{style:'raspado',beard:'cheia',hair:'#e4e4ec',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#5868a0'},talk:async()=>{
     await say(`Prof. Ipê: Olá, ${S.name}! Os zoobumons vivem no mato alto.`);
     await say('Enfraqueça um zoobumon e jogue uma Rede. Quanto menos vida ele tiver, mais fácil de pegar.');
-    await say('Ao sul fica a Trilha 1 (Nv 2 a 5). A leste, a Pedreira Seca (Nv 6 a 10).');
-    await say('E no sudeste, o Bosque Sombrio (Nv 9 a 15). Só vá bem treinado!');
+    await say('Ao sul fica a Trilha 1 (Nv 2 a 5). A leste, a Pedreira Seca (Nv 6 a 10). No sudeste, o Bosque Sombrio (Nv 9 a 15).');
+    await say('Depois da Trilha tem o Distrito Corporativo. Depois da Pedreira, a Praia Brava. Depois do Bosque, a Rua do Boteco.');
+    await say('E lá no fim de tudo, a Serra Alta. Só os treinadores mais fortes voltam de lá!');
   }},
   {x:16,y:10,dir:'down',name:'Kael',look:{style:'espetado',hair:'#c83030',skin:'#dca474',shirt:'#2c2c34',pants:'#3a4a7c'},talk:n=>rivalTalk(n)},
   {x:13,y:13,dir:'left',name:'Lia',look:{sex:'f',style:'rabo',hair:'#e8c050',skin:'#f8d4ac',shirt:'#8848c0',pants:'#2a2a32'},talk:async()=>{
@@ -18,9 +19,25 @@ const NPCS=[
     await say('Montanhista: Zoobumons de Pedra aguentam muita pancada.');
     await say('Mas golpes de Água e de Planta derrubam eles rapidinho.');
   }},
+  {x:59,y:9,dir:'down',name:'Salva-vidas',look:{style:'curto',hair:'#e8c050',skin:'#c88a5a',shirt:'#e04848',pants:'#e8c050'},talk:async()=>{
+    await say('Salva-vidas: Bem-vindo à Praia Brava! Cuidado com as Cervejinhas, elas aparecem do nada no capim.');
+    await say('Dizem que um Chopp Artesanal raro passeia por aqui no fim da tarde.');
+  }},
+  {x:13,y:45,dir:'down',name:'Executivo',look:{style:'topete',hair:'#3a2a22',skin:'#f0c8a0',shirt:'#2c2c34',pants:'#2c2c34',acc:{rosto:'oculos_grau'}},talk:async()=>{
+    await say('Executivo: Distrito Corporativo. Aqui os canteiros vivem cheios de Estagiários e Dailys.');
+    await say('Se encontrar uma Reunião Que Podia Ser Um Email, corre. Ela não acaba nunca.');
+  }},
+  {x:61,y:52,dir:'down',name:'Dono do Boteco',look:{style:'raspado',beard:'bigode',hair:'#3a2a22',skin:'#d8a070',shirt:'#f4f4f4',pants:'#3a3a44'},talk:async()=>{
+    await say('Dono do Boteco: Rua do Boteco! Aqui é Gudang, Cervejinha e Caramelo pra todo lado.');
+    await say('Mais pro leste fica a Serra Alta. Lá só vai quem tem time de nível 25 pra cima.');
+  }},
+  {x:79,y:52,dir:'left',name:'Alpinista',look:{style:'black',beard:'cheia',hair:'#2a1a14',skin:'#8a5a3a',shirt:'#e0a020',pants:'#4f6a4a',acc:{cabeca:'gorro'}},talk:async()=>{
+    await say('Alpinista: Serra Alta. Os zoobumons daqui já chegam evoluídos.');
+    await say('Já vi até Garrafa Térmica Vazia e Alinhamento Semanal por esses matos. Boa sorte!');
+  }},
   {x:29,y:33,dir:'right',name:'Guarda',look:{style:'topete',beard:'bigode',hair:'#3a2a22',skin:'#6e4626',shirt:'#38a050',pants:'#2a2a32'},talk:async()=>{
-    await say('Guarda: O Bosque Sombrio é perigoso. Dizem que um Voltaro aparece por aqui...');
-    await say('Ele é rápido e quase impossível de pegar. Leve Redes de Ouro.');
+    await say('Guarda: Seguindo essa trilha pro leste você chega na Rua do Boteco.');
+    await say('Lá o pessoal não dorme, e os zoobumons também não. Leve Poções.');
   }},
 ];
 // gente de dentro do Centro e da Loja
@@ -35,7 +52,7 @@ const INT_NPCS={
       await say('Cliente: Tô juntando moeda pra comprar a Coroa Dourada. Imagina chegar no duelo de coroa!');}}],
 };
 const sceneNPCs=()=>scene==='mundo'?NPCS:INT_NPCS[scene];
-const SOLID='T~RB#CMPpbS';
+const SOLID='T~RB#CMPpbSYOH';
 function solid(x,y){if(SOLID.includes(tileAt(x,y)))return true;return sceneNPCs().some(n=>n.x===x&&n.y===y)}
 let curZone=null;
 // o mato balança um instante quando alguém entra nele
