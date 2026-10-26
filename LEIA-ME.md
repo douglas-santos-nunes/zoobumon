@@ -71,7 +71,8 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 - **Regiões:** Vila Aurora (início), Trilha 1 (Nv 2-5), Pedreira Seca (6-10), Bosque Sombrio (9-15), Distrito Corporativo (12-18, ao sul), Praia Brava (14-20, depois da Pedreira), Rua do Boteco (16-24, depois do Bosque) e Serra Alta (24-34, no fim de tudo).
 - **UPA** (telhado vermelho): entre, fale com a Enfermeira pelo balcão pra curar o time e use o **PC** do canto pra guardar e retirar zoobumons. O time anda com no máximo 6.
 - **Loja da Vila** (tijolinho com toldo verde): entre e fale com o Vendedor pra **comprar** (itens, equipamentos e skins) ou **vender** pela metade do preço.
-- **Skins**: boné, chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual. Os amigos online veem.
+- **Skins**: bonés (inclusive MST e VERO), chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual. Os amigos online veem.
+- **Aparência**: dá pra trocar personagem, cabelo, barba e cores a qualquer hora, de graça, em Menu › Treinador › Aparência.
 
 ## Estrutura
 

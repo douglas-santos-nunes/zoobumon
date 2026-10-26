@@ -101,9 +101,10 @@ async function trainerMenu(){
       <div>Moedas: ${S.coins} · Capturados: ${S.caught} · Duelos vencidos: ${S.wins}</div>
       <div>Equipado: ${S.eq.length?S.eq.map(g=>GEAR[g].n).join(', '):'nada'}</div>
       <div class="bonus">Bônus: ATQ +${pc(bo.atk)} · DEF +${pc(bo.def)} · Captura +${pc(bo.cap)} · XP +${pc(bo.xp)}</div></div></div>`});
-    const i=await choose([{label:`Equipamentos (${S.eq.length}/2 em uso)`},{label:`Visual · skins (${(S.skins||[]).length})`},{label:'Voltar'}],{root:p.list});
+    const i=await choose([{label:`Equipamentos (${S.eq.length}/2 em uso)`},{label:`Visual · skins (${(S.skins||[]).length})`},{label:'Aparência · cabelo, barba e cores'},{label:'Voltar'}],{root:p.list});
     if(i===0)await equipMenu();
     else if(i===1)await wardrobeMenu();
+    else if(i===2)await lookMenu();
     else return;
   }
 }
@@ -120,6 +121,37 @@ async function equipMenu(){
     else if(S.eq.length>=2)msg='Você já usa 2 itens. Tire um antes.';
     else{S.eq.push(g);msg=`${GEAR[g].n} equipado!`}
   }
+}
+// aparência: troca personagem, cabelo, barba e cores a qualquer hora, de graça
+async function lookMenu(){
+  const L=JSON.parse(JSON.stringify(S.look));L.acc=L.acc||{};
+  let beardPicked=!!L.beardColor&&L.beardColor!==L.hair;
+  const p=showPanel('Aparência',{foot:'Os amigos online veem o visual novo.'});
+  p.body.hidden=false;p.body.classList.add('grow');
+  const chips=(attr,obj,cur)=>Object.entries(obj).map(([k,n])=>`<button type="button" class="chipbtn" data-${attr}="${k}" aria-pressed="${cur===k}">${n}</button>`).join('');
+  const draw=()=>{
+    const pv=mk(32,48,g=>g.drawImage(buildChar(L).down[0],0,0)).toDataURL();
+    const rows=[['hair','Cor do cabelo',HAIR],...(L.sex==='m'&&L.beard!=='nenhuma'?[['beardColor','Cor da barba',BEARDC]]:[]),['skin','Pele',SKIN],['shirt','Roupa',SHIRT],['pants','Calça',PANTS]];
+    p.body.innerHTML=`<div class="lookedit"><img class="big" src="${pv}" alt="Prévia do treinador"><div class="lookopts">
+      <div class="lbl">Personagem</div><div class="chips">${chips('sex',{m:'Masculino',f:'Feminino'},L.sex)}</div>
+      <div class="lbl">Cabelo</div><div class="chips">${chips('style',HAIRSTYLES[L.sex],L.style)}</div>
+      ${L.sex==='m'?`<div class="lbl">Barba</div><div class="chips">${chips('beard',BEARDS,L.beard)}</div>`:''}
+      ${rows.map(([k,l,arr])=>`<div class="lbl">${l}</div><div class="sw">${arr.map(c=>`<button type="button" data-k="${k}" data-c="${c}" style="background:${c}" aria-label="${l} ${c}" aria-pressed="${L[k]===c}"></button>`).join('')}</div>`).join('')}
+    </div></div>`;
+  };
+  p.body.onclick=e=>{
+    const b=e.target.closest('button');if(!b)return;
+    if(b.dataset.sex){L.sex=b.dataset.sex;if(!HAIRSTYLES[L.sex][L.style])L.style=Object.keys(HAIRSTYLES[L.sex])[0];if(L.sex==='f')L.beard='nenhuma'}
+    else if(b.dataset.style)L.style=b.dataset.style;
+    else if(b.dataset.beard)L.beard=b.dataset.beard;
+    else if(b.dataset.k){if(b.dataset.k==='beardColor')beardPicked=true;if(b.dataset.k==='hair'&&!beardPicked)L.beardColor=b.dataset.c;L[b.dataset.k]=b.dataset.c}
+    else return;
+    const y=p.body.scrollTop;draw();p.body.scrollTop=y;
+  };
+  draw();
+  const i=await choose([{label:'Salvar visual'},{label:'Cancelar'}],{root:p.list});
+  p.body.onclick=null;
+  if(i===0){S.look=L;refreshLook();save();await say('Visual novo salvo!')}
 }
 // guarda-roupa: uma skin por lugar (cabeça, rosto, pescoço, costas)
 async function wardrobeMenu(){

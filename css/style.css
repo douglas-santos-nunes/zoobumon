@@ -199,3 +199,12 @@ body.playing{overflow:hidden;overscroll-behavior:none}
 .abtns button.on{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.4)}
 .abtns button:focus-visible,#joy:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
 @media (max-height:520px){#joy{width:112px;height:112px}#knob{width:50px;height:50px;margin:-25px 0 0 -25px}}
+
+/* aparência dentro do jogo: prévia ao lado das opções, botões no tema claro do painel */
+.lookedit{display:flex;gap:14px;align-items:flex-start}
+.lookedit img.big{width:96px;height:144px;image-rendering:pixelated;flex:none;background:#e6e1d0;border-radius:12px;position:sticky;top:0}
+.lookopts{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+.lookopts .lbl{font:600 14px var(--f-pix);color:#5a5a70;margin-top:4px}
+.lookopts .chipbtn{background:#ecebf4;color:#38384a;border-color:#c8c8d8;font-size:13px;padding:6px 11px}
+.lookopts .chipbtn[aria-pressed="true"]{background:#fff3cf;border-color:var(--gold);color:#38384a}
+@media (max-width:420px){.lookedit img.big{width:64px;height:96px}}
