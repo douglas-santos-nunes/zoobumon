@@ -185,7 +185,7 @@ async function pvpResolve(mine,opp){
 }
 
 function startOnline(){
-  if(!sb||!me||chan)return;
+  if(!sb||!me||chan||CFG.online===false)return;
   chan=sb.channel('mundo',{config:{presence:{key:myKey()},broadcast:{self:false}}});
   chan.on('presence',{event:'sync'},syncPeers)
     .on('broadcast',{event:'desafio'},({payload})=>onDesafio(payload))

@@ -5,7 +5,7 @@ RPG de captura em pixel art no estilo GBA, feito pra jogar no celular com os ami
 - **O jogo** fica no GitHub Pages (grátis): `https://douglas-santos-nunes.github.io/zoobumon/`
 - **Contas, saves e o online** ficam no Supabase (grátis)
 
-> **Agora o online está desligado** (`online: false` em `js/config.js`). Cada pessoa joga e evolui no próprio aparelho, sem login, e o progresso fica salvo no navegador. O Duelo por código (Menu › Duelo) continua funcionando. Pra religar login, nuvem, amigos no mapa e duelo ao vivo, troque pra `online: true`.
+> **Como está agora:** login e save na nuvem **ligados** (`contas: true` em `js/config.js`), então o progresso fica na conta e vale em qualquer aparelho. Amigos no mapa e duelo ao vivo estão **desligados** (`online: false`): cada um evolui no seu ritmo. O Duelo por código (Menu › Duelo) continua funcionando.
 
 ---
 
@@ -83,7 +83,7 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 | `zoobudex.html` | A Zoobudex: todos os zoobumons, de frente e de costas |
 | `sprites/` | Os desenhos de cada zoobumon em PNG (64×64) e a imagem da Zoobudex |
 | `css/style.css` | Visual das telas e menus |
-| `js/config.js` | Liga/desliga o online e guarda as chaves do Supabase |
+| `js/config.js` | Liga/desliga contas e online, e guarda as chaves do Supabase |
 | `js/dados.js` | Zoobumons, golpes, itens e equipamentos |
 | `js/sprites.js` | Desenho dos zoobumons, personagens e cenário |
 | `js/mapa.js`, `js/mundo.js`, `js/desenho.js` | Mapa, movimento e desenho do mundo |

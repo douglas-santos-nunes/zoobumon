@@ -1,7 +1,7 @@
 'use strict';
 /* =================== nuvem: contas e save (Supabase) =================== */
 const CFG=window.CB_CONFIG||{};
-const sb=CFG.online!==false&&CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase?window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey):null;
+const sb=CFG.contas!==false&&CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase?window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey):null;
 let me=null,cloudTimer=0;
 
 // salva na nuvem um pouco depois da última mudança, pra não mandar a cada passo
