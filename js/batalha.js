@@ -242,7 +242,7 @@ async function evolve(m){
   mode='world';EVO=null;
 }
 function rivalTeam(){
-  const L=Math.max(5,...S.party.map(m=>m.lv));
+  const L=Math.max(2,...S.party.map(m=>m.lv));
   let s={pintobrasa:'gotinho',gotinho:'brotelo',brotelo:'pintobrasa'}[S.starter]||'gotinho';
   if(L>=SPECIES[s].evo[1])s=SPECIES[s].evo[0];
   const t=[];
@@ -266,6 +266,8 @@ async function startWild(){
   // quem já passou do nível da área encontra bichos mais fortes, pra continuar valendo a pena treinar ali
   const top=Math.max(...S.party.map(m=>m.lv));let lv=ri(pk[2],pk[3]);
   if(top>pk[3])lv=Math.min(top,lv+Math.floor((top-pk[3])*.75));
+  // na Trilha 1 nada passa do seu zoobumon mais forte: o começo com o inicial no nível 1 fica justo
+  if(z==='rota')lv=Math.min(lv,top);
   let sp=pk[0];while(SPECIES[sp].evo&&lv>=SPECIES[sp].evo[1])sp=SPECIES[sp].evo[0];
   await fight({team:[mkMon(sp,lv)],wild:true,bg:z});
 }

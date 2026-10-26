@@ -71,7 +71,7 @@ function startGame(s,isNew){
 $('#btnStart').addEventListener('click',()=>{
   const name=($('#nm').value.trim()||'Treinador').slice(0,20);
   startGame({v:1,name,cls:null,look:{...C.look},starter:C.starter,coins:300,txp:0,
-    party:[mkMon(C.starter,6)],box:[],bag:{pocao:3,rede:5},gear:[],eq:[],caught:1,wins:0,rivalMet:false},true);
+    party:[mkMon(C.starter,1)],box:[],bag:{pocao:3,rede:5},gear:[],eq:[],caught:1,wins:0,rivalMet:false},true);
 });
 $('#btnCont').addEventListener('click',()=>{if(savedGame)startGame(savedGame,false)});
 
