@@ -1,11 +1,13 @@
 'use strict';
 /* =================== batalha =================== */
+// nomes compridos (Puxa-Saco Incompetente...) ganham letra menor pra caber na caixinha
+const fitName=el=>{const n=el.textContent.length;el.parentElement.classList.toggle('nome-m',n>12&&n<=18);el.parentElement.classList.toggle('nome-g',n>18)};
 function hud(){
   if(!B){$('#ehud').hidden=$('#phud').hidden=true;return}
   const e=B.team[B.ei],m=S.party[B.me];
   $('#ehud').hidden=!B.showE;$('#phud').hidden=!B.showP;
-  if(e){$('#en').textContent=nameOf(e);$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
-  if(m){const mx=maxHP(m,S),t=SPECIES[m.s].t;$('#pn').textContent=nameOf(m);$('#pl').textContent='Nv'+m.lv;$('#pt').textContent=t;$('#pt').style.background=TYPEC[t];
+  if(e){$('#en').textContent=nameOf(e);fitName($('#en'));$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
+  if(m){const mx=maxHP(m,S),t=SPECIES[m.s].t;$('#pn').textContent=nameOf(m);fitName($('#pn'));$('#pl').textContent='Nv'+m.lv;$('#pt').textContent=t;$('#pt').style.background=TYPEC[t];
     setBar($('#php'),m.hp/mx);$('#phpt').textContent=`${m.hp}/${mx}`;
     const a=xpFor(m.lv),b=xpFor(m.lv+1);$('#pxp').style.width=(m.lv>=100?100:clamp((m.xp-a)/(b-a)*100,0,100))+'%'}
 }

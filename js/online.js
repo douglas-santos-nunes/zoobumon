@@ -8,7 +8,7 @@ let chan=null,lastPres='';
 const OTHERS=new Map();
 const HEX=/^#[0-9a-f]{6}$/i;
 function safeLook(l){l=l&&typeof l==='object'?l:{};const sex=l.sex==='f'?'f':'m';return{sex,style:HAIRSTYLES[sex][l.style]?l.style:Object.keys(HAIRSTYLES[sex])[0],beard:sex==='m'&&BEARDS[l.beard]?l.beard:'nenhuma',beardColor:HEX.test(l.beardColor)?l.beardColor:undefined,hair:HEX.test(l.hair)?l.hair:HAIR[0],skin:HEX.test(l.skin)?l.skin:SKIN[0],shirt:HEX.test(l.shirt)?l.shirt:SHIRT[0],pants:HEX.test(l.pants)?l.pants:PANTS[0],acc:Object.fromEntries(Object.entries(l.acc&&typeof l.acc==='object'?l.acc:{}).filter(([slot,id])=>SKINS[id]&&SKINS[id].slot===slot))}}
-const cleanName=n=>String(n||'').replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,10)||'Amigo';
+const cleanName=n=>String(n||'').replace(/[\u0000-\u001f\u007f]/g,'').trim().slice(0,20)||'Amigo';
 const peerName=o=>cleanName(o&&o.p&&o.p.n);
 // amigos só aparecem quando estão na mesma sala (mundo, Centro ou Loja)
 const sameRoom=o=>(o.p.sc||'mundo')===scene;
@@ -16,7 +16,7 @@ function peerAt(x,y){for(const o of OTHERS.values())if(sameRoom(o)&&o.p.x===x&&o
 
 function sendPresence(){
   if(!chan||!S||!started)return;
-  const o={n:S.name.slice(0,10),l:S.look,x:P.moving?P.tx:P.x,y:P.moving?P.ty:P.y,d:P.dir,b:mode==='world'&&!busy?0:1,lv:Math.max(...S.party.map(m=>m.lv)),c:myCode(),sc:scene};
+  const o={n:S.name.slice(0,20),l:S.look,x:P.moving?P.tx:P.x,y:P.moving?P.ty:P.y,d:P.dir,b:mode==='world'&&!busy?0:1,lv:Math.max(...S.party.map(m=>m.lv)),c:myCode(),sc:scene};
   const k=JSON.stringify(o);
   if(k!==lastPres){lastPres=k;chan.track(o).catch(()=>{})}
 }

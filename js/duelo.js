@@ -36,7 +36,7 @@ function decodeTeam(code){
       return m;
     });
     if(!team.length)return null;
-    return{name:String(o.n||'Amigo').slice(0,12),owner,team};
+    return{name:String(o.n||'Amigo').slice(0,20),owner,team};
   }catch(e){return null}
 }
 

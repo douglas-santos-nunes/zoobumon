@@ -175,6 +175,69 @@ const SHAPES={
     E(25.6,46.4,.7,.7,'dark'),E(30.4,47.6,.7,.7,'dark'),E(35.2,46,.7,.7,'dark'),E(38.6,48,.6,.6,'dark'),
     Cp(32,18.6,32,20.8,7.5,'flame'),E(27,19.6,.8,.6,'crista'),E(31.5,20.4,.9,.6,'crista'),E(36.4,19.8,.8,.6,'crista'),E(32,15.8,7.4,3.4,'cinza'),E(28.6,15.4,.7,.5,'dark'),E(33.4,14.6,.6,.45,'dark'),E(35.6,16.4,.6,.45,'dark'),E(29.8,15,1.2,.7,'fumaca'),E(34.4,16,1,.6,'fumaca'),
     ...eyes(27.4,30.4,1),E(27.4,28.9,2.7,1.7,'base',{m:1,f:1,noLine:1}),Cp(24.8,30,30,30,.35,'dark',{m:1,f:1}),Cp(29.4,36.2,34.6,35,.55,'mouth',F)],
+  // Estagiário: camisa grande, crachá, café na mão e suor de nervoso
+  estagiario:[E(26,59,4.2,2.2,'sapato',M),Cp(27,49,27,57,2.6,'calca',M),
+    Cp(41,40,44.5,47,2.3,'camisa'),E(44.8,48,2,2,'pele'),
+    E(32,44,10.5,9.5,'camisa'),Cp(28.4,36.5,31.6,45,.45,'base',M),Cp(29.8,46.8,34.2,46.8,1.7,'copo'),Cp(29.8,45.6,34.2,45.6,.6,'base'),
+    Cp(23,40,19.4,46,2.3,'camisa'),E(19.2,47.4,2.1,2.1,'pele'),Cp(17.6,44.6,17.8,49.4,2.3,'copo'),Cp(15.6,46,19.8,46,.9,'cafe'),Cp(15.8,44.1,19.6,44.1,.55,'cafe'),
+    E(21,27,1.6,2.2,'pele',M),E(32,26,11,10.5,'pele'),
+    E(32,18.6,11.6,5.6,'cabelo'),Tr(21.8,20,30,15.8,23.4,25.2,'cabelo'),Tr(28,17,37,16,33.8,22.4,'cabelo'),
+    ...eyes(27.6,27.4,1.05),E(23.8,31,1.6,1,'pink',{m:1,f:1,noLine:1}),
+    Cp(29.6,33.6,31,32.8,.5,'mouth',F),Cp(31,32.8,32.6,33.6,.5,'mouth',F),Cp(32.6,33.6,34.2,32.8,.5,'mouth',F),
+    E(43.6,21,1.3,2,'suor',{noLine:1}),E(43.2,20,.4,.6,'shine')],
+  // Puxa-Saco Incompetente: terno, gravata, cabelo lambido, sorrisão e mãos esfregando
+  puxasaco:[E(25.6,59.6,4.6,2.2,'sapato',M),Cp(27,49,27,58,2.8,'terno',M),
+    E(32,43,11.6,10.2,'terno'),Tr(28.2,34.2,35.8,34.2,32,45.4,'camisa'),Tr(30.9,35.4,33.1,35.4,32,46.6,'gravata'),E(32,35.6,1.4,1.05,'gravata'),
+    Cp(21.6,37.6,26.4,46,2.6,'terno',M),E(29.6,46.6,2.3,2.1,'pele',M),
+    E(21.6,25.6,1.6,2.2,'pele',M),E(32,25,10.6,10,'pele'),
+    E(32,17.4,11.2,5,'cabelo'),Cp(25.6,15.4,30.6,16.8,.35,'dark'),E(28.4,15.6,2.6,.8,'shine'),
+    Cp(25.4,26,27.4,24.8,.45,'pupil',{m:1,f:1}),Cp(27.4,24.8,29.4,26,.45,'pupil',{m:1,f:1}),E(24.4,29.4,1.7,1.05,'pink',{m:1,f:1,noLine:1}),
+    E(32,31.6,4.8,2.4,'mouth',F),Cp(28.6,30.6,35.4,30.6,.75,'shine',F),E(32,29.8,5.4,1.4,'pele',{f:1,noLine:1})],
+  // Líder Despreparado: terno escuro, gravata torta, coçando a cabeça e com um gráfico caindo
+  lider:[E(24.6,60,5.2,2.4,'sapato',M),Cp(26.6,49,26.6,58,3.2,'terno',M),
+    E(32,42,14,12,'terno'),Tr(27,31,37,31,32,47.6,'camisa'),Tr(31,32.4,34,32,35.6,47,'gravata'),E(32.6,32.6,1.6,1.2,'gravata'),
+    Cp(20.4,36,15.6,43.4,3,'terno'),Cp(5.6,40,13.6,40,4.4,'papel'),Cp(6.6,37,9.4,40.6,.45,'vermelho'),Cp(9.4,40.6,12.6,43,.45,'vermelho'),E(15.4,44,2.3,2.3,'pele'),
+    Cp(43.6,36,46.4,26.6,3,'terno'),
+    E(21.2,22,1.7,2.3,'pele',M),E(32,22,11.6,10.6,'pele'),E(46.6,24.8,2.5,2.5,'pele'),
+    E(32,13.6,10.4,3,'cabelo'),E(21.6,19.6,1.8,4,'cabelo',M),Cp(24,14,40,12.4,.6,'cabelo'),E(29.6,12.8,2.2,1,'shine'),
+    E(27,22.4,2.2,3,'pupil',F),E(26.3,21.2,.8,.8,'shine',F),E(37.4,22.6,1.6,2.1,'pupil',F),E(36.9,21.8,.55,.55,'shine',F),
+    Cp(24.4,17.4,29.2,16.6,.5,'cabelo',F),Cp(35.4,18.6,40,19.4,.5,'cabelo',F),Cp(29.4,29.6,34.6,28.4,.55,'mouth',F),
+    E(49,9.6,4.6,4.6,'papel'),Cp(47.4,8.2,48.6,7,.5,'pupil',F),Cp(48.6,7,50.4,7.6,.5,'pupil',F),Cp(50.4,7.6,49.6,9.6,.5,'pupil',F),Cp(49.6,9.6,49.2,10.6,.5,'pupil',F),E(49.2,12.2,.55,.55,'pupil',F)],
+  // Cervejinha: copo americano com faces, cerveja dourada, espuma e bolhinhas
+  cervejinha:[Cp(28,52.6,28,57.6,1.8,'vidro',M),E(27.4,58.6,3,1.6,'vidro',M),Cp(20.6,33,15.4,38.6,1.7,'vidro',M),E(15,39.2,1.9,1.9,'vidro',M),
+    Tr(19.4,16,44.6,16,41.4,53.6,'vidro',{g:'cp'}),Tr(19.4,16,22.6,53.6,41.4,53.6,'vidro',{g:'cp'}),
+    Tr(21.6,25,42.4,25,40,51.6,'cerveja',{g:'bv'}),Tr(21.6,25,24,51.6,40,51.6,'cerveja',{g:'bv'}),
+    Cp(26.4,26,27,51,.4,'faceta',{noLine:1}),Cp(32,26,32,51,.4,'faceta',{noLine:1}),Cp(37.6,26,37,51,.4,'faceta',{noLine:1}),
+    E(25,46,.7,.7,'espuma',{noLine:1}),E(35.4,48.6,.6,.6,'espuma',{noLine:1}),E(38.4,43,.5,.5,'espuma',{noLine:1}),
+    E(32,25.4,11,3,'espuma',{g:'es'}),E(25.8,22,6,4.6,'espuma',{g:'es'}),E(33,20.4,7,5,'espuma',{g:'es'}),E(39.6,22.4,5.6,4.2,'espuma',{g:'es'}),
+    ...eyes(27.8,35.4,1.05),E(23.8,39.2,1.5,1,'pink',{m:1,f:1,noLine:1}),E(32,41.4,3.4,1.8,'mouth',F),E(32,40.4,3.8,1.2,'cerveja',{f:1,noLine:1}),
+    Cp(23,19,24.6,49,.6,'shine')],
+  // Chopp Artesanal: caneca com alça, espuma escorrendo e bigode de hipster
+  chopp:[Cp(27.6,54,27.6,58.6,2,'vidro',M),E(27,59.4,3.4,1.8,'vidro',M),
+    Cp(43,24,50.6,26.4,2.1,'vidro'),Cp(50.6,26.4,50.6,41.6,2.1,'vidro'),Cp(50.6,41.6,43,44.2,2.1,'vidro'),Cp(19,32,13.6,38.6,2,'vidro'),E(13.2,39.4,2.1,2.1,'vidro'),
+    Tr(18.6,16.6,43.4,16.6,43.4,54.4,'vidro',{g:'cp'}),Tr(18.6,16.6,18.6,54.4,43.4,54.4,'vidro',{g:'cp'}),Cp(19.6,54,42.4,54,1.8,'vidro',{g:'cp'}),
+    Tr(21,25,41,25,41,51.6,'cerveja',{g:'bv'}),Tr(21,25,21,51.6,41,51.6,'cerveja',{g:'bv'}),
+    E(26,47,.7,.7,'espuma',{noLine:1}),E(36.6,45,.6,.6,'espuma',{noLine:1}),E(30.4,49.4,.5,.5,'espuma',{noLine:1}),
+    E(32,23.4,12,3.6,'espuma',{g:'es'}),E(23.8,20,6.2,5,'espuma',{g:'es'}),E(31.4,17.4,7.6,6,'espuma',{g:'es'}),E(39.2,19.6,6.4,5,'espuma',{g:'es'}),E(20.6,27,1.7,3.4,'espuma',{g:'es'}),
+    ...eyes(27.2,33.6,1.1,1),Cp(28,40.2,31.4,39.4,.8,'bigode',{m:1,f:1}),Cp(28,40.2,26.8,38.6,.6,'bigode',{m:1,f:1}),Cp(30.4,42.6,33.6,42.6,.5,'mouth',F),
+    Cp(22.4,19,23.4,50,.6,'shine')],
+  // Litraço: garrafa de litrão com tampinha, rótulo, bochecha de bêbado e soluço
+  litraco:[Cp(27,55.4,27,59.4,2.6,'garrafa',M),E(26.2,60.4,3.8,1.8,'garrafa',M),Cp(21.4,38,15.4,45,2.6,'garrafa',M),E(15,45.6,2.4,2.4,'garrafa',M),
+    Cp(32,31.6,32,54,11.2,'garrafa',{g:'gf'}),E(32,29,10.8,6.4,'garrafa',{g:'gf'}),Cp(32,11.6,32,26,4.2,'garrafa',{g:'gf'}),
+    Cp(24.6,27,24.6,53,.8,'shine'),Cp(28.4,9.8,35.6,9.8,1.7,'tampa'),Cp(28.4,8.4,35.6,8.4,.5,'tampa'),
+    Cp(32,19.6,32,22.4,3.4,'rotulo'),Cp(22,39,42,39,6.4,'rotulo'),Cp(22,47.6,42,47.6,1.3,'vermelho'),Cp(22,31.6,42,31.6,.9,'tampa'),
+    ...eyes(27.2,38,1.05),Cp(24.6,36.2,29.6,36.6,.45,'garrafa',{m:1,f:1}),E(23.6,42,2.2,1.4,'vermelho',{m:1,f:1,noLine:1}),
+    E(32,43.4,2.6,1.6,'mouth',F),E(32,42.6,3,1,'rotulo',{f:1,noLine:1}),
+    E(46,11.6,1.6,1.6,'espuma'),E(49.4,7.4,1.1,1.1,'espuma'),E(51.4,3.8,.7,.7,'espuma')],
+  // Rastafolha: folha em leque, carinha relaxada, gorro reggae listrado e dreads
+  rastafolha:[E(19.7,33.8,3.0,7.5,'folha',{rot:-1.40,g:'lf'}),Cp(26.1,35.0,13.3,32.7,.35,'dark',{noLine:1}),E(19.7,27.4,3.0,10.0,'folha',{rot:-0.96,g:'lf'}),Cp(27.1,32.6,12.3,22.2,.35,'dark',{noLine:1}),E(23.5,21.3,3.6,12.0,'folha',{rot:-0.52,g:'lf'}),Cp(29.0,30.8,18.0,11.8,.35,'dark',{noLine:1}),E(32.0,17.5,3.6,13.5,'folha',{rot:0.00,g:'lf'}),Cp(32.0,30.0,32.0,5.0,.35,'dark',{noLine:1}),E(40.5,21.3,3.6,12.0,'folha',{rot:0.52,g:'lf'}),Cp(35.0,30.8,46.0,11.8,.35,'dark',{noLine:1}),E(44.3,27.4,3.0,10.0,'folha',{rot:0.96,g:'lf'}),Cp(36.9,32.6,51.7,22.2,.35,'dark',{noLine:1}),E(44.3,33.8,3.0,7.5,'folha',{rot:1.40,g:'lf'}),Cp(37.9,35.0,50.7,32.7,.35,'dark',{noLine:1}),
+    Cp(32,44,32,53.6,2.6,'caule'),Cp(28.4,53.4,27.4,58.6,1.9,'caule',M),E(26.8,59.4,3.2,1.7,'caule',M),
+    Cp(28.6,46,21.4,50,1.8,'caule',M),E(20.8,50.4,2,2,'folha',M),
+    Cp(22.6,34,21.6,46,1.4,'dread',M),Cp(24.6,36,24.2,47.6,1.4,'dread',M),Cp(20.8,32,18.8,42,1.3,'dread',M),
+    E(32,37,9.6,8.6,'base'),
+    E(32,26.6,11.6,6.4,'gorro_v',{g:'gr'}),E(32,24.4,10.4,5.4,'gorro_a',{g:'gr'}),E(32,22.4,8.6,4.4,'gorro_g',{g:'gr'}),Cp(21.2,30.8,42.8,30.8,1.3,'faixa'),
+    Cp(25,36.6,29.4,36.6,.7,'pupil',{m:1,f:1}),Cp(25,35.6,29.4,35.6,.55,'base',{m:1,f:1,noLine:1}),E(24.4,39.6,1.7,1,'pink',{m:1,f:1,noLine:1}),
+    E(32,41.6,4,2,'mouth',F),E(32,40.6,4.4,1.3,'base',{f:1,noLine:1}),E(32,42.6,1.8,.8,'pink',{f:1,noLine:1})],
   cinzarel:[Cp(42,52,51,44,3.5,'dark'),E(54,37,5,7.5,'flame'),E(54,39.5,2.5,4,'ember'),
     Tr(20,25,18,6,28,19,'base',M),Tr(21.5,22,20,11.5,25.5,19.5,'flame',{m:1,soft:1}),Tr(20,35,12,31,21,41,'dark',M),
     E(32,47,12,10,'base'),E(32,50,7,6.5,'belly',NB),E(25.5,57.5,4.8,3,'base',M),E(22,46,2.6,4.5,'base',{m:1,rot:.45}),
@@ -184,6 +247,8 @@ const SHAPES={
 function speciesColors(sp){
   const pal={...PAL[sp.t],...(sp.pal||{})},o={};
   for(const k of['base','belly','accent','dark','light'])o[k]=ramp(pal[k]);
+  // cores extras do bicho (roupa, vidro, cerveja...); a pele usa a rampa suave
+  for(const k in pal)if(!o[k])o[k]=k==='pele'?skinRamp(pal[k]):ramp(pal[k]);
   Object.assign(o,{flame:ramp('#f89838'),ember:ramp('#ffd860'),pink:ramp('#f2a2b6'),claw:ramp('#f2eee2'),wing:ramp('#d4eef8'),bico:ramp('#f2902a'),oculos:ramp('#26262e'),cinza:ramp('#9a9aa4'),fumaca:ramp('#dcdce6'),filtro:ramp('#e08a34'),crista:ramp('#e02a2a'),leaf:ramp('#3e9a3e')});
   return o;
 }
