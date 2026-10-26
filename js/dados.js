@@ -21,6 +21,7 @@ const MOVES={
   cafe:{n:'Café Requentado',t:'Normal',p:40,a:100}, bajular:{n:'Bajulação',t:'Normal',p:55,a:100}, reuniao:{n:'Reunião Inútil',t:'Normal',p:65,a:95}, planilha:{n:'Planilha Errada',t:'Normal',p:80,a:90}, microgestao:{n:'Microgestão',t:'Normal',p:100,a:75},
   espuma:{n:'Espuma Gelada',t:'Água',p:40,a:100}, brinde:{n:'Brinde',t:'Normal',p:55,a:100}, saideira:{n:'Saideira',t:'Água',p:70,a:90}, arroto:{n:'Arroto Trovão',t:'Normal',p:80,a:90}, ressaca:{n:'Ressaca',t:'Água',p:95,a:80},
   larica:{n:'Larica',t:'Normal',p:60,a:100}, vibe:{n:'Boa Vibe',t:'Planta',p:85,a:90},
+  linguinha:{n:'Linguinha',t:'Normal',p:40,a:100}, enrolada:{n:'Enrolada',t:'Normal',p:55,a:100}, pesoporta:{n:'Peso de Porta',t:'Pedra',p:75,a:90}, vedacao:{n:'Vedação Total',t:'Normal',p:90,a:85}, botedobro:{n:'Bote em Dobro',t:'Normal',p:100,a:80},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -40,6 +41,7 @@ const LS={
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
   cerveja:[[1,'investida'],[1,'espuma'],[6,'brinde'],[12,'saideira'],[18,'arroto'],[28,'ressaca']],
   rasta:[[1,'tosse'],[1,'folha'],[7,'fumaca'],[13,'raiz'],[18,'larica'],[24,'vibe'],[30,'furia']],
+  cobra:[[1,'investida'],[1,'linguinha'],[6,'enrolada'],[11,'mordida'],[16,'pesoporta'],[24,'vedacao'],[30,'botedobro']],
   cinza:[[1,'arranhao'],[1,'brasa'],[8,'mordida'],[12,'chamaviva'],[20,'inferno']],
 };
 const GREY={base:'#8a7a8e',light:'#b8aabc',dark:'#5a4c5e',belly:'#ece0ec',accent:'#3c3040'};
@@ -79,6 +81,10 @@ const SPECIES={
     pal:{base:'#7a4a1a',belly:'#f4e6c0',accent:'#e8b020',dark:'#4a2a0c',light:'#a87038',garrafa:'#7a4a1a',tampa:'#e8b020',rotulo:'#f4e6c0',vermelho:'#d83a3a',espuma:'#fffaf0'}},
   rastafolha:{n:'Rastafolha',t:'Planta',b:{hp:70,atk:84,def:58,spd:72},xp:150,cr:.15,ls:LS.rasta,sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:13,nz:.4},
     pal:{base:'#7cc85a',belly:'#a8e078',accent:'#f2c03a',dark:'#2a6a2c',light:'#b4ec8c',folha:'#3f9a3c',caule:'#5a9a3a',gorro_v:'#d83a3a',gorro_a:'#f2c03a',gorro_g:'#38a050',faixa:'#2a2226',dread:'#4a2a18'}},
+  cobrume:{n:'Cobrume',t:'Normal',b:{hp:60,atk:48,def:62,spd:40},xp:58,cr:.5,ls:LS.cobra,evo:['cobrumeduplo',20],sh:{rx:.7,ry:.5,cy:.62,sp:0,seed:17,nz:.4},
+    pal:{base:'#d8c6a4',light:'#f0e4ca',dark:'#a08a64',belly:'#e8dcc0',accent:'#e83a4a',lingua:'#e83a4a'}},
+  cobrumeduplo:{n:'Cobrume Duplo',t:'Normal',b:{hp:88,atk:76,def:90,spd:58},xp:150,cr:.15,ls:LS.cobra,sh:{rx:.85,ry:.7,cy:.58,sp:0,seed:17,nz:.4},
+    pal:{base:'#c8a47a',light:'#e6c89c',dark:'#8a6a44',belly:'#e8d4b0',accent:'#e83a4a',lingua:'#e83a4a',listra:'#a8825a',laco:'#d83a4a'}},
   cinzarel:{n:'Cinzarel',t:'Fogo',b:{hp:52,atk:66,def:46,spd:72},xp:75,cr:.25,ls:LS.cinza,pal:{base:'#b84a3a',light:'#e88a5a',dark:'#6a2620',belly:'#a49c9c',accent:'#3c3438'},sh:{rx:.6,ry:.7,cy:.56,sp:3,seed:97,nz:.7}},
 };
 const PAL={
@@ -127,9 +133,9 @@ const CLASSES={
   sabio:{n:'Sábio',d:'Seus zoobumons ganham +35% de XP',xp:.35},
 };
 const ENC={
-  rota:[['ratuxo',42,2,4],['zumbel',32,2,4],['lodim',14,2,4],['faiscol',12,3,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
+  rota:[['ratuxo',42,2,4],['zumbel',32,2,4],['lodim',14,2,4],['faiscol',12,3,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5],['cobrume',7,3,5]],
   pedreira:[['pedrugo',40,6,9],['faiscol',28,6,9],['ratuxo',20,7,9],['cinzarel',12,7,10],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
-  bosque:[['zumbel',25,9,13],['lodim',22,9,13],['ratazao',20,10,13],['cinzarel',15,10,14],['pedrugo',10,10,13],['voltaro',8,12,15],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
+  bosque:[['zumbel',25,9,13],['lodim',22,9,13],['ratazao',20,10,13],['cinzarel',15,10,14],['pedrugo',10,10,13],['voltaro',8,12,15],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12],['cobrume',8,10,13]],
 };
 const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];

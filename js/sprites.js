@@ -16,7 +16,7 @@ const darker=(hex,k=.72)=>{const[h,s,l]=hexToHsl(hex);return hsl(h-8,s,l*k)};
 // com contorno colorido por fora e linha interna onde uma parte passa por cima de outra
 const BAYER=[0,8,2,10,12,4,14,6,3,11,1,9,15,7,13,5].map(v=>v/16-.5);
 const LV=(()=>{const v=[-.5,-.68,.55],n=Math.hypot(...v);return v.map(x=>x/n)})();
-const FLAT={pupil:'#26202e',shine:'#ffffff',mouth:'#4a2630',blush:'#f4a0a0',lips:'#c85866',eyew:'#ffffff',iris:'#5a3a28',lens:'#1e1e26',frame:'#2a2a32'};
+const FLAT={pupil:'#26202e',shine:'#ffffff',mouth:'#4a2630',blush:'#f4a0a0',lips:'#c85866',eyew:'#ffffff',iris:'#4a2e20',iris2:'#a0703e',lens:'#1e1e26',frame:'#2a2a32'};
 function mirrorPart(p,W){const q={...p};if(p.t==='e'){q.x=W-p.x;q.rot=-(p.rot||0)}else if(p.t==='c'){q.ax=W-p.ax;q.bx=W-p.bx}else q.p=p.p.map((v,i)=>i%2?v:W-v);return q}
 function hitPart(p,x,y){
   if(p.t==='e'){const r=p.rot||0,c=Math.cos(r),s=Math.sin(r),dx=x-p.x,dy=y-p.y,nu=(dx*c+dy*s)/p.rx,nv=(-dx*s+dy*c)/p.ry,d=nu*nu+nv*nv;
@@ -238,6 +238,22 @@ const SHAPES={
     E(32,26.6,11.6,6.4,'gorro_v',{g:'gr'}),E(32,24.4,10.4,5.4,'gorro_a',{g:'gr'}),E(32,22.4,8.6,4.4,'gorro_g',{g:'gr'}),Cp(21.2,30.8,42.8,30.8,1.3,'faixa'),
     Cp(25,36.6,29.4,36.6,.7,'pupil',{m:1,f:1}),Cp(25,35.6,29.4,35.6,.55,'base',{m:1,f:1,noLine:1}),E(24.4,39.6,1.7,1,'pink',{m:1,f:1,noLine:1}),
     E(32,41.6,4,2,'mouth',F),E(32,40.6,4.4,1.3,'base',{f:1,noLine:1}),E(32,42.6,1.8,.8,'pink',{f:1,noLine:1})],
+  // Cobrume: peso de porta de pelúcia em forma de cobra, olhinhos de boneco e linguinha
+  cobrume:[Cp(8,55,24,57,4.4,'base',{g:'cb'}),Cp(24,57,42,55,5,'base',{g:'cb'}),Cp(42,55,49,45,5.2,'base',{g:'cb'}),Cp(49,45,42,35,5.5,'base',{g:'cb'}),Cp(42,35,30,30,5.9,'base',{g:'cb'}),E(27.5,29.4,8,6.6,'base',{g:'cb'}),
+    E(8.4,55,2.2,2.6,'dark',{noLine:1}),
+    E(14,52.4,.55,.55,'dark',{noLine:1}),E(19,52.8,.55,.55,'dark',{noLine:1}),E(24,53,.55,.55,'dark',{noLine:1}),E(29,52.8,.55,.55,'dark',{noLine:1}),E(34,52.6,.55,.55,'dark',{noLine:1}),E(39,51.6,.55,.55,'dark',{noLine:1}),E(43.6,48.6,.55,.55,'dark',{noLine:1}),E(45.2,44.6,.55,.55,'dark',{noLine:1}),E(43.6,40.6,.55,.55,'dark',{noLine:1}),E(40,36.4,.55,.55,'dark',{noLine:1}),
+    E(30,56,1,.6,'light',{noLine:1}),E(46,50,.8,.6,'light',{noLine:1}),E(37,58,.8,.5,'dark',{noLine:1}),E(18,58.4,.9,.5,'dark',{noLine:1}),E(34,31,.9,.6,'light',{noLine:1}),
+    E(24.2,26.2,2.7,2.7,'eyew',F),E(24.7,27.1,1.35,1.35,'pupil',F),E(24.2,26.6,.4,.4,'shine',F),E(31.4,25.6,2.7,2.7,'eyew',F),E(30.8,26.3,1.35,1.35,'pupil',F),E(30.3,25.8,.4,.4,'shine',F),Cp(19.6,31.4,23,32.2,.45,'mouth',F),Cp(20.4,32,15.399999999999999,34.6,.75,'lingua',F),Cp(15.399999999999999,34.6,12.999999999999998,33.4,.55,'lingua',F),Cp(15.399999999999999,34.6,13.399999999999999,36.8,.55,'lingua',F),
+    Cp(23,24.4,31,23.6,.6,'shine',{noLine:1})],
+  // Cobrume Duplo: o peso de porta inteiro, uma cabeça em cada ponta, listras e laço no meio
+  cobrumeduplo:[Cp(17,54,47,54,6,'base',{g:'cb'}),Cp(17,54,12,42,6,'base',{g:'cb',m:1}),Cp(12,42,15,30,6.2,'base',{g:'cb',m:1}),E(17.6,24.6,8,6.8,'base',{g:'cb',m:1}),
+    Cp(24,50,24,58.6,.9,'listra',{noLine:1}),Cp(32,49,32,59.6,.9,'listra',{noLine:1}),Cp(40,50,40,58.6,.9,'listra',{noLine:1}),
+    Cp(8,44,17,42.4,.9,'listra',{noLine:1,m:1}),Cp(8.6,35,17.6,36.4,.9,'listra',{noLine:1,m:1}),
+    E(20,48.6,.55,.55,'dark',{noLine:1}),E(26,48.2,.55,.55,'dark',{noLine:1}),E(38,48.2,.55,.55,'dark',{noLine:1}),E(44,48.6,.55,.55,'dark',{noLine:1}),
+    E(28.4,52,3.6,3,'laco',{rot:-.4}),E(35.6,52,3.6,3,'laco',{rot:.4}),E(32,52.4,1.8,1.9,'laco'),Cp(31.2,54,29,59,.9,'laco'),Cp(32.8,54,35,59,.9,'laco'),
+    E(14,22,2.7,2.7,'eyew',F),E(14.6,22.8,1.35,1.35,'pupil',F),E(14.1,22.3,.4,.4,'shine',F),E(21,21.6,2.7,2.7,'eyew',F),E(21.4,22.5,1.35,1.35,'pupil',F),E(20.9,22.0,.4,.4,'shine',F),E(43,21.6,2.7,2.7,'eyew',F),E(42.6,22.5,1.35,1.35,'pupil',F),E(42.1,22.0,.4,.4,'shine',F),E(50,22,2.7,2.7,'eyew',F),E(49.3,21.7,1.35,1.35,'pupil',F),E(48.8,21.2,.4,.4,'shine',F),
+    Cp(8.6,27.4,12,28.4,.45,'mouth',F),Cp(52,28.4,55.4,27.4,.45,'mouth',F),Cp(9.6,28,4.6,30.6,.75,'lingua',F),Cp(4.6,30.6,2.1999999999999993,29.4,.55,'lingua',F),Cp(4.6,30.6,2.5999999999999996,32.8,.55,'lingua',F),Cp(54.4,28,59.4,30.6,.75,'lingua',F),Cp(59.4,30.6,61.8,29.4,.55,'lingua',F),Cp(59.4,30.6,61.4,32.8,.55,'lingua',F),
+    Cp(13,19.6,20,18.8,.6,'shine',{noLine:1,m:1})],
   cinzarel:[Cp(42,52,51,44,3.5,'dark'),E(54,37,5,7.5,'flame'),E(54,39.5,2.5,4,'ember'),
     Tr(20,25,18,6,28,19,'base',M),Tr(21.5,22,20,11.5,25.5,19.5,'flame',{m:1,soft:1}),Tr(20,35,12,31,21,41,'dark',M),
     E(32,47,12,10,'base'),E(32,50,7,6.5,'belly',NB),E(25.5,57.5,4.8,3,'base',M),E(22,46,2.6,4.5,'base',{m:1,rot:.45}),
@@ -327,9 +343,15 @@ function acc(look,slot,view){
   return(ACC_PARTS[sk.kind][view]||[]).map(p=>/^X\d$/.test(p.c)?{...p,c:slot+p.c[1]}:p);
 }
 const mixHex=(a,b,t)=>{const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+// rosto ficou mais comprido: barba desce junto com a boca
+const downY=(arr,d)=>arr.map(p=>p.t==='e'?{...p,y:p.y+d}:p.t==='c'?{...p,ay:p.ay+d,by:p.by+d}:{...p,p:p.p.map((v,i)=>i%2?v+d:v)});
+const hairG=arr=>(arr||[]).map(p=>({...p,g:'hair'}));
 function charParts(dir,f,back,look){
   const sw=f===1?1:f===2?-1:0,P=[],fem=look.sex==='f';
-  const style=HAIR_PARTS[look.style]||HAIR_PARTS[fem?'longo':'curto'],beard=!fem&&BEARD_PARTS[look.beard];
+  const st0=HAIR_PARTS[look.style]||HAIR_PARTS[fem?'longo':'curto'],beard=!fem&&BEARD_PARTS[look.beard];
+  const style={ears:st0.ears,front:hairG(st0.front),back:hairG(st0.back),side:hairG(st0.side),under:st0.under&&hairG(st0.under)};
+  // a franja cobre a testa: sobrancelha só aparece sem franja
+  const browOk=!fem&&['raspado','topete','espetado'].includes(look.style);
   if(dir==='left'){
     P.push(Cp(8.4,12.6,8.4+sw*1.5,16,1.05,'shirt'),E(8.4+sw*1.5,16.8,.95,.95,'skin'));
     P.push(Cp(8,17,8-1.3*sw,20.7,1.45,'pants'),Cp(8,17,8+1.3*sw,20.7,1.45,'pants'));
@@ -337,14 +359,15 @@ function charParts(dir,f,back,look){
     P.push(E(8,14.8,fem?3.4:3.7,4.4,'shirt'),Cp(6.4,18,9.6,18,1.5,'pants'));
     P.push(Cp(7.6,12.6,7.6-sw*1.5,16,1.15,'shirt'),E(7.6-sw*1.5,16.9,1,1,'skin'));
     P.push(...acc(look,'costas','side'),...acc(look,'pescoco','side'));
-    P.push(E(7.7,7.8,4.4,4.3,'skin',{fl:1}),E(3.5,8.8,.85,.75,'skin',{fl:1}));
-    if(beard)P.push(...beard.side);
+    P.push(Cp(8,11.4,8.4,12.6,1.2,'skind',{fl:1}),E(7.7,7.9,4.45,4.75,'skin',{fl:1}),E(3.35,9.7,.85,.7,'skin',{fl:1}));
+    if(beard)P.push(...downY(beard.side,.5));
     P.push(...style.side,...acc(look,'cabeca','side'));
-    if(style.ears)P.push(E(9.4,8.8,1,1.35,'skin',{fl:1}),E(9.5,8.9,.45,.7,'skind',{fl:1}));
-    if(fem&&!['chanel','black'].includes(look.style))P.push(Tr(3.6,5.4,7,4.6,4.4,8.4,HC));
-    if(!fem)P.push(Cp(4.2,7.2,5.9,7,.3,'brow',{f:1,noLine:1}));
-    P.push(E(5.1,8.75,.75,1.1,'eyew'),E(4.85,8.85,.5,.9,'iris'),E(4.8,8.95,.26,.5,'pupil'),E(4.95,8.35,.22,.22,'shine'),E(6.6,10.1,.7,.4,'blush'),Cp(4.2,10.7,5.2,10.9,.22,fem?'lips':'mouth'));
-    if(fem)P.push(Cp(4.5,7.75,5.8,7.5,.22,'pupil'),Cp(5.8,7.5,6.3,7.1,.18,'pupil'));
+    if(style.ears)P.push(E(9.4,9.1,1,1.35,'skin',{fl:1}),Cp(9.45,8.7,9.45,9.6,.22,'skind',{fl:1,noLine:1}));
+    if(fem&&!['chanel','black'].includes(look.style))P.push(Tr(3.6,5.4,7,4.6,4.4,8.2,HC,{g:'hair'}));
+    if(browOk)P.push(Cp(4.3,7.5,5.9,7.25,.26,'brow',{f:1,noLine:1}));
+    P.push(E(5.15,9.15,.85,1.3,'eyew'),E(4.9,9.3,.64,1.05,'iris'),E(4.95,9.75,.5,.35,'iris2'),E(4.85,9.4,.3,.58,'pupil'),E(4.65,8.8,.28,.28,'shine'),E(5.15,9.85,.13,.13,'shine'),
+      Cp(4.4,7.95,5.85,7.85,.2,'pupil'),E(6.7,10.55,.7,.36,'blush'),Cp(4.1,11.25,4.7,11.45,.22,fem?'lips':'mouth'),Cp(4.7,11.45,5.3,11.3,.22,fem?'lips':'mouth'));
+    if(fem)P.push(Cp(5.9,7.85,6.5,7.4,.2,'pupil'),Cp(4.3,7.9,3.9,7.6,.18,'pupil'));
     P.push(...acc(look,'rosto','side'));
     return P;
   }
@@ -355,18 +378,21 @@ function charParts(dir,f,back,look){
   P.push(...(back?[...acc(look,'costas','back'),...acc(look,'pescoco','back')]:[...acc(look,'pescoco','front'),...acc(look,'costas','front')]));
   if(!back&&style.under)P.push(...style.under);
   if(style.ears)P.push(...EARS_FRONT);
-  P.push(E(8,7.7,4.6,4.4,'skin',{fl:1}));
+  P.push(Cp(8,11.4,8,12.6,1.25,'skind',{fl:1}),E(8,7.9,4.7,4.75,'skin',{fl:1}));
   if(back){P.push(...style.back,...acc(look,'cabeca','back'));return P}
-  if(beard)P.push(...beard.front);
+  if(beard)P.push(...downY(beard.front,.5));
   P.push(...style.front);
-  if(fem&&look.style!=='chanel')P.push(...FRINGE);
+  if(fem&&look.style!=='chanel')P.push(...hairG(FRINGE));
   P.push(...acc(look,'cabeca','front'));
   // sobrancelha (a franja cobre nas meninas), olho com branco, íris e brilho, nariz e sorrisinho
-  if(!fem)P.push(Cp(5,7.15,6.9,6.95,.3,'brow',{m:1,f:1,noLine:1}));
-  P.push(E(6.1,8.75,.95,1.15,'eyew',{m:1,f:1}),E(6.35,8.85,.62,.95,'iris',{m:1,f:1}),E(6.4,8.95,.32,.55,'pupil',{m:1,f:1}),E(6.1,8.35,.24,.24,'shine',{m:1,f:1}));
-  P.push(E(8,9.75,.55,.35,'skind',{f:1,noLine:1}),E(4.9,10.15,.75,.4,'blush',{m:1,f:1}));
-  P.push(Cp(7.2,10.75,8,11,.22,fem?'lips':'mouth',{m:1,f:1}));
-  if(fem)P.push(Cp(5.1,7.75,6.3,7.55,.24,'pupil',{m:1,f:1}),Cp(5.1,7.75,4.7,7.35,.2,'pupil',{m:1,f:1}));
+  if(browOk)P.push(Cp(5,7.4,6.9,7.1,.26,'brow',{m:1,f:1,noLine:1}));
+  // olho de anime: branco, íris em dois tons, pupila, dois brilhos e o traço do cílio em cima
+  const EM={m:1,f:1};
+  P.push(E(6.05,9.15,1.05,1.32,'eyew',EM),E(6.32,9.3,.8,1.08,'iris',EM),E(6.35,9.8,.62,.42,'iris2',EM),E(6.4,9.4,.4,.62,'pupil',EM),
+    E(6.0,8.8,.34,.34,'shine',EM),E(6.7,9.9,.16,.16,'shine',EM),Cp(5.1,7.95,7.05,7.85,.22,'pupil',EM));
+  P.push(E(8.45,10.2,.32,.24,'skind',{f:1,noLine:1}),E(4.95,10.55,.78,.38,'blush',EM));
+  P.push(Cp(7.25,11.15,8,11.42,.23,fem?'lips':'mouth',EM));
+  if(fem)P.push(Cp(4.9,8.0,4.35,7.6,.22,'pupil',EM),Cp(5.4,7.9,5.1,7.45,.18,'pupil',EM));
   P.push(...acc(look,'rosto','front'));
   return P;
 }
