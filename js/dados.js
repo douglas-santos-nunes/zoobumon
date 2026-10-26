@@ -107,8 +107,8 @@ const PAL={
 const ITEMS={
   pocao:{n:'Poção',d:'Cura 25 PV de um zoobumon',price:60,heal:25},
   superp:{n:'Super Poção',d:'Cura 70 PV de um zoobumon',price:180,heal:70},
-  rede:{n:'Rede',d:'Captura zoobumons selvagens',price:100,net:1},
-  redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:280,net:1.8},
+  rede:{n:'Rede',d:'Captura zoobumons selvagens',price:60,net:1},
+  redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:200,net:1.8},
 };
 const GEAR={
   faixa:{n:'Faixa de Força',d:'+12% ataque dos seus zoobumons',price:300,atk:.12},
