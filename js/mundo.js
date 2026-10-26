@@ -44,7 +44,7 @@ const NPCS=[
 const INT_NPCS={
   centro:[{x:6,y:2,dir:'down',name:'Enfermeira',fixed:1,look:{sex:'f',style:'coque',hair:'#f08aa8',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#e8e8f0',acc:{cabeca:'touca'}},talk:async()=>{
     await say('Enfermeira: Bem-vindo à UPA! Vou cuidar do seu time.');
-    await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
+    jingle('cura');await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
     await say('Pronto! Seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
   loja:[{x:2,y:3,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_azul'}},talk:()=>shopMenu()},
@@ -140,14 +140,14 @@ function worldPress(b){
   else if(bd)run(()=>say(bd.kind==='centro'?'UPA: cura grátis e o PC pra guardar seus zoobumons.':'Loja da Vila: itens, equipamentos e skins.'));
 }
 // entra no Centro ou na Loja: troca de cena e aparece em cima do tapete da porta
-async function enterBuilding(b){
+async function enterBuilding(b){sfx('porta');
   await fadeTo(1,220,'#000');
   scene=b.kind;const I=INT[scene];
   P.x=I.entry[0];P.y=I.entry[1];P.dir='up';P.moving=false;path.length=0;goal=null;needRelease=true;
   showLocText(I.name);
   await fadeTo(0,220);save();
 }
-async function exitBuilding(){
+async function exitBuilding(){sfx('porta');
   await fadeTo(1,220,'#000');
   const d=INT[scene].door;scene='mundo';
   P.x=d[0];P.y=d[1]+1;P.dir='down';P.moving=false;needRelease=true;curZone=zoneAt(P.x,P.y);

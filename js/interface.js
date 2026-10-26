@@ -13,7 +13,7 @@ function say(text){
     const pop=pushH(b=>{
       if(b!=='a'&&b!=='b')return;
       if(!done){clearInterval(typing);span.textContent=text;done=true;arrow.hidden=false;return}
-      sayActive=false;pop();res();
+      sfx('texto');sayActive=false;pop();res();
     });
   });
 }
@@ -41,14 +41,14 @@ function choose(items,{root=null,cls='side',cols=1,cancel=true,onMove=null,start
       if(!isMenu&&e){if(e.offsetTop<el.scrollTop)el.scrollTop=e.offsetTop-4;else if(e.offsetTop+e.offsetHeight>el.scrollTop+el.clientHeight)el.scrollTop=e.offsetTop+e.offsetHeight-el.clientHeight+4}
       onMove&&onMove(items[sel],sel);
     }
-    function finish(v){if(done)return;done=true;pop();if(isMenu)el.hidden=true;res(v)}
+    function finish(v){if(done)return;done=true;sfx(v<0?'volta':'ok');pop();if(isMenu)el.hidden=true;res(v)}
     function pick(){if(!items[sel]||items[sel].disabled)return;finish(sel)}
     const pop=pushH(b=>{
       const n=items.length;
       if(b==='up')sel=(sel-cols+n)%n;else if(b==='down')sel=(sel+cols)%n;
       else if(b==='left'&&cols>1)sel=(sel+n-1)%n;else if(b==='right'&&cols>1)sel=(sel+1)%n;
       else if(b==='a')return pick();else if(b==='b'){if(cancel)finish(-1);return}else return;
-      draw();
+      sfx('cursor');draw();
     });
     draw();
   });

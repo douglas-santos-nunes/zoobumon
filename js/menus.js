@@ -201,7 +201,7 @@ async function buyMenu(){
       if(i<0||i===keys.length)break;
       sel=i;const k=keys[i],d=shopDef(t,k);
       if(S.coins<d.price){msg='Moedas insuficientes. Vença batalhas ou venda alguma coisa.';continue}
-      S.coins-=d.price;
+      S.coins-=d.price;sfx('moeda');
       if(t==='i'){S.bag[k]=(S.bag[k]||0)+1;msg=`Comprou 1 ${d.n}.`}
       else if(t==='g'){S.gear.push(k);msg=`Comprou ${d.n}! Equipe em Menu › Treinador.`}
       else{S.skins=[...(S.skins||[]),k];msg=`Comprou ${d.n}! Use em Menu › Treinador › Visual.`}

@@ -73,6 +73,7 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 - **UPA** (telhado vermelho): entre, fale com a Enfermeira pelo balcão pra curar o time e use o **PC** do canto pra guardar e retirar zoobumons. O time anda com no máximo 6.
 - **Loja da Vila** (tijolinho com toldo verde): entre e fale com o Vendedor pra **comprar** (itens, equipamentos e skins) ou **vender** pela metade do preço.
 - **Skins**: bonés (inclusive MST e VERO), chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual.
+- **Som:** música 8-bit (mapa, batalha, UPA/Loja, evolução) e efeitos. O botão **♪ Som** ao lado do Menu liga e desliga.
 - **Aparência**: dá pra trocar personagem, cabelo, barba e cores a qualquer hora, de graça, em Menu › Treinador › Aparência.
 
 ## Estrutura
@@ -89,6 +90,7 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 | `js/mapa.js`, `js/mundo.js`, `js/desenho.js` | Mapa, movimento e desenho do mundo |
 | `js/batalha.js`, `js/regras.js` | Batalha, dano, XP e captura |
 | `js/menus.js`, `js/interface.js`, `js/entrada.js` | Menus, caixas de texto, toque e teclado |
+| `js/som.js` | Músicas e efeitos sonoros (gerados na hora, sem arquivos de áudio) |
 | `js/nuvem.js` | Login e save na nuvem |
 | `js/online.js` | Amigos no mapa e duelo ao vivo |
 | `supabase/esquema.sql` | Tabela e regras do banco |

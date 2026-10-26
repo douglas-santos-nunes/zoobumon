@@ -22,7 +22,7 @@ addEventListener('keyup',e=>{const b=KEYS[e.code];if(b)up(b)});
 addEventListener('blur',()=>{dirStack.length=0;held.b=false});
 // toque: com texto na tela, tocar em qualquer lugar avança o texto
 $('#game').addEventListener('pointerdown',e=>{
-  if(!started||e.target.closest('.box,#menuBtn,#pad'))return;
+  if(!started||e.target.closest('.box,#menuBtn,#somBtn,#pad'))return;
   if(sayActive)press('a');
 });
 // joystick: arrastar a bolinha escolhe a direção (a que mais pesa entre horizontal e vertical)
@@ -50,5 +50,7 @@ for(const[id,b]of[['#btnA','a'],['#btnB','b']]){
 function updatePad(){const vis=started&&mode==='world'&&!busy,pad=$('#pad');if(pad.hidden===vis){pad.hidden=!vis;if(!vis){joyId=null;$('#knob').style.transform='';setJoyDir(null)}}}
 $('#game').addEventListener('contextmenu',e=>e.preventDefault());
 $('#menuBtn').addEventListener('click',e=>{e.currentTarget.blur();press('start')});
+$('#somBtn').addEventListener('click',e=>{e.currentTarget.blur();auInit();setSom(!AU.on)});
+setSom(AU.on);
 $('#pclose').addEventListener('click',e=>{e.currentTarget.blur();press('b')});
 

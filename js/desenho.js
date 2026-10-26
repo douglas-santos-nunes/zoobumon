@@ -283,6 +283,7 @@ let last=0,lastBg='';
 function frame(ts){
   const dt=Math.min(.05,(ts-last)/1000||0);last=ts;
   for(let i=tweens.length-1;i>=0;i--){const w=tweens[i],t=Math.min(1,(ts-w.t0)/w.ms);w.fn(t);if(t>=1){tweens.splice(i,1);w.res()}}
+  musicTick();
   if(started){
     update(dt);drawTags();updatePad();
     const inStage=mode==='battle'||mode==='evo',st_=$('#stage');
@@ -290,7 +291,7 @@ function frame(ts){
     const bc=B?(BG[B.bg]||BG.rota):null;
     const gbg=mode==='battle'&&bc?`linear-gradient(${bc[0]} ${horizon}px,${bc[1]} ${horizon}px)`:mode==='evo'?'#14121c':'#000';
     if(lastBg!==gbg){lastBg=gbg;$('#game').style.background=gbg}
-    const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb)mb.hidden=!showMb;
+    const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb){mb.hidden=!showMb;$('#somBtn').hidden=!showMb}
     if(mode==='world')drawWorld(ts);else if(mode==='battle'&&B)drawBattle();else if(mode==='evo'&&EVO)drawEvo(ts);
   }
   requestAnimationFrame(frame);

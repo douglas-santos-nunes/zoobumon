@@ -12,7 +12,7 @@ function hud(){
     const a=xpFor(m.lv),b=xpFor(m.lv+1);$('#pxp').style.width=(m.lv>=100?100:clamp((m.xp-a)/(b-a)*100,0,100))+'%'}
 }
 const enemyLabel=()=>nameOf(B.team[B.ei])+(B.wild?' selvagem':' inimigo');
-async function battleFx(){for(let i=0;i<2;i++){await fadeTo(.85,90,'#fff');await fadeTo(0,90)}await fadeTo(1,260,'#000')}
+async function battleFx(){sfx('encontro');for(let i=0;i<2;i++){await fadeTo(.85,90,'#fff');await fadeTo(0,90)}await fadeTo(1,260,'#000')}
 async function battle(opt){
   const team=opt.team;if(opt.owner)team.forEach(m=>m.hp=maxHP(m,opt.owner));
   B={team,ei:0,pvp:opt.pvp||null,owner:opt.owner||null,wild:!!opt.wild,name:opt.name||'',bg:opt.bg||'rota',me:S.party.findIndex(m=>m.hp>0),
@@ -28,6 +28,7 @@ async function battle(opt){
   await say(`Vai, ${nameOf(S.party[B.me])}!`);
   const r=B.pvp?await pvpLoop():await battleLoop();
   if(r==='win'){
+    jingle('vitoria');
     if(B.wild){const c=5+team[0].lv*3;S.coins+=c;await say(`Você achou ${c} moedas no mato.`)}
     else{const rw=opt.reward||100;S.coins+=rw;S.wins++;await addTxp(25);await say(`Você venceu ${B.name}! Ganhou ${rw} moedas.`)}
   }else if(r==='lose'&&opt.friendly)await say(`Você perdeu para ${B.name}. Treine mais e volte!`);
@@ -78,8 +79,9 @@ async function attack(side,mvId){
   await say(`${me?nameOf(A):enemyLabel()} usou ${mv.n}!`);
   await tween(180,t=>{const o=Math.sin(t*Math.PI)*12;if(me){B.pX=o;B.pY=-o/3}else{B.eX=-o;B.eY=o/3}});
   B.pX=B.pY=0;B.eX=0;B.eY=0;
-  if(brnd()*100>=mv.a){await say('Mas errou!');return null}
+  if(brnd()*100>=mv.a){sfx('erro');await say('Mas errou!');return null}
   const r=calcDamage(A,Ao,D,Do,mv);
+  sfx(r.eff>1||r.crit?'superhit':r.eff<1?'fraco':'hit');
   for(let i=0;i<4;i++){if(me)B.eBlink=true;else B.pBlink=true;await sleep(65);B.eBlink=B.pBlink=false;await sleep(65)}
   D.hp=Math.max(0,D.hp-r.dmg);hud();await sleep(520);
   if(r.crit)await say('Um golpe crítico!');
@@ -89,7 +91,7 @@ async function attack(side,mvId){
 }
 async function fainted(side){
   if(side==='en'){
-    await tween(420,t=>{B.eY=t*40;B.eA=1-t});
+    sfx('desmaio');await tween(420,t=>{B.eY=t*40;B.eA=1-t});
     await say(`${enemyLabel()} desmaiou!`);
     const e=B.team[B.ei];
     // no duelo ao vivo não tem XP no meio da luta (mudaria os números de um lado só)
@@ -107,7 +109,7 @@ async function fainted(side){
     }
     return'win';
   }
-  await tween(420,t=>{B.pY=t*50;B.pA=1-t});
+  sfx('desmaio');await tween(420,t=>{B.pY=t*50;B.pA=1-t});
   await say(`${nameOf(S.party[B.me])} desmaiou!`);
   if(!S.party.some(m=>m.hp>0))return'lose';
   let i;
@@ -128,7 +130,7 @@ async function giveXP(m,amt){
   m.xp+=amt;hud();await sleep(300);
   while(m.lv<100&&m.xp>=xpFor(m.lv+1)){
     const old=maxHP(m,S);m.lv++;m.hp+=maxHP(m,S)-old;hud();
-    await say(`${nameOf(m)} subiu para o nível ${m.lv}!`);
+    jingle('levelup');await say(`${nameOf(m)} subiu para o nível ${m.lv}!`);
     for(const[l,k]of SPECIES[m.s].ls)if(l===m.lv&&!m.moves.includes(k))await learn(m,k);
     const ev=SPECIES[m.s].evo;if(ev&&m.lv>=ev[1])m.evoPending=true;
     hud();
@@ -171,7 +173,7 @@ async function battleBag(){
 async function throwNet(id){
   const net=ITEMS[id],e=B.team[B.ei],sp=SPECIES[e.s];
   S.bag[id]--;
-  await say(`Você jogou uma ${net.n}!`);
+  await say(`Você jogou uma ${net.n}!`);sfx('lanca');
   // 1) a rede vai enrolada girando até em cima do zoobumon
   const N=B.net={bundle:true,x:44,y:104,rot:0,gold:id==='redeouro',w:8,h:10,top:6,wob:0,a:1};
   await tween(600,t=>{N.x=44+132*t;N.y=104-86*t-Math.sin(t*Math.PI)*34;N.rot=t*14});
@@ -185,7 +187,7 @@ async function throwNet(id){
   const q=Math.cbrt(p);let s=0;while(s<3&&rnd()<q)s++;
   // 4) o zoobumon se debate: cada sacudida que a rede aguenta é uma chance a menos de escapar
   const struggle=async(f=1)=>{await tween(620,t=>{const w=Math.sin(t*Math.PI*4)*(1-t*.4)*5*f;N.wob=w;B.eShake=w*.7;B.eY=-Math.abs(Math.sin(t*Math.PI*4))*1.5*f});N.wob=0;B.eShake=0;B.eY=0};
-  for(let i=0;i<s;i++){await sleep(i?520:420);await struggle(1)}
+  for(let i=0;i<s;i++){await sleep(i?520:420);sfx('sacode');await struggle(1)}
   await sleep(450);
   if(s===3){
     // 5) a rede fecha e brilha
@@ -193,7 +195,7 @@ async function throwNet(id){
     B.stars=Array.from({length:7},(_,i)=>{const a=-Math.PI*(i/6);return{x:176,y:30,dx:Math.cos(a),dy:Math.sin(a)}});
     await tween(700,t=>{B.starT=t});
     B.stars=null;B.starT=0;
-    await say(`Peguei! ${sp.n} foi capturado!`);
+    jingle('captura');await say(`Peguei! ${sp.n} foi capturado!`);
     S.caught++;
     if(S.party.length<6){S.party.push(e);await say(`${sp.n} entrou no seu time.`)}
     else{S.box.push(e);await say(`Seu time está cheio. ${sp.n} foi pra Caixa.`)}
@@ -201,7 +203,7 @@ async function throwNet(id){
     return'caught';
   }
   // escapou: uma sacudida forte, rasga a rede e pula pra fora
-  await struggle(1.6);
+  sfx('sacode');await struggle(1.6);sfx('escapa');
   await tween(420,t=>{N.top=14-70*t;N.a=1-t;N.wob=Math.sin(t*Math.PI*3)*6;B.eY=-Math.sin(t*Math.PI)*10});
   B.net=null;B.eY=0;
   await say(['Ah não! Escapou na hora!','Quase! Ele se soltou.','Por um triz!'][s]||'Escapou!');
@@ -238,7 +240,7 @@ async function evolve(m){
   for(let i=0;i<14;i++){EVO.show=i%2?'wb':'wa';await sleep(iv);iv=Math.max(55,iv*.82)}
   EVO.show='wb';await sleep(450);EVO.show='fb';
   const old=maxHP(m,S);m.s=to;m.hp+=maxHP(m,S)-old;m.evoPending=false;
-  await say(`Parabéns! ${from} evoluiu para ${nameOf(m)}!`);
+  jingle('evoluiu');await say(`Parabéns! ${from} evoluiu para ${nameOf(m)}!`);
   mode='world';EVO=null;
 }
 function rivalTeam(){
