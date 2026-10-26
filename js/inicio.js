@@ -10,7 +10,7 @@ function showCreate(saved){
   $('#cont').hidden=!saved;
   if(saved)$('#contname').textContent=`${saved.name} · ${saved.party.length} zoobumon(s)`;
   $('#btnLogout').hidden=!me;
-  $('#acctInfo').textContent=me?`Conectado como ${me.email}`:'Modo offline: o jogo salva só neste navegador e não mostra amigos online.';
+  $('#acctInfo').textContent=me?`Conectado como ${me.email}`:'Seu progresso fica salvo neste aparelho.';
 }
 async function afterLogin(){showCreate(await cloudLoad()||loadSave())}
 async function boot(){

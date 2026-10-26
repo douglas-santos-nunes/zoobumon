@@ -104,5 +104,16 @@ const KEY='zoobumon-save-v1';
 // cada conta tem seu save local (cópia rápida) e o save na nuvem, que vale entre aparelhos
 const saveKey=()=>KEY+(me?'-'+me.id:'');
 function save(){if(!S)return;S.pos={x:P.x,y:P.y,dir:P.dir,sc:scene};try{localStorage.setItem(saveKey(),JSON.stringify(S))}catch(e){}cloudSave()}
-function loadSave(){try{const s=JSON.parse(localStorage.getItem(saveKey()));return s&&Array.isArray(s.party)&&s.party.length?s:null}catch(e){return null}}
+function loadSave(){
+  const ok=s=>s&&Array.isArray(s.party)&&s.party.length?s:null;
+  try{
+    const s=ok(JSON.parse(localStorage.getItem(saveKey())));if(s||me)return s;
+    // sem login: aproveita o save de quem jogava logado neste aparelho (fica com o mais avançado)
+    let best=null,score=-1;
+    for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);if(!k||!k.startsWith(KEY+'-'))continue;
+      const c=ok(JSON.parse(localStorage.getItem(k)));if(!c)continue;
+      const v=[...c.party,...(c.box||[])].reduce((a,m)=>a+(m.lv||0),0)+(c.txp||0)/100;if(v>score){score=v;best=c}}
+    return best;
+  }catch(e){return null}
+}
 

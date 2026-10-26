@@ -126,7 +126,7 @@ async function equipMenu(){
 async function lookMenu(){
   const L=JSON.parse(JSON.stringify(S.look));L.acc=L.acc||{};
   let beardPicked=!!L.beardColor&&L.beardColor!==L.hair;
-  const p=showPanel('Aparência',{foot:'Os amigos online veem o visual novo.'});
+  const p=showPanel('Aparência',{foot:'Toque nas opções pra ver como fica.'});
   p.body.hidden=false;p.body.classList.add('grow');
   const chips=(attr,obj,cur)=>Object.entries(obj).map(([k,n])=>`<button type="button" class="chipbtn" data-${attr}="${k}" aria-pressed="${cur===k}">${n}</button>`).join('');
   const draw=()=>{
@@ -158,7 +158,7 @@ async function wardrobeMenu(){
   let msg='Toque numa skin pra usar ou tirar.',sel=0;
   while(true){
     const owned=(S.skins||[]).filter(k=>SKINS[k]),acc=S.look.acc||{};
-    const p=showPanel('Visual · skins',{foot:msg,body:`<div class="sheetm"><img class="big" src="${charIcon}" alt=""><div>${owned.length?'Suas skins aparecem pros amigos online também.':'Você ainda não tem skins. A Loja da vila vende várias.'}</div></div>`});
+    const p=showPanel('Visual · skins',{foot:msg,body:`<div class="sheetm"><img class="big" src="${charIcon}" alt=""><div>${owned.length?'Toque numa skin pra usar ou tirar.':'Você ainda não tem skins. A Loja da vila vende várias.'}</div></div>`});
     const items=owned.map(k=>{const sk=SKINS[k],on=acc[sk.slot]===k;return{html:`<div class="pinfo"><b>${on?'[E] ':''}${sk.n}</b><small>${SLOTN[sk.slot]}</small></div><span class="r">${on?'usando':''}</span>`}});
     items.push({label:'Voltar'});
     const i=await choose(items,{root:p.list,start:sel});
