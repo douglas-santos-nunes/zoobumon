@@ -183,3 +183,19 @@ body.playing{overflow:hidden;overscroll-behavior:none}
 .hn b.nome-m,.hn b.nome-g{white-space:normal;line-height:1.05;font-size:2.9cqw;overflow:visible}
 .hn b.nome-g{font-size:2.7cqw}
 .hn:has(.nome-m),.hn:has(.nome-g){align-items:flex-start}
+
+/* controle na tela: joystick à esquerda, A (interagir) e B (segure pra correr) à direita */
+#pad{position:absolute;left:0;right:0;bottom:0;z-index:5;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-end;
+  padding:0 max(18px,env(safe-area-inset-right,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px))}
+#pad[hidden]{display:none}
+#joy{pointer-events:auto;width:132px;height:132px;border-radius:50%;position:relative;touch-action:none;
+  background:radial-gradient(circle,rgba(255,255,255,.10) 0 55%,rgba(255,255,255,.22) 56% 100%);border:3px solid rgba(255,255,255,.55);box-shadow:0 4px 14px rgba(0,0,0,.3)}
+#knob{position:absolute;left:50%;top:50%;width:58px;height:58px;margin:-29px 0 0 -29px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#fefdf8,#d6d4c0);border:3px solid #45507a;box-shadow:0 3px 0 rgba(0,0,0,.35);will-change:transform}
+.abtns{display:flex;gap:14px;align-items:flex-end}
+.abtns button{pointer-events:auto;touch-action:none;width:68px;height:68px;border-radius:50%;font:700 24px var(--f-pix);color:#fff;cursor:pointer;
+  background:var(--btn);border:3px solid var(--btn-lo);box-shadow:0 4px 0 var(--btn-lo),0 8px 16px rgba(0,0,0,.3);text-shadow:0 2px 0 rgba(0,0,0,.3)}
+#btnB{width:56px;height:56px;font-size:20px;margin-bottom:22px;background:#6a7ab8;border-color:#3a4678;box-shadow:0 4px 0 #3a4678,0 8px 16px rgba(0,0,0,.3)}
+.abtns button.on{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.4)}
+.abtns button:focus-visible,#joy:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+@media (max-height:520px){#joy{width:112px;height:112px}#knob{width:50px;height:50px;margin:-25px 0 0 -25px}}

@@ -218,7 +218,7 @@ function frame(ts){
   const dt=Math.min(.05,(ts-last)/1000||0);last=ts;
   for(let i=tweens.length-1;i>=0;i--){const w=tweens[i],t=Math.min(1,(ts-w.t0)/w.ms);w.fn(t);if(t>=1){tweens.splice(i,1);w.res()}}
   if(started){
-    update(dt);drawTags();
+    update(dt);drawTags();updatePad();
     const inStage=mode==='battle'||mode==='evo',st_=$('#stage');
     if(st_.hidden===inStage){st_.hidden=!inStage;$('#cv').style.visibility=inStage?'hidden':'visible'}
     const bc=B?(BG[B.bg]||BG.rota):null;

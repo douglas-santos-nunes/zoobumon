@@ -63,7 +63,8 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 
 ## Como jogar
 
-- **Andar:** toque no mapa. **Falar/entrar:** toque na pessoa ou porta.
+- **Andar:** arraste a bolinha do controle (canto de baixo, à esquerda). Segure **B** pra correr.
+- **Falar/entrar:** fique de frente pra pessoa ou porta e aperte **A**.
 - **Menu:** botão no canto de cima (zoobumons, bolsa, ficha do treinador, duelo por código, salvar).
 - **Amigos online:** aparecem andando no mapa com o nome em cima. Toque num amigo pra **desafiar pra um duelo ao vivo**: cada um escolhe o golpe na sua vez.
   Duelos não machucam os times de verdade; quem vence ganha 150 moedas.

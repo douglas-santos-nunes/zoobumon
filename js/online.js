@@ -4,7 +4,10 @@
 // - presença: cada um publica nome, visual, posição e o código do time; os outros desenham no mapa
 // - mensagens: desafio, resposta e a ação de cada turno do duelo
 // O duelo é calculado nos dois aparelhos com a mesma semente de sorteio, então os dois veem o mesmo resultado.
-let chan=null,lastPres='';
+// cada aba aberta tem sua própria chave: a mesma conta no celular e no PC aparece como dois treinadores
+let chan=null,lastPres='',chanSt='';
+const TAB=Math.random().toString(36).slice(2,10);
+const myKey=()=>me?me.id+':'+TAB:'';
 const OTHERS=new Map();
 const HEX=/^#[0-9a-f]{6}$/i;
 function safeLook(l){l=l&&typeof l==='object'?l:{};const sex=l.sex==='f'?'f':'m';return{sex,style:HAIRSTYLES[sex][l.style]?l.style:Object.keys(HAIRSTYLES[sex])[0],beard:sex==='m'&&BEARDS[l.beard]?l.beard:'nenhuma',beardColor:HEX.test(l.beardColor)?l.beardColor:undefined,hair:HEX.test(l.hair)?l.hair:HAIR[0],skin:HEX.test(l.skin)?l.skin:SKIN[0],shirt:HEX.test(l.shirt)?l.shirt:SHIRT[0],pants:HEX.test(l.pants)?l.pants:PANTS[0],acc:Object.fromEntries(Object.entries(l.acc&&typeof l.acc==='object'?l.acc:{}).filter(([slot,id])=>SKINS[id]&&SKINS[id].slot===slot))}}
@@ -23,7 +26,7 @@ function sendPresence(){
 function syncPeers(){
   const st=chan.presenceState(),seen=new Set();
   for(const[id,arr]of Object.entries(st)){
-    if(me&&id===me.id)continue;
+    if(id===myKey())continue;
     const pr=arr[arr.length-1];
     if(!pr||!Number.isInteger(pr.x)||!Number.isInteger(pr.y)||pr.x<0||pr.y<0||pr.x>=MW||pr.y>=MH)continue;
     seen.add(id);
@@ -58,7 +61,7 @@ function drawTags(){
   }
   const n=OTHERS.size,on=$('#online'),vis=!!(chan&&show);
   if(on.hidden===vis)on.hidden=!vis;
-  const t=n?`${n} ${n>1?'amigos':'amigo'} online`:'Só você online';
+  const t=chanSt!=='SUBSCRIBED'?(chanSt?'Sem conexão, tentando de novo...':'Conectando ao online...'):n?`${n} ${n>1?'amigos':'amigo'} online`:'Só você online';
   if(on.textContent!==t)on.textContent=t;
 }
 let toastT=0;
@@ -66,9 +69,9 @@ function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('show')
 
 // ---- mensagens ----
 const inbox=[],waiters=[];
-function sendMsg(event,payload){if(!chan||!me)return Promise.resolve();return chan.send({type:'broadcast',event,payload:{...payload,from:me.id}}).catch(()=>{})}
+function sendMsg(event,payload){if(!chan||!me)return Promise.resolve();return chan.send({type:'broadcast',event,payload:{...payload,from:myKey()}}).catch(()=>{})}
 function onMsg(type,p){
-  if(!p||!me||p.to!==me.id)return;
+  if(!p||!me||p.to!==myKey())return;
   const w=waiters.find(w=>w.type===type&&w.match(p));
   if(w){waiters.splice(waiters.indexOf(w),1);w.res(p);return}
   inbox.push({type,p,at:Date.now()});
@@ -98,7 +101,7 @@ async function duelPeer(o){
   await pvpFight({match,seed,iAmA:true,oppId:o.id,name,opp,code});
 }
 function onDesafio(p){
-  if(!p||!me||p.to!==me.id)return;
+  if(!p||!me||p.to!==myKey())return;
   const name=cleanName(p.name),no=why=>sendMsg('resposta',{to:p.from,match:p.match,ok:false,why});
   if(!started||mode!=='world'||busy){no('ocupado');return}
   const opp=decodeTeam(String(p.code||''));
@@ -183,11 +186,11 @@ async function pvpResolve(mine,opp){
 
 function startOnline(){
   if(!sb||!me||chan)return;
-  chan=sb.channel('mundo',{config:{presence:{key:me.id},broadcast:{self:false}}});
+  chan=sb.channel('mundo',{config:{presence:{key:myKey()},broadcast:{self:false}}});
   chan.on('presence',{event:'sync'},syncPeers)
     .on('broadcast',{event:'desafio'},({payload})=>onDesafio(payload))
     .on('broadcast',{event:'resposta'},({payload})=>onMsg('resposta',payload))
     .on('broadcast',{event:'acao'},({payload})=>onMsg('acao',payload))
-    .subscribe(st=>{if(st==='SUBSCRIBED'){lastPres='';sendPresence()}});
+    .subscribe(st=>{chanSt=st;if(st==='SUBSCRIBED'){lastPres='';sendPresence()}else console.warn('Online:',st)});
   setInterval(sendPresence,350);
 }

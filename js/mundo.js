@@ -48,15 +48,6 @@ function onStep(){
 }
 // caminho até o ponto tocado (busca em largura no grid)
 let path=[],goal=null,camX=0,camY=0;
-function tapMove(e){
-  const r=cv.getBoundingClientRect();
-  const tx=Math.floor(((e.clientX-r.left)/r.width*VW+camX)/TS),ty=Math.floor(((e.clientY-r.top)/r.height*VH+camY)/TS);
-  if(goal&&goal.x===tx&&goal.y===ty)return;
-  const sx=P.moving?P.tx:P.x,sy=P.moving?P.ty:P.y;
-  if(tx===sx&&ty===sy){path.length=0;goal=null;return}
-  const p=findPath(sx,sy,tx,ty);
-  if(p){path=p;goal={x:tx,y:ty,act:solid(tx,ty)||!!peerAt(tx,ty)}}
-}
 function findPath(sx,sy,tx,ty){
   const target=solid(tx,ty)||!!peerAt(tx,ty);
   const near=(x,y)=>target?Math.abs(x-tx)+Math.abs(y-ty)===1:x===tx&&y===ty;

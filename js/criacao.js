@@ -61,7 +61,8 @@ function startGame(s,isNew){
   if(isNew)run(async()=>{
     await say(`Bem-vindo ao mundo dos zoobumons, ${S.name}!`);
     await say(`Você e ${nameOf(S.party[0])} começam aqui na Vila Aurora.`);
-    await say('Toque em qualquer lugar do mapa pra andar até lá. Toque numa pessoa ou porta pra falar ou entrar.');
+    await say('Arraste a bolinha do controle, no canto de baixo, pra andar. Segure o B pra correr.');
+    await say('Pare de frente pra uma pessoa ou porta e aperte o A pra falar ou entrar.');
     await say('Fale com o Prof. Ipê e vá pro mato alto da Trilha 1, ao sul, pra caçar zoobumons.');
     await say('O botão Menu, no canto de cima, mostra seus zoobumons, a bolsa, sua ficha e o Duelo.');
     save();
