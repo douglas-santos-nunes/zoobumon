@@ -25,6 +25,7 @@ const MOVES={
   expresso:{n:'Expresso Fervendo',t:'Fogo',p:65,a:95}, filacopa:{n:'Fila da Copa',t:'Normal',p:70,a:90}, cafeina:{n:'Overdose de Cafeína',t:'Fogo',p:85,a:85}, ultimogole:{n:'Quem Bebeu o Último?',t:'Fogo',p:100,a:80},
   maisumponto:{n:'Só Mais Um Ponto',t:'Normal',p:50,a:100}, agendar:{n:'Vamos Agendar Outra',t:'Normal',p:75,a:90}, camerafechada:{n:'Câmera Desligada',t:'Normal',p:60,a:100}, alinhado:{n:'Alinhamento Total',t:'Normal',p:100,a:75},
   feijaorequentado:{n:'Feijão Requentado',t:'Normal',p:45,a:100}, tampavoadora:{n:'Tampa Voadora',t:'Normal',p:60,a:95}, microondas:{n:'Esquenta no Micro-ondas',t:'Fogo',p:70,a:90}, devolve:{n:'Devolve Meu Pote!',t:'Normal',p:90,a:85},
+  garrafiada:{n:'Garras Afiadas',t:'Normal',p:55,a:100}, mordidamaluca:{n:'Mordida Maluca',t:'Normal',p:70,a:90}, naotonemai:{n:'Não Tô Nem Aí',t:'Normal',p:85,a:85}, furiatexugo:{n:'Fúria de Texugo',t:'Normal',p:110,a:70},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -41,6 +42,7 @@ const LS={
   cafeteria:[[1,'investida'],[1,'brasa'],[5,'cafe'],[10,'expresso'],[16,'filacopa'],[22,'cafeina'],[30,'ultimogole']],
   daily:[[1,'investida'],[1,'maisumponto'],[6,'cafe'],[11,'camerafechada'],[16,'reuniao'],[22,'agendar'],[30,'alinhado']],
   marmita:[[1,'investida'],[1,'feijaorequentado'],[7,'tampavoadora'],[13,'microondas'],[20,'golpeduro'],[27,'devolve']],
+  texugo:[[1,'arranhao'],[1,'mordida'],[8,'garrafiada'],[14,'mordidamaluca'],[22,'naotonemai'],[30,'furiatexugo']],
   cigarro:[[1,'tosse'],[1,'brasa'],[7,'fumaca'],[13,'cinzas'],[21,'inferno']],
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
   cerveja:[[1,'investida'],[1,'espuma'],[6,'brinde'],[12,'saideira'],[18,'arroto'],[28,'ressaca']],
@@ -89,6 +91,8 @@ const SPECIES={
     pal:{base:'#ffffff',belly:'#ffffff',accent:'#d83a3a',dark:'#5a5a66',light:'#ffffff',folha:'#fbfbfe',topo:'#d83a3a',argola:'#5a5a66',grade:'#c4c4d2'}},
   marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
     pal:{base:'#eef4f6',belly:'#ffffff',accent:'#3a8ad8',dark:'#5a6a7a',light:'#ffffff',pote:'#eaf2f6',tampa:'#3a8ad8',arroz:'#fbf6e8',feijao:'#5a3020',farofa:'#e8c070',tomate:'#e04848',fita:'#f0e0a8'}},
+  texugo:{n:'Texugo',t:'Normal',b:{hp:70,atk:92,def:60,spd:84},xp:120,cr:.18,ls:LS.texugo,sh:{rx:.75,ry:.65,cy:.58,sp:0,seed:59,nz:.5},
+    pal:{base:'#2c2830',belly:'#3a3440',accent:'#e83a2a',dark:'#16121a',light:'#4a4452',capa:'#d8d4cc',baba:'#cfe8f8'}},
   cervejinha:{n:'Cervejinha',t:'Água',b:{hp:45,atk:45,def:40,spd:55},xp:52,cr:.55,ls:LS.cerveja,evo:['chopp',22],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:31,nz:.4},
     pal:{base:'#f2a81c',belly:'#fff8e8',accent:'#ffffff',dark:'#b8700c',light:'#ffd860',vidro:'#e2f0fa',cerveja:'#f2a81c',faceta:'#d88a10',espuma:'#fffaf0'}},
   chopp:{n:'Chopp Artesanal',t:'Água',b:{hp:65,atk:70,def:60,spd:65},xp:130,cr:.22,ls:LS.cerveja,evo:['litraco',38],sh:{rx:.75,ry:.75,cy:.56,sp:0,seed:31,nz:.4},
@@ -146,12 +150,12 @@ const CLASSES={
 const ENC={
   praia:[['cervejinha',24,14,18],['gotinho',12,14,18],['zap',12,14,18],['caramelo',12,14,18],['marmitiol',10,15,19],['zumbel',10,14,18],['chopp',4,22,24]],
   cidade:[['estagiario',22,12,16],['daily',22,12,16],['cafezinho',20,12,16],['marmitiol',10,13,17],['ratuxo',10,12,16],['cocozinho',8,12,16],['puxasaco',5,20,22],['reuniaoemail',4,22,24],['cafeteira',4,22,24]],
-  boteco:[['cervejinha',18,16,20],['gudang',16,16,20],['caramelo',14,16,20],['cocozinho',12,16,20],['zubumafilho',12,16,20],['marmitiol',8,17,21],['chopp',8,22,25],['ratazao',8,20,24],['caramelao',4,24,27]],
-  serra:[['zubumapai',14,26,32],['rastafolha',12,26,32],['caramelao',12,26,32],['ratazao',12,24,30],['chopp',10,24,30],['puxasaco',10,24,30],['cafeteira',8,24,30],['reuniaoemail',8,24,30],
+  boteco:[['texugo',5,18,22],['cervejinha',18,16,20],['gudang',16,16,20],['caramelo',14,16,20],['cocozinho',12,16,20],['zubumafilho',12,16,20],['marmitiol',8,17,21],['chopp',8,22,25],['ratazao',8,20,24],['caramelao',4,24,27]],
+  serra:[['texugo',9,26,32],['zubumapai',14,26,32],['rastafolha',12,26,32],['caramelao',12,26,32],['ratazao',12,24,30],['chopp',10,24,30],['puxasaco',10,24,30],['cafeteira',8,24,30],['reuniaoemail',8,24,30],
     ['galardente',3,28,32],['zegotinha',3,28,32],['floresko',3,28,32],['garrafa',2,38,40],['alinhamento',2,38,40],['litraco',2,38,40],['lider',2,36,38]],
   rota:[['daily',7,3,5],['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
   pedreira:[['marmitiol',6,7,9],['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
-  bosque:[['marmitiol',8,10,13],['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
+  bosque:[['texugo',3,11,14],['marmitiol',8,10,13],['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
 const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio',praia:'Praia Brava',cidade:'Distrito Corporativo',boteco:'Rua do Boteco',serra:'Serra Alta'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];
