@@ -374,6 +374,13 @@ function charParts(dir,f,back,look){
   P.push(...acc(look,'rosto','front'));
   return P;
 }
+// letreiro em fonte de pixel 3x5
+const PFONT={C:'111100100100111',E:'111100110100111',N:'101111111101101',T:'111010010010010',R:'110101110101101',O:'010101101101010',L:'100100100100111',M:'101111101101101',S:'111100111001111',V:'101101101101010',J:'011001001101010',A:'010101111101101'};
+function pixText(g,txt,x,y,col,sh,k=2){
+  [...txt].forEach((ch,n)=>{const m=PFONT[ch];if(!m)return;
+    for(let r=0;r<5;r++)for(let c=0;c<3;c++)if(m[r*3+c]==='1'){if(sh)R(g,sh,x+n*4*k+c*k+1,y+r*k+1,k,k);R(g,col,x+n*4*k+c*k,y+r*k,k,k)}});
+}
+const pixTextW=(txt,k=2)=>txt.length*4*k-k;
 function buildChar(look){
   look={sex:'m',...look};
   const col={skin:skinRamp(look.skin),hair:ramp(look.hair),shirt:ramp(look.shirt),pants:ramp(look.pants),shoes:ramp('#5a3e2e'),skind:skinRamp(darker(look.skin,.82)),brow:ramp(darker(look.beardColor&&look.style==='raspado'?look.beardColor:look.hair,.8)),beard:ramp(look.beardColor||look.hair),stub:ramp(mixHex(darker(look.skin,.8),look.beardColor||look.hair,.35))};
@@ -382,6 +389,9 @@ function buildChar(look){
   for(const dir of['down','up','left']){
     out[dir]=[0,1,2].map(f=>renderSprite(32,48,charParts(dir,f,dir==='up',look),col,false,2));
   }
+  // boné com letreiro: as letras vão em pixel branco na frente da copa
+  const cap=SKINS[look.acc&&look.acc.cabeca];
+  if(cap&&cap.txt)for(const c of out.down){const w=pixTextW(cap.txt,1);pixText(c.getContext('2d'),cap.txt,Math.round(16-w/2),6,'#ffffff',null,1)}
   out.right=out.left.map(c=>mk(32,48,g=>{g.translate(32,0);g.scale(-1,1);g.drawImage(c,0,0)}));
   return out;
 }

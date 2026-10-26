@@ -101,6 +101,8 @@ const GEAR={
 const SKINS={
   bone_vermelho:{n:'Boné vermelho',slot:'cabeca',kind:'bone',c:['#d83a3a','#a02828'],price:250},
   bone_azul:{n:'Boné azul',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],price:250},
+  bone_mst:{n:'Boné MST',slot:'cabeca',kind:'bone',c:['#d83a3a','#a02828'],txt:'MST',price:350},
+  bone_vero:{n:'Boné VERO',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],txt:'VERO',price:350},
   chapeu:{n:'Chapéu de palha',slot:'cabeca',kind:'chapeu',c:['#e8c870','#c8a050','#c83a3a'],price:400},
   gorro:{n:'Gorro',slot:'cabeca',kind:'gorro',c:['#38a050','#f4f4f4'],price:300},
   coroa:{n:'Coroa dourada',slot:'cabeca',kind:'coroa',c:['#f2c03a','#c88a18','#e83a5a'],price:2500},

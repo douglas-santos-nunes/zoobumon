@@ -19,13 +19,6 @@ function resize(){
 }
 let horizon=0;
 addEventListener('resize',resize);
-// letreiro em fonte de pixel 3x5
-const PFONT={C:'111100100100111',E:'111100110100111',N:'101111111101101',T:'111010010010010',R:'110101110101101',O:'010101101101010',L:'100100100100111',J:'011001001101010',A:'010101111101101'};
-function pixText(g,txt,x,y,col,sh,k=2){
-  [...txt].forEach((ch,n)=>{const m=PFONT[ch];if(!m)return;
-    for(let r=0;r<5;r++)for(let c=0;c<3;c++)if(m[r*3+c]==='1'){if(sh)R(g,sh,x+n*4*k+c*k+1,y+r*k+1,k,k);R(g,col,x+n*4*k+c*k,y+r*k,k,k)}});
-}
-const pixTextW=(txt,k=2)=>txt.length*4*k-k;
 // os prédios mudam pouco: desenha uma vez num canvas e só copia a cada quadro
 const BCACHE={},BPAD=24;
 function drawBuilding(b,ox,oy){
