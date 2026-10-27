@@ -40,7 +40,7 @@ async function battleLoop(){
     setText(`O que ${nameOf(m)} vai fazer?`,true);
     const a=await choose([{label:'LUTAR'},{label:'BOLSA'},{label:'ZOOBUMONS'},{label:'FUGIR'}],{cls:'battle',cols:2,cancel:false});
     let act;
-    if(a===0){const i=await pickMove();if(i<0)continue;act={k:'move',mv:m.moves[i]}}
+    if(a===0){const i=await pickMove();if(i<0)continue;act={k:'move',mv:i===99?'desespero':m.moves[i]}}
     else if(a===1){const r=await battleBag();if(!r)continue;if(r==='caught')return'caught';act=r}
     else if(a===2){
       const i=await pickParty('Trocar por qual zoobumon?');
@@ -76,6 +76,7 @@ async function resolveTurn(act){
 async function attack(side,mvId){
   const me=side==='me',A=me?S.party[B.me]:B.team[B.ei],D=me?B.team[B.ei]:S.party[B.me];
   const Ao=me?S:B.owner,Do=me?B.owner:S,mv=MOVES[mvId];
+  if(me&&!B.pvp)usePP(A,mvId);
   await say(`${me?nameOf(A):enemyLabel()} usou ${mv.n}!`);
   await tween(180,t=>{const o=Math.sin(t*Math.PI)*12;if(me){B.pX=o;B.pY=-o/3}else{B.eX=-o;B.eY=o/3}});
   B.pX=B.pY=0;B.eX=0;B.eY=0;
@@ -84,6 +85,7 @@ async function attack(side,mvId){
   sfx(r.eff>1||r.crit?'superhit':r.eff<1?'fraco':'hit');
   for(let i=0;i<4;i++){if(me)B.eBlink=true;else B.pBlink=true;await sleep(65);B.eBlink=B.pBlink=false;await sleep(65)}
   D.hp=Math.max(0,D.hp-r.dmg);hud();await sleep(520);
+  if(mvId==='desespero'&&A.hp>0){A.hp=Math.max(0,A.hp-Math.max(1,Math.floor(r.dmg/4)));hud();await say(`${me?nameOf(A):enemyLabel()} se machucou no desespero!`);if(A.hp<=0)return await fainted(me?'me':'en')}
   if(r.crit)await say('Um golpe crítico!');
   if(r.eff>1)await say('É super eficaz!');else if(r.eff<1)await say('Não é muito eficaz...');
   if(D.hp<=0)return await fainted(me?'en':'me');
@@ -143,14 +145,16 @@ async function learn(m,k){
 }
 async function pickMove(){
   const m=S.party[B.me],e=B.team[B.ei];
-  const items=m.moves.map(k=>({label:MOVES[k].n,k,confirm:true}));
+  if(m.moves.every(k=>ppOf(m,k)<=0)){await say(`${nameOf(m)} não tem mais PP em nenhum golpe!`);return 99}
+  const items=m.moves.map(k=>({label:MOVES[k].n,k,confirm:true,disabled:ppOf(m,k)<=0}));
   while(items.length<4)items.push({label:'—',disabled:true});
   items.push({label:'◀ Voltar'});
   const mi=$('#minfo');mi.hidden=false;$('#textbox').hidden=true;
   const i=await choose(items,{cls:'moves',cols:2,onMove:it=>{
     if(!it.k){mi.innerHTML=it.label==='◀ Voltar'?'Voltar pro menu da batalha':'';return}
     const mv=MOVES[it.k],ef=effOf(mv.t,SPECIES[e.s].t);
-    mi.innerHTML=`${chip(mv.t)}<div>Poder ${mv.p}</div><div>Precisão ${mv.a}%</div><div class="eff">${ef>1?'Super eficaz!':ef<1?'Pouco eficaz':''}</div><div class="dica">Toque de novo pra usar</div>`;
+    const pp=ppOf(m,it.k),pm=ppMax(it.k);
+    mi.innerHTML=`${chip(mv.t)}<div class="${pp<=Math.ceil(pm/4)?'ppbaixo':''}">PP ${pp}/${pm}</div><div>Poder ${mv.p}</div><div>Precisão ${mv.a}%</div><div class="eff">${ef>1?'Super eficaz!':ef<1?'Pouco eficaz':''}</div><div class="dica">Toque de novo pra usar</div>`;
   }});
   mi.hidden=true;return i>=4?-1:i;
 }
@@ -165,6 +169,7 @@ async function battleBag(){
   if(it.net){if(!B.wild){await say('Não dá pra capturar o zoobumon de outro treinador!');return null}return await throwNet(id)}
   const t=await pickParty('Usar em qual zoobumon?');if(t<0)return null;
   const m=S.party[t],mx=maxHP(m,S);
+  if(it.pp){if(m.hp<=0||!m.pp||!Object.keys(m.pp).length){await say('Não vai ter efeito.');return null}restorePP(m);S.bag[id]--;await say(`Os golpes de ${nameOf(m)} estão com PP cheio!`);return{k:'item'}}
   if(m.hp<=0||m.hp>=mx){await say('Não vai ter efeito.');return null}
   const h=Math.min(it.heal,mx-m.hp);m.hp+=h;S.bag[id]--;hud();
   await say(`${nameOf(m)} recuperou ${h} PV.`);

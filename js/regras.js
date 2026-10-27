@@ -20,7 +20,12 @@ function st(m,k,o){const b=SPECIES[m.s].b[k];let v=Math.floor(b*2*m.lv/100)+5;co
 function maxHP(m,o){const b=SPECIES[m.s].b.hp;return Math.round((Math.floor(b*2*m.lv/100)+m.lv+10)*(1+bon(o).hp))}
 function movesFor(s,lv){const ms=[];for(const[l,k]of SPECIES[s].ls)if(l<=lv&&!ms.includes(k))ms.push(k);return ms.slice(-4)}
 function mkMon(s,lv){const m={s,lv,xp:xpFor(lv),moves:movesFor(s,lv),hp:0};m.hp=maxHP(m,null);return m}
-function healAll(){for(const m of[...S.party,...S.box])m.hp=maxHP(m,S)}
+// PP: quanto mais forte o golpe, menos vezes dá pra usar (m.pp só guarda o que já foi gasto; sem registro = cheio)
+const ppMax=k=>{const p=(MOVES[k]||{}).p||40;return p<=45?30:p<=60?20:p<=80?15:p<=95?10:5};
+function ppOf(m,k){return m.pp&&m.pp[k]!=null?m.pp[k]:ppMax(k)}
+function usePP(m,k){if(!MOVES[k]||k==='desespero')return;m.pp=m.pp||{};m.pp[k]=Math.max(0,ppOf(m,k)-1)}
+function restorePP(m){delete m.pp}
+function healAll(){for(const m of[...S.party,...S.box]){m.hp=maxHP(m,S);restorePP(m)}}
 function calcDamage(A,Ao,D,Do,mv){
   const L=A.lv,atk=st(A,'atk',Ao),def=st(D,'def',Do);
   let d=((2*L/5+2)*mv.p*atk/def)/50+2;

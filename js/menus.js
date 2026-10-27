@@ -42,7 +42,7 @@ async function monSheet(m){
     <div>${chip(sp.t)} Nível ${m.lv}</div><div>PV ${m.hp}/${maxHP(m,S)}</div>
     <div>ATQ ${st(m,'atk',S)} · DEF ${st(m,'def',S)} · VEL ${st(m,'spd',S)}</div>
     <div>Faltam ${Math.max(0,b-m.xp)} de XP pro próximo nível</div>${sp.evo?`<div>Evolui no nível ${sp.evo[1]}</div>`:''}</div></div>
-    <div class="mvs">${m.moves.map(k=>`<div>${chip(MOVES[k].t)} ${MOVES[k].n} <small>Poder ${MOVES[k].p}</small></div>`).join('')}</div>`});
+    <div class="mvs">${m.moves.map(k=>`<div>${chip(MOVES[k].t)} ${MOVES[k].n} <small>PP ${ppOf(m,k)}/${ppMax(k)} · Poder ${MOVES[k].p}</small></div>`).join('')}</div>`});
   await choose([{label:'Voltar'}],{root:p.list});
 }
 // Zoobudex: como na FireRed. Nunca visto = só o número; visto = só a foto; pego = foto, nome e a ficha completa
@@ -124,6 +124,7 @@ async function bagMenu(){
     if(t<0){msg='';continue}
     const m=S.party[t],mx=maxHP(m,S);
     if(m.hp<=0){msg='Zoobumon desmaiado: leve à UPA.';continue}
+    if(it.pp){if(!m.pp||!Object.keys(m.pp).length){msg='Os golpes dele já estão com PP cheio.';continue}restorePP(m);S.bag[ids[i]]--;msg=`Os golpes de ${nameOf(m)} estão com PP cheio!`;continue}
     if(m.hp>=mx){msg='Esse já está com a vida cheia.';continue}
     const h=Math.min(it.heal,mx-m.hp);m.hp+=h;S.bag[ids[i]]--;msg=`${nameOf(m)} recuperou ${h} PV.`;
   }

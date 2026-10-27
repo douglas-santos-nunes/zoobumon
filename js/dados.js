@@ -26,6 +26,7 @@ const MOVES={
   maisumponto:{n:'Só Mais Um Ponto',t:'Normal',p:50,a:100}, agendar:{n:'Vamos Agendar Outra',t:'Normal',p:75,a:90}, camerafechada:{n:'Câmera Desligada',t:'Normal',p:60,a:100}, alinhado:{n:'Alinhamento Total',t:'Normal',p:100,a:75},
   feijaorequentado:{n:'Feijão Requentado',t:'Normal',p:45,a:100}, tampavoadora:{n:'Tampa Voadora',t:'Normal',p:60,a:95}, microondas:{n:'Esquenta no Micro-ondas',t:'Fogo',p:70,a:90}, devolve:{n:'Devolve Meu Pote!',t:'Normal',p:90,a:85},
   garrafiada:{n:'Garras Afiadas',t:'Normal',p:55,a:100}, mordidamaluca:{n:'Mordida Maluca',t:'Normal',p:70,a:90}, naotonemai:{n:'Não Tô Nem Aí',t:'Normal',p:85,a:85}, furiatexugo:{n:'Fúria de Texugo',t:'Normal',p:110,a:70},
+  desespero:{n:'Desespero',t:'Normal',p:40,a:100},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
 };
 const LS={
@@ -114,6 +115,7 @@ const PAL={
 const ITEMS={
   pocao:{n:'Poção',d:'Cura 25 PV de um zoobumon',price:60,heal:25},
   superp:{n:'Super Poção',d:'Cura 70 PV de um zoobumon',price:180,heal:70},
+  cafecoado:{n:'Café Coado',d:'Recupera os PP de todos os golpes de um zoobumon',price:120,pp:1},
   rede:{n:'Rede',d:'Captura zoobumons selvagens',price:60,net:1},
   redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:200,net:1.8},
 };

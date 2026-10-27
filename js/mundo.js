@@ -45,7 +45,7 @@ const INT_NPCS={
   centro:[{x:6,y:2,dir:'down',name:'Enfermeira',fixed:1,look:{sex:'f',style:'coque',hair:'#f08aa8',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#e8e8f0',acc:{cabeca:'touca'}},talk:async()=>{
     await say('Enfermeira: Bem-vindo à UPA! Vou cuidar do seu time.');
     jingle('cura');await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
-    await say('Pronto! Seus zoobumons estão novinhos em folha. Volte sempre!');save();
+    await say('Pronto! Vida e PP recuperados, seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
   loja:[{x:2,y:3,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_azul'}},talk:()=>shopMenu()},
     {x:6,y:6,dir:'up',name:'Cliente',look:{sex:'f',style:'chanel',hair:'#3a2a22',skin:'#a8703e',shirt:'#e0a020',pants:'#3a4a7c'},talk:async()=>{
