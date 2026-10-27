@@ -5,6 +5,8 @@ let VW=240,VH=160,VIG=null;
 // o mapa usa a tela toda: cada pixel do jogo vira "s" pixels da tela (1 no celular, 2 no computador)
 function resize(){
   const g=$('#game'),w=g.clientWidth||innerWidth,h=g.clientHeight||innerHeight;
+  // aba em segundo plano pode medir 0: espera a próxima medida em vez de criar telas de tamanho zero
+  if(w<2||h<2)return;
   let s=Math.max(1,Math.round(Math.min(w,h)/380));
   if(w/s>840)s=Math.ceil(w/840);
   VW=Math.ceil(w/s);VH=Math.ceil(h/s);cv.width=VW;cv.height=VH;ctx.imageSmoothingEnabled=false;
@@ -19,6 +21,7 @@ function resize(){
 }
 let horizon=0;
 addEventListener('resize',resize);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)resize()});
 // os prédios mudam pouco: desenha uma vez num canvas e só copia a cada quadro
 const BCACHE={},BPAD=24;
 function drawBuilding(b,ox,oy){
@@ -212,7 +215,7 @@ function drawWorld(ts){
     if(a.me){const sx=P.moving&&P.t>.5?P.tx:P.x,sy=P.moving&&P.t>.5?P.ty:P.y;
       if(tileAt(sx,sy)===','){const v=hash(sx,sy)%4,im=(rustle&&rustle.x===sx&&rustle.y===sy&&ts<rustle.until?T.tallFrontRustle:T.tallFront)[v];ctx.drawImage(im,0,14,TS,18,sx*TS-cx,sy*TS-cy+14,TS,18)}}
   }
-  if(VIG)ctx.drawImage(VIG,0,0);
+  if(VIG&&VIG.width)ctx.drawImage(VIG,0,0);
 }
 const BG={vila:['#eef0f6','#d6dbe9','#b9c2d8','#8f9ab8'],rota:['#eef4d8','#d2e6a8','#a8d070','#7cad4c'],pedreira:['#f4ead6','#e6d0a6','#ccac7c','#9e7e56'],bosque:['#d6e4cc','#aecaa0','#82ad6c','#56834a'],praia:['#e2f2fa','#f2e2b0','#e2c88a','#c8a868'],cidade:['#e6eaf2','#c8ccd6','#a8aebc','#7c8494'],boteco:['#f6ead8','#d8e6a8','#b0d078','#86ac56'],serra:['#e0e6f0','#cfc0a4','#a8936e','#7a6448']};
 // fundo da batalha em 480x320: céu em faixas, morros e árvores ao longe, chão com textura (guardado pronto por área)

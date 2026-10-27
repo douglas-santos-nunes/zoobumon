@@ -110,8 +110,7 @@ function update(dt){
   if(!d)return;
   P.dir=d;
   const[dx,dy]=DIRV[d],nx=P.x+dx,ny=P.y+dy;
-  const b=buildingAt(nx,ny);
-  if(b&&b.door[0]===nx&&b.door[1]===ny){run(()=>enterBuilding(b));return}
+  // porta de UPA/Loja só abre com o botão A (worldPress); andar contra ela só vira o boneco pra porta
   if(solid(nx,ny))return;
   P.tx=nx;P.ty=ny;P.moving=true;P.t=0;
 }
