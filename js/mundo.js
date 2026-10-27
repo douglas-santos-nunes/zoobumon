@@ -47,12 +47,12 @@ const INT_NPCS={
     jingle('cura');await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
     await say('Pronto! Vida e PP recuperados, seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
-  loja:[{x:2,y:3,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_azul'}},talk:()=>shopMenu()},
-    {x:6,y:6,dir:'up',name:'Cliente',look:{sex:'f',style:'chanel',hair:'#3a2a22',skin:'#a8703e',shirt:'#e0a020',pants:'#3a4a7c'},talk:async()=>{
+  loja:[{x:1,y:5,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_azul'}},talk:()=>shopMenu()},
+    {x:3,y:3,dir:'up',name:'Cliente',look:{sex:'f',style:'chanel',hair:'#3a2a22',skin:'#a8703e',shirt:'#e0a020',pants:'#3a4a7c'},talk:async()=>{
       await say('Cliente: Tô juntando moeda pra comprar a Coroa Dourada. Imagina chegar no duelo de coroa!');}}],
 };
 const sceneNPCs=()=>scene==='mundo'?NPCS:INT_NPCS[scene];
-const SOLID='T~RB#CMPpbSYOH';
+const SOLID='T~RB#CMPpbSYOHALWFGKZ';
 function solid(x,y){if(SOLID.includes(tileAt(x,y)))return true;return sceneNPCs().some(n=>n.x===x&&n.y===y)}
 let curZone=null;
 // o mato balança um instante quando alguém entra nele
@@ -123,7 +123,7 @@ function worldPress(b){
   const op=peerAt(fx,fy);
   if(op){run(()=>duelPeer(op));return}
   // atrás do balcão: fala com quem está do outro lado
-  const t0=tileAt(fx,fy),bx=t0==='C'?fx+dx:fx,by=t0==='C'?fy+dy:fy;
+  const t0=tileAt(fx,fy),across=t0==='C'||t0==='Z',bx=across?fx+dx:fx,by=across?fy+dy:fy;
   const n=sceneNPCs().find(n=>n.x===bx&&n.y===by);
   if(n){n.dir=OPP[P.dir];run(()=>n.talk(n));return}
   if(t0==='P'){run(pcMenu);return}
@@ -132,6 +132,12 @@ function worldPress(b){
   if(t0==='p'){run(()=>say('Uma planta bem cuidada. Alguém rega ela todo dia.'));return}
   if(t0==='b'){run(()=>say('Um banco de espera. Tá fofinho.'));return}
   if(t0==='C'){run(()=>say('Um balcão. Não tem ninguém atendendo aqui.'));return}
+  if(scene!=='mundo'){
+    const msg={A:'Armário de remédios. Tem até Café Coado guardado pra emergência.',L:'Uma maca limpinha. Ninguém internado hoje.',W:'Bebedouro geladinho. Você toma um gole e se sente melhor.',
+      F:'Geladeira de bebidas: só suco e água. Cervejinha aqui não!',G:'Gôndola cheia de Poções, Redes e Café Coado. Fale com o Vendedor no caixa pra comprar.',
+      K:'Arara de skins: bonés, Peita do Brasil, cachecol... Fale com o Vendedor pra comprar.',Z:'Caixa registradora. O Vendedor atende do outro lado.'}[t0];
+    if(msg){run(()=>say(msg));return}
+  }
   const bd=buildingAt(fx,fy);
   if(bd&&bd.door[0]===fx&&bd.door[1]===fy){run(()=>enterBuilding(bd));return}
   const t=tileAt(fx,fy);

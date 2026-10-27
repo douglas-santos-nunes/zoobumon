@@ -139,7 +139,16 @@ function drawInteriorTile(ch,tx,ty,X,Y,h){
     return;
   }
   ctx.drawImage(TI[fl],X,Y);
-  const obj={C:TI.balcao[fl],M:TI.maquina,P:TI.pc,p:TI.planta,b:TI.banco,S:TI.prateleira[h%2],E:TI.tapete}[ch];
+  // tapete da UPA: vermelho com borda nas pontas e uma cruz branca no meio
+  if(ch==='X'){const n=(a,b)=>tileAt(a,b)==='X',o='#8e2c34';
+    R(ctx,'#d8584e',X,Y,TS,TS);R(ctx,'#e8786c',X,Y,TS,2);
+    if(!n(tx,ty-1)){R(ctx,o,X,Y,TS,3);R(ctx,'#f2c06a',X,Y+4,TS,2)}if(!n(tx,ty+1)){R(ctx,o,X,Y+TS-3,TS,3);R(ctx,'#f2c06a',X,Y+TS-6,TS,2)}
+    if(!n(tx-1,ty)){R(ctx,o,X,Y,3,TS);R(ctx,'#f2c06a',X+4,Y,2,TS)}if(!n(tx+1,ty)){R(ctx,o,X+TS-3,Y,3,TS);R(ctx,'#f2c06a',X+TS-6,Y,2,TS)}
+    let l=tx,r=tx;while(n(l-1,ty))l--;while(n(r+1,ty))r++;let t=ty,b=ty;while(n(tx,t-1))t--;while(n(tx,b+1))b++;
+    const cxp=(l+r+1)/2*TS-camX,cyp=(t+b+1)/2*TS-camY;
+    const clip=(x,y,w,hh)=>{const x0=Math.max(x,X),y0=Math.max(y,Y),x1=Math.min(x+w,X+TS),y1=Math.min(y+hh,Y+TS);if(x1>x0&&y1>y0)R(ctx,'#ffffff',x0,y0,x1-x0,y1-y0)};
+    clip(cxp-6,cyp-18,12,36);clip(cxp-18,cyp-6,36,12);return}
+  const obj={C:TI.balcao[fl],M:TI.maquina,P:TI.pc,p:TI.planta,b:TI.banco,S:TI.prateleira[h%2],E:TI.tapete,A:TI.armario,L:TI.maca,W:TI.bebedouro,F:TI.geladeira[h%2],G:TI.gondola[h%2],K:TI.arara,Z:TI.caixa}[ch];
   if(obj)ctx.drawImage(obj,X,Y);
 }
 // quadro na parede: emblema do Centro, promoção na Loja

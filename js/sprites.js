@@ -648,5 +648,26 @@ function buildInterior(){
   TI.prateleira=[0,1].map(v=>mk(TS,TS,g=>{R(g,O,1,0,30,32);R(g,'#a8703e',2,1,28,30);
     for(let r=0;r<3;r++){const y=2+r*10;R(g,'#7a5028',3,y,26,8);R(g,'#c89462',2,y+8,28,2);
       for(let i=0;i<4;i++){const h=hash(i,r,v*9+3),c=['#e04848','#3a6ad8','#f2c03a','#38a050','#f4f4f4','#8848c0'][h%6],w=4+h%2,x=4+i*6;R(g,c,x,y+8-(4+h%3),w,4+h%3);R(g,'#ffffff',x,y+8-(4+h%3),1,1)}}}));
+  // UPA: armário de remédios, maca e bebedouro
+  TI.armario=mk(TS,TS,g=>{R(g,O,2,0,28,31);R(g,'#f4f4f8',3,1,26,29);R(g,'#ffffff',3,1,26,2);R(g,O,15,1,1,29);
+    for(const x of[5,18]){R(g,'#9fd2f2',x,3,9,11);R(g,'#c8e8fa',x,3,9,2);R(g,'#e04848',x+1,8,2,5);R(g,'#f2c03a',x+4,9,2,4);R(g,'#38a050',x+7-1,7,2,6)}
+    for(const x of[6,19]){R(g,'#e04848',x+2,18,3,8);R(g,'#e04848',x,20,7,3)}R(g,O,13,20,1,4);R(g,O,18,20,1,4);R(g,'#c4c4d0',3,28,26,2)});
+  TI.maca=mk(TS,TS,g=>{g.fillStyle='rgba(30,20,40,.22)';g.fillRect(4,28,24,3);R(g,O,4,1,24,28);R(g,'#c8ccd8',5,2,22,26);
+    R(g,'#ffffff',6,3,20,9);R(g,'#e8eef8',8,4,16,6);R(g,'#ffffff',8,4,16,2);R(g,'#7cb4ea',6,12,20,15);R(g,'#5a94d0',6,12,20,2);R(g,'#a8d0f4',6,15,20,1);R(g,O,5,28,2,3);R(g,O,25,28,2,3)});
+  TI.bebedouro=mk(TS,TS,g=>{g.fillStyle='rgba(30,20,40,.22)';g.fillRect(8,28,16,3);R(g,O,10,0,12,13);R(g,'#a8dcff',11,1,10,11);R(g,'#d8f0ff',12,2,3,7);R(g,'#7cc0f0',11,8,10,4);
+    R(g,O,8,12,16,18);R(g,'#eef0f6',9,13,14,16);R(g,'#ffffff',9,13,14,2);R(g,'#3a6ad8',12,17,3,3);R(g,'#e04848',17,17,3,3);R(g,'#b8bccb',9,26,14,3)});
+  // Loja: geladeira de bebidas, gôndola, arara de skins e caixa registradora
+  TI.geladeira=[0,1].map(v=>mk(TS,TS,g=>{R(g,O,2,0,28,32);R(g,'#d6dae6',3,1,26,30);R(g,'#bfe8f8',5,3,20,26);R(g,'#e6f6fe',5,3,20,2);
+    for(let r=0;r<3;r++){const y=5+r*8;R(g,'#8aa8c0',5,y+6,20,1);for(let i=0;i<4;i++){const c=['#e04848','#f2c03a','#38a050','#f08a2a','#7a4ad0'][(hash(i,r,v+7)%5)];R(g,c,6+i*5,y+1,3,5);R(g,'#ffffff',6+i*5,y+1,1,1)}}
+    R(g,O,26,10,2,9);R(g,'#58e080',26,3,2,2)}));
+  TI.gondola=[0,1].map(v=>mk(TS,TS,g=>{g.fillStyle='rgba(30,20,40,.22)';g.fillRect(2,27,28,4);R(g,O,1,6,30,22);R(g,'#c89462',2,7,28,20);R(g,'#dcaa74',2,7,28,1);R(g,'#8e6034',2,16,28,1);
+    for(let r=0;r<2;r++)for(let i=0;i<5;i++){const h=hash(i,r,v+11),x=3+i*5.6|0,y=r?18:8,c=['#e04848','#3a6ad8','#f2c03a','#38a050','#f4f4f4','#8a5530'][h%6],hh=4+h%3;R(g,O,x,y+7-hh,5,hh+1);R(g,c,x,y+8-hh,4,hh);R(g,'#ffffff',x,y+8-hh,1,1)}
+    R(g,'#7a5028',2,25,28,2)}));
+  TI.arara=mk(TS,TS,g=>{g.fillStyle='rgba(30,20,40,.22)';g.fillRect(6,28,20,3);R(g,O,15,5,2,23);R(g,O,7,28,18,2);R(g,O,3,4,26,2);R(g,'#b8bccb',3,4,26,1);
+    R(g,O,3,7,9,9);R(g,'#f6d32a',4,8,7,7);R(g,'#1e9a4a',5,8,5,2);R(g,'#2a5ad8',6,11,2,2);
+    R(g,O,13,7,8,6);R(g,'#d83a3a',14,8,6,4);R(g,'#a02828',12,11,4,2);R(g,'#ffffff',15,9,3,1);
+    R(g,O,22,7,7,6);R(g,'#3a6ad8',23,8,5,4);R(g,'#28489a',21,11,4,2);R(g,O,9,17,14,5);R(g,'#d84040',10,18,12,3);R(g,'#f4f4f4',13,18,2,3);R(g,'#f4f4f4',18,18,2,3)});
+  TI.caixa=mk(TS,TS,g=>{g.drawImage(TI.balcao.madeira,0,0);R(g,O,7,0,18,13);R(g,'#5a6278',8,1,16,11);R(g,'#2a3040',10,2,12,4);R(g,'#58e080',11,3,8,2);
+    for(let i=0;i<6;i++)R(g,'#d8dce8',10+(i%3)*4,8+Math.floor(i/3)*2,3,1);R(g,'#f2c03a',22,8,2,2)});
   TI.tapete=mk(TS,TS,g=>{R(g,'#a83a30',3,4,26,24);R(g,'#f0c070',4,5,24,22);R(g,'#c84a3a',6,7,20,18);R(g,'#f0c070',13,11,6,2);R(g,'#f0c070',14,13,4,2);R(g,'#f0c070',15,15,2,4)});
 }
