@@ -115,7 +115,7 @@ const PAL={
 const ITEMS={
   pocao:{n:'Poção',d:'Cura 25 PV de um zoobumon',price:60,heal:25},
   superp:{n:'Super Poção',d:'Cura 70 PV de um zoobumon',price:180,heal:70},
-  cafecoado:{n:'Café Coado',d:'Recupera os PP de todos os golpes de um zoobumon',price:120,pp:1},
+  cafecoado:{n:'Elixir',d:'Recupera os PP de todos os golpes de um zoobumon',price:120,pp:1},
   rede:{n:'Rede',d:'Captura zoobumons selvagens',price:60,net:1},
   redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:200,net:1.8},
 };
@@ -124,15 +124,13 @@ const GEAR={
   escudo:{n:'Escudo de Couro',d:'+12% defesa dos seus zoobumons',price:300,def:.12},
   lente:{n:'Lente do Caçador',d:'+20% de chance de captura',price:350,cap:.2},
   botas:{n:'Botas Velozes',d:'Você anda e corre mais rápido',price:200,spd:1},
-  amufogo:{n:'Amuleto de Brasa',d:'+25% de dano em golpes de Fogo',price:450,boost:'Fogo'},
-  amuagua:{n:'Amuleto da Maré',d:'+25% de dano em golpes de Água',price:450,boost:'Água'},
-  amuplanta:{n:'Amuleto da Raiz',d:'+25% de dano em golpes de Planta',price:450,boost:'Planta'},
-  amueletr:{n:'Amuleto do Raio',d:'+25% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
+  amufogo:{n:'Amuleto de Brasa',d:'+20% de dano em golpes de Fogo',price:450,boost:'Fogo'},
+  amuagua:{n:'Amuleto da Maré',d:'+20% de dano em golpes de Água',price:450,boost:'Água'},
+  amuplanta:{n:'Amuleto da Raiz',d:'+20% de dano em golpes de Planta',price:450,boost:'Planta'},
+  amueletr:{n:'Amuleto do Raio',d:'+20% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
 };
 // skins: só visual. slot = onde vai no personagem; c = cores (principal, detalhe, enfeite)
 const SKINS={
-  bone_vermelho:{n:'Boné vermelho',slot:'cabeca',kind:'bone',c:['#d83a3a','#a02828'],price:250},
-  bone_azul:{n:'Boné azul',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],price:250},
   bone_mst:{n:'Boné MST',slot:'cabeca',kind:'bone',c:['#d83a3a','#a02828'],txt:'MST',price:350},
   bone_vero:{n:'Boné VERO',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],txt:'VERO',price:350},
   peita_brasil:{n:'Peita do Brasil',slot:'corpo',kind:'camisa',c:['#f6d32a','#1e9a4a','#2a5ad8'],num:'10',price:500},
@@ -162,7 +160,7 @@ const ENC={
   pedreira:[['marmitiol',6,7,9],['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
   bosque:[['texugo',3,11,14],['marmitiol',8,10,13],['cafezinho',7,9,12],['cafeteira',3,14,15],['reuniaoemail',3,14,15],['zumbel',25,9,13],['ratazao',20,10,13],['zubumafilho',12,9,12],['zap',5,10,13],['cocozinho',8,9,12],['gudang',6,10,13],['cervejinha',5,10,12]],
 };
-const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Pedreira Seca',bosque:'Bosque Sombrio',praia:'Praia Brava',cidade:'Distrito Corporativo',boteco:'Rua do Boteco',serra:'Serra Alta'};
+const ZNAME={vila:'Vila Aurora',rota:'Trilha 1',pedreira:'Barro Vermelho',bosque:'Beco das 7 Facadas',praia:'Praia Brava',cidade:'Distrito Corporativo',boteco:'Rua do Boteco',serra:'Morro do Côco'};
 const HAIR=['#3a2a22','#a05828','#e8c050','#c83030','#3858b8','#e4e4ec'];
 const BEARDC=['#3a2a22','#6a4428','#a05828','#d8b048','#c83030','#8a8a92','#e4e4ec'];
 const SKIN=['#f8d4ac','#dca474','#a8703e','#6e4626'];

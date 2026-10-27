@@ -70,12 +70,12 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 - **Duelo por código:** Menu › Duelo. Mande seu código pra um amigo, ele cola no jogo dele e luta contra o seu time.
 - **Amigos online** (só com `online: true`): aparecem andando no mapa com o nome em cima. Fique de frente pra um amigo e aperte **A** pra **desafiar pra um duelo ao vivo**: cada um escolhe o golpe na sua vez.
   Duelos não machucam os times de verdade; quem vence ganha 150 moedas.
-- **Regiões:** Vila Aurora (início), Trilha 1 (Nv 2-5), Pedreira Seca (6-10), Bosque Sombrio (9-15), Distrito Corporativo (12-18, ao sul), Praia Brava (14-20, depois da Pedreira), Rua do Boteco (16-24, depois do Bosque) e Serra Alta (24-34, no fim de tudo).
+- **Regiões:** Vila Aurora (início), Trilha 1 (Nv 2-5), Barro Vermelho (6-10), Beco das 7 Facadas (9-15), Distrito Corporativo (12-18, ao sul), Praia Brava (14-20, depois da Pedreira), Rua do Boteco (16-24, depois do Bosque) e Morro do Côco (24-34, no fim de tudo). Tem UPA na Vila, no Distrito Corporativo, na Rua do Boteco e no Morro do Côco.
 - **UPA** (telhado vermelho): entre, fale com a Enfermeira pra curar a vida e os PP do time e use o **PC** do canto pra guardar e retirar zoobumons. O time anda com no máximo 6.
 - **Loja da Vila** (tijolinho com toldo verde): entre e fale com o Vendedor pra **comprar** (itens, equipamentos e skins) ou **vender** pela metade do preço.
-- **Skins**: bonés (inclusive MST e VERO), Peita do Brasil, chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual.
+- **Skins**: bonés MST e VERO, Peita do Brasil, chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual.
 - **Som:** música 8-bit (mapa, batalha, UPA/Loja, evolução) e efeitos. Em **Menu › Som** dá pra ligar e desligar a **música** e os **efeitos** separadamente.
-- **PP:** cada golpe tem um número de usos (os fortes têm menos). Recupere na UPA ou com o **Café Coado** da Loja. Se todos acabarem, o zoobumon usa **Desespero**, que também machuca ele.
+- **PP:** cada golpe tem um número de usos (os fortes têm menos). Recupere na UPA ou com o **Elixir** da Loja. Se todos acabarem, o zoobumon usa **Desespero**, que também machuca ele.
 - **Aparência**: dá pra trocar personagem, cabelo, barba e cores a qualquer hora, de graça, em Menu › Treinador › Aparência.
 
 ## Estrutura

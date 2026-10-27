@@ -6,9 +6,9 @@ const NPCS=[
   {x:9,y:10,dir:'down',name:'Prof. Ipê',look:{style:'raspado',beard:'cheia',hair:'#e4e4ec',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#5868a0'},talk:async()=>{
     await say(`Prof. Ipê: Olá, ${S.name}! Os zoobumons vivem no mato alto.`);
     await say('Enfraqueça um zoobumon e jogue uma Rede. Quanto menos vida ele tiver, mais fácil de pegar.');
-    await say('Ao sul fica a Trilha 1 (Nv 2 a 5). A leste, a Pedreira Seca (Nv 6 a 10). No sudeste, o Bosque Sombrio (Nv 9 a 15).');
-    await say('Depois da Trilha tem o Distrito Corporativo. Depois da Pedreira, a Praia Brava. Depois do Bosque, a Rua do Boteco.');
-    await say('E lá no fim de tudo, a Serra Alta. Só os treinadores mais fortes voltam de lá!');
+    await say('Ao sul fica a Trilha 1 (Nv 2 a 5). A leste, o Barro Vermelho (Nv 6 a 10). No sudeste, o Beco das 7 Facadas (Nv 9 a 15).');
+    await say('Depois da Trilha tem o Distrito Corporativo. Depois do Barro Vermelho, a Praia Brava. Depois do Beco, a Rua do Boteco.');
+    await say('E lá no fim de tudo, o Morro do Côco. Só os treinadores mais fortes voltam de lá!');
   }},
   {x:16,y:10,dir:'down',name:'Kael',look:{style:'espetado',hair:'#c83030',skin:'#dca474',shirt:'#2c2c34',pants:'#3a4a7c'},talk:n=>rivalTalk(n)},
   {x:13,y:13,dir:'left',name:'Lia',look:{sex:'f',style:'rabo',hair:'#e8c050',skin:'#f8d4ac',shirt:'#8848c0',pants:'#2a2a32'},talk:async()=>{
@@ -29,10 +29,10 @@ const NPCS=[
   }},
   {x:61,y:52,dir:'down',name:'Dono do Boteco',look:{style:'raspado',beard:'bigode',hair:'#3a2a22',skin:'#d8a070',shirt:'#f4f4f4',pants:'#3a3a44'},talk:async()=>{
     await say('Dono do Boteco: Rua do Boteco! Aqui é Gudang, Cervejinha e Caramelo pra todo lado.');
-    await say('Mais pro leste fica a Serra Alta. Lá só vai quem tem time de nível 25 pra cima.');
+    await say('Mais pro leste fica o Morro do Côco. Lá só vai quem tem time de nível 25 pra cima.');
   }},
   {x:79,y:52,dir:'left',name:'Alpinista',look:{style:'black',beard:'cheia',hair:'#2a1a14',skin:'#8a5a3a',shirt:'#e0a020',pants:'#4f6a4a',acc:{cabeca:'gorro'}},talk:async()=>{
-    await say('Alpinista: Serra Alta. Os zoobumons daqui já chegam evoluídos.');
+    await say('Alpinista: Morro do Côco. Os zoobumons daqui já chegam evoluídos.');
     await say('Já vi até Garrafa Térmica Vazia e Alinhamento Semanal por esses matos. Boa sorte!');
   }},
   {x:29,y:33,dir:'right',name:'Guarda',look:{style:'topete',beard:'bigode',hair:'#3a2a22',skin:'#6e4626',shirt:'#38a050',pants:'#2a2a32'},talk:async()=>{
@@ -44,10 +44,10 @@ const NPCS=[
 const INT_NPCS={
   centro:[{x:6,y:2,dir:'down',name:'Enfermeira',fixed:1,look:{sex:'f',style:'coque',hair:'#f08aa8',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#e8e8f0',acc:{cabeca:'touca'}},talk:async()=>{
     await say('Enfermeira: Bem-vindo à UPA! Vou cuidar do seu time.');
-    jingle('cura');await fadeTo(.6,200,'#fff');healAll();S.respawn={x:6,y:7};await fadeTo(0,300);
+    jingle('cura');await fadeTo(.6,200,'#fff');healAll();{const d=(curB||BUILDINGS[0]).door;S.respawn={x:d[0],y:d[1]+1}}await fadeTo(0,300);
     await say('Pronto! Vida e PP recuperados, seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
-  loja:[{x:1,y:5,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_azul'}},talk:()=>shopMenu()},
+  loja:[{x:1,y:5,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_vero'}},talk:()=>shopMenu()},
     {x:3,y:3,dir:'up',name:'Cliente',look:{sex:'f',style:'chanel',hair:'#3a2a22',skin:'#a8703e',shirt:'#e0a020',pants:'#3a4a7c'},talk:async()=>{
       await say('Cliente: Tô juntando moeda pra comprar a Coroa Dourada. Imagina chegar no duelo de coroa!');}}],
 };
@@ -133,8 +133,8 @@ function worldPress(b){
   if(t0==='b'){run(()=>say('Um banco de espera. Tá fofinho.'));return}
   if(t0==='C'){run(()=>say('Um balcão. Não tem ninguém atendendo aqui.'));return}
   if(scene!=='mundo'){
-    const msg={A:'Armário de remédios. Tem até Café Coado guardado pra emergência.',L:'Uma maca limpinha. Ninguém internado hoje.',W:'Bebedouro geladinho. Você toma um gole e se sente melhor.',
-      F:'Geladeira de bebidas: só suco e água. Cervejinha aqui não!',G:'Gôndola cheia de Poções, Redes e Café Coado. Fale com o Vendedor no caixa pra comprar.',
+    const msg={A:'Armário de remédios. Tem até Elixir guardado pra emergência.',L:'Uma maca limpinha. Ninguém internado hoje.',W:'Bebedouro geladinho. Você toma um gole e se sente melhor.',
+      F:'Geladeira de bebidas: só suco e água. Cervejinha aqui não!',G:'Gôndola cheia de Poções, Redes e Elixir. Fale com o Vendedor no caixa pra comprar.',
       K:'Arara de skins: bonés, Peita do Brasil, cachecol... Fale com o Vendedor pra comprar.',Z:'Caixa registradora. O Vendedor atende do outro lado.'}[t0];
     if(msg){run(()=>say(msg));return}
   }
@@ -148,14 +148,14 @@ function worldPress(b){
 // entra no Centro ou na Loja: troca de cena e aparece em cima do tapete da porta
 async function enterBuilding(b){sfx('porta');
   await fadeTo(1,220,'#000');
-  scene=b.kind;const I=INT[scene];
+  scene=b.kind;curB=b;const I=INT[scene];
   P.x=I.entry[0];P.y=I.entry[1];P.dir='up';P.moving=false;path.length=0;goal=null;needRelease=true;
   showLocText(I.name);
   await fadeTo(0,220);save();
 }
 async function exitBuilding(){sfx('porta');
   await fadeTo(1,220,'#000');
-  const d=INT[scene].door;scene='mundo';
+  const d=(curB&&curB.kind===scene?curB:BUILDINGS.find(x=>x.kind===scene)).door;scene='mundo';curB=null;
   P.x=d[0];P.y=d[1]+1;P.dir='down';P.moving=false;needRelease=true;curZone=zoneAt(P.x,P.y);
   await fadeTo(0,220);save();
 }

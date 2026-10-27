@@ -6,6 +6,10 @@ function rect(ch,x,y,w,h){for(let j=y;j<y+h;j++)for(let i=x;i<x+w;i++)if(MAP[j]&
 const BUILDINGS=[
   {kind:'centro',x:4,y:3,w:5,h:4,door:[6,6]},
   {kind:'loja',x:11,y:3,w:5,h:4,door:[13,6]},
+  // UPAs das regiões longe: ninguém precisa atravessar o mapa pra curar o time
+  {kind:'centro',x:16,y:42,w:5,h:4,door:[18,45]},   // Distrito Corporativo
+  {kind:'centro',x:50,y:44,w:5,h:4,door:[52,47]},   // Rua do Boteco
+  {kind:'centro',x:84,y:44,w:5,h:4,door:[86,47]},   // Morro do Côco
 ];
 function buildMap(){
   rect('T',0,0,MW,2);rect('T',0,MH-2,MW,2);rect('T',0,0,2,MH);rect('T',MW-2,0,2,MH);
@@ -45,7 +49,7 @@ function buildMap(){
   for(const[x,y,w,h]of[[50,36,6,3],[63,36,6,3],[50,45,5,3],[64,45,6,3],[50,57,6,3],[63,57,6,3]])rect('H',x,y,w,h);
   rect(',',49,40,9,3);rect(',',62,40,8,3);rect(',',49,49,8,3);rect(',',63,49,7,3);rect(',',50,62,8,5);rect(',',62,63,8,4);
   rect('f',57,46,2,1);rect('f',51,55,3,1);rect('f',67,54,2,1);
-  // ---- Serra Alta (leste distante): terra, pedras e árvores ----
+  // ---- Morro do Côco (leste distante): terra, pedras e árvores ----
   rect('d',74,32,20,38);
   for(let y=32;y<70;y++)for(let x=74;x<94;x++){const h=(x*13+y*7)%23;if(h===0)MAP[y][x]='R';else if(h===5||h===11)MAP[y][x]='T'}
   rect(',',76,34,7,5);rect(',',86,38,6,6);rect(',',77,44,6,5);rect(',',84,50,8,5);rect(',',76,58,8,6);rect(',',86,61,6,6);
@@ -58,6 +62,8 @@ function buildMap(){
   rect('=',2,53,92,1);                             // avenida que corta distrito, boteco e serra
   rect('=',44,34,16,1);                            // bosque -> boteco
   rect('=',80,53,1,10);rect('=',80,62,8,1);
+  // chão limpo em volta das UPAs novas (tira prédio/casa/pedra que estava ali) e caminho até a rua
+  rect('c',15,41,10,7);rect('.',49,43,7,5);rect('d',83,43,7,6);rect('=',86,48,1,5);
   for(const b of BUILDINGS)rect('B',b.x,b.y,b.w,b.h);
   // ninguém fica em cima de árvore, pedra ou parede
   for(const n of NPCS)if('TRYOH~'.includes(MAP[n.y][n.x]))MAP[n.y][n.x]=zoneAt(n.x,n.y)==='serra'?'d':'.';
@@ -91,7 +97,7 @@ const INT={
     '####EE####']},
 };
 for(const k in INT){const I=INT[k];I.map=I.rows.map(r=>r.split(''));I.h=I.map.length;I.w=I.map[0].length;I.door=BUILDINGS.find(b=>b.kind===k).door}
-let scene='mundo';
+let scene='mundo',curB=null;   // curB: em qual prédio o jogador entrou (tem mais de uma UPA)
 const SC=()=>scene==='mundo'?{map:MAP,w:MW,h:MH}:INT[scene];
 const tileAt=(x,y)=>SC().map[y]?.[x]??(scene==='mundo'?'T':'#');
 const buildingAt=(x,y)=>scene==='mundo'?BUILDINGS.find(b=>x>=b.x&&x<b.x+b.w&&y>=b.y&&y<b.y+b.h):null;
@@ -103,7 +109,7 @@ const P={x:6,y:7,dir:'down',moving:false,tx:0,ty:0,t:0,step:0};
 const KEY='zoobumon-save-v1';
 // cada conta tem seu save local (cópia rápida) e o save na nuvem, que vale entre aparelhos
 const saveKey=()=>KEY+(me?'-'+me.id:'');
-function save(){if(!S)return;S.pos={x:P.x,y:P.y,dir:P.dir,sc:scene};try{localStorage.setItem(saveKey(),JSON.stringify(S))}catch(e){}cloudSave()}
+function save(){if(!S)return;S.pos={x:P.x,y:P.y,dir:P.dir,sc:scene,b:curB?BUILDINGS.indexOf(curB):-1};try{localStorage.setItem(saveKey(),JSON.stringify(S))}catch(e){}cloudSave()}
 function loadSave(){
   const ok=s=>s&&Array.isArray(s.party)&&s.party.length?s:null;
   try{

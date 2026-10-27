@@ -178,6 +178,7 @@ function drawWorld(ts){
       case'T':img=groundUnder(tx,ty,h);actors.push({x:tx*TS,y:ty*TS,img:T.tree,tree:true});break;
       case'Y':img=T.sand[h%2];actors.push({x:tx*TS,y:ty*TS,img:T.palm,tree:true});break;
       case's':img=T.sand[h%2];break;case'c':img=T.pave[h%2];break;
+      case'B':img=groundUnder(tx,ty,h);break;
       case'O':img=tileAt(tx,ty-1)!=='O'?T.office.top:T.office.mid[h%3];break;
       case'H':img=houseTile(tx,ty,h);break;
       default:img=T.grass[[0,1,2,3,3,3,1][h%7]];

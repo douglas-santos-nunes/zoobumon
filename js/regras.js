@@ -13,7 +13,7 @@ function bon(o){
   const c=null; // classes saíram do jogo: bônus só de equipamento e nível de treinador
   if(c){for(const k of['atk','def','hp','cap','xp'])r[k]+=c[k]||0;if(c.enc)r.enc=c.enc}
   const tl=tlevel(o.txp);r.atk+=(tl-1)*.01;r.def+=(tl-1)*.01;
-  for(const id of o.eq||[]){const G=GEAR[id];if(!G)continue;r.atk+=G.atk||0;r.def+=G.def||0;r.cap+=G.cap||0;r.spd+=G.spd||0;if(G.boost)r.boost[G.boost]=(r.boost[G.boost]||0)+.25}
+  for(const id of o.eq||[]){const G=GEAR[id];if(!G)continue;r.atk+=G.atk||0;r.def+=G.def||0;r.cap+=G.cap||0;r.spd+=G.spd||0;if(G.boost)r.boost[G.boost]=(r.boost[G.boost]||0)+.2}
   return r;
 }
 function st(m,k,o){const b=SPECIES[m.s].b[k];let v=Math.floor(b*2*m.lv/100)+5;const bo=bon(o);if(k==='atk')v*=1+bo.atk;if(k==='def')v*=1+bo.def;return Math.round(v)}

@@ -52,7 +52,8 @@ function startGame(s,isNew){
   for(const m of[...S.party,...S.box])dexCatch(m.s);
   S.respawn=S.respawn||{x:6,y:7};
   S.skins=S.skins||[];S.look.acc=S.look.acc||{};
-  scene=S.pos&&INT[S.pos.sc]?S.pos.sc:'mundo';
+  scene=S.pos&&INT[S.pos.sc]?S.pos.sc:'mundo';curB=scene!=='mundo'?(BUILDINGS[S.pos.b]&&BUILDINGS[S.pos.b].kind===scene?BUILDINGS[S.pos.b]:BUILDINGS.find(b=>b.kind===scene)):null;
+  S.skins=(S.skins||[]).filter(k=>SKINS[k]);if(S.look&&S.look.acc)for(const k in S.look.acc)if(!SKINS[S.look.acc[k]])delete S.look.acc[k];
   P.x=S.pos?.x??6;P.y=S.pos?.y??7;P.dir=S.pos?.dir||'down';P.moving=false;
   refreshLook();
   $('#create').hidden=true;$('#game').hidden=false;document.body.classList.add('playing');resize();
