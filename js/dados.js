@@ -51,9 +51,10 @@ const LS={
 const GREY={base:'#8a7a8e',light:'#b8aabc',dark:'#5a4c5e',belly:'#ece0ec',accent:'#3c3040'};
 // b = atributos base, xp = XP que dá ao ser derrotado, cr = facilidade de captura, sh = forma do sprite gerado
 const SPECIES={
-  pintobrasa:{n:'Pintobrasa',t:'Fogo',b:{hp:42,atk:58,def:40,spd:66},xp:64,cr:.45,ls:LS.fogo,evo:['galardente',22],pal:{base:'#ffc83a',light:'#fff09a',dark:'#d8891a',belly:'#fff4c8',accent:'#ff6a2a'},sh:{rx:.55,ry:.6,cy:.6,sp:2,seed:11,nz:.55}},
+  pintobrasa:{n:'Frangote',t:'Fogo',b:{hp:42,atk:58,def:40,spd:66},xp:64,cr:.45,ls:LS.fogo,evo:['galardente',22],pal:{base:'#f6a828',light:'#ffd870',dark:'#8a3a14',belly:'#ffe2a0',accent:'#ff4a1a'},sh:{rx:.55,ry:.6,cy:.6,sp:2,seed:11,nz:.55}},
   galardente:{n:'Galinacio',t:'Fogo',b:{hp:66,atk:92,def:60,spd:88},xp:150,cr:.15,ls:LS.fogo,pal:{base:'#e8552a',light:'#ff9a4a',dark:'#9a2a18',belly:'#ffd27a',accent:'#ffe14a'},sh:{rx:.78,ry:.8,cy:.54,sp:3,seed:11,nz:.55}},
-  gotinho:{n:'Gotinho',t:'Água',b:{hp:50,atk:48,def:60,spd:46},xp:64,cr:.45,ls:LS.agua,evo:['zegotinha',22],sh:{rx:.62,ry:.55,cy:.62,sp:0,seed:23,nz:.4}},
+  gotinho:{n:'Pingaço',t:'Água',b:{hp:50,atk:48,def:60,spd:46},xp:64,cr:.45,ls:LS.agua,evo:['zegotinha',22],sh:{rx:.62,ry:.55,cy:.62,sp:0,seed:23,nz:.4},
+    pal:{base:'#2f6cc0',light:'#7ab8f0',dark:'#173e7a',belly:'#8cc2f0',accent:'#f8f8f8',faixa:'#d83a3a'}},
   zegotinha:{n:'Zé Gotinha',t:'Água',b:{hp:76,atk:74,def:86,spd:62},xp:150,cr:.15,ls:LS.agua,pal:{base:'#9ccff4',light:'#d6efff',dark:'#4a88cc',belly:'#ffffff',accent:'#ffffff'},sh:{rx:.85,ry:.72,cy:.56,sp:1,seed:23,nz:.4}},
   brotelo:{n:'Cobrume',t:'Planta',b:{hp:50,atk:56,def:46,spd:56},xp:64,cr:.45,ls:LS.serpente,evo:['floresko',22],sh:{rx:.62,ry:.58,cy:.6,sp:0,seed:37,nz:.4},
     pal:{base:'#4c9a3a',light:'#8ad060',dark:'#1c4220',belly:'#e8dc98',accent:'#f2d030',lingua:'#e83a4a'}},
