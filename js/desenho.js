@@ -115,6 +115,13 @@ function paintLoja(g,X,Y,W,H,dxo){
   for(let q=0;q<3;q++){R(g,'#8a5a30',rx+3+q*5,cy-14,1,10);R(g,'#e8e8f0',rx+1+q*5,cy-15,5,3)}
 }
 // chão embaixo da árvore combina com a região
+// time atual no canto do mapa: mini foto e barrinha de vida de cada um, o principal com estrela
+let teamSig='';
+function teamBar(show){
+  const el=$('#teamBar');if(el.hidden===show)el.hidden=!show;if(!show)return;
+  const sig=S.party.map(m=>m.s+':'+m.hp+'/'+maxHP(m,S)).join(',');if(sig===teamSig)return;teamSig=sig;
+  el.innerHTML=S.party.map((m,i)=>{const f=clamp(m.hp/maxHP(m,S),0,1);return`<span class="tm${i?'':' lead'}${m.hp<=0?' ko':''}"><img src="${icon(m.s)}" alt=""><i style="width:${f*100}%;background:${hpCol(f)}"></i></span>`}).join('');
+}
 function groundUnder(tx,ty,h){const z=zoneAt(tx,ty);return z==='pedreira'||z==='serra'?T.dirt[h%2]:z==='praia'?T.sand[h%2]:z==='cidade'?T.pave[h%2]:T.grass[3]}
 // casinha da Rua do Boteco: telhado na fileira de cima, porta no meio da fileira de baixo
 function houseTile(tx,ty,h){
@@ -292,6 +299,7 @@ function frame(ts){
     const gbg=mode==='battle'&&bc?`linear-gradient(${bc[0]} ${horizon}px,${bc[1]} ${horizon}px)`:mode==='evo'?'#14121c':'#000';
     if(lastBg!==gbg){lastBg=gbg;$('#game').style.background=gbg}
     const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb)mb.hidden=!showMb;
+    teamBar(showMb);
     if(mode==='world')drawWorld(ts);else if(mode==='battle'&&B)drawBattle();else if(mode==='evo'&&EVO)drawEvo(ts);
   }
   requestAnimationFrame(frame);

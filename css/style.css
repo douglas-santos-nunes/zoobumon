@@ -233,3 +233,16 @@ body.playing{overflow:hidden;overscroll-behavior:none}
 /* iPhone: sem zoom de toque duplo em nenhum lugar (o jogo inteiro é tela fixa) */
 html,body{touch-action:manipulation}
 input,textarea,select{font-size:max(16px,1em)}
+
+/* time atual no mapa (canto de cima, abaixo do nome da região) */
+#teamBar{position:absolute;z-index:4;left:max(8px,env(safe-area-inset-left,0px));top:calc(env(safe-area-inset-top,0px) + 58px);display:flex;gap:4px;padding:4px;cursor:pointer;
+  background:rgba(248,248,240,.88);border:2px solid #45507a;border-radius:10px;box-shadow:0 2px 0 rgba(0,0,0,.3)}
+#teamBar[hidden]{display:none}
+#teamBar .tm{position:relative;width:34px;height:38px;border-radius:7px;background:#e6e1d0}
+#teamBar .tm img{width:34px;height:34px;image-rendering:pixelated;display:block}
+#teamBar .tm i{position:absolute;left:3px;bottom:2px;height:3px;border-radius:2px;max-width:28px}
+#teamBar .tm.lead{box-shadow:0 0 0 2px var(--gold)}
+#teamBar .tm.lead::after{content:'★';position:absolute;top:-6px;right:-4px;color:var(--gold);font-size:13px;text-shadow:0 1px 0 #6b3b20}
+#teamBar .tm.ko img{filter:grayscale(1) opacity(.5)}
+#teamBar:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.pinfo .lead{color:#d89a1c}

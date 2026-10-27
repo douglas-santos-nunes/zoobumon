@@ -67,8 +67,8 @@ function tween(ms,fn){return new Promise(res=>tweens.push({t0:performance.now(),
 async function run(fn){busy++;try{await fn()}catch(e){console.error(e)}finally{busy--;if(!busy){hideText();$('#menu').hidden=true;$('#minfo').hidden=true;hidePanel();needRelease=true}}}
 const hpCol=f=>f>.5?'#58d080':f>.2?'#f8c838':'#f05838';
 function setBar(el,f){f=clamp(f,0,1);el.style.width=f*100+'%';el.style.background=hpCol(f)}
-function monRow(m){const mx=maxHP(m,S),f=m.hp/mx;
-  return`<img src="${icon(m.s)}" alt=""><div class="pinfo"><b>${nameOf(m)} <small>Nv${m.lv}</small> ${chip(SPECIES[m.s].t)}</b><div class="hpbar"><i style="width:${f*100}%;background:${hpCol(f)}"></i></div></div><span class="r">${m.hp}/${mx}</span>`}
+function monRow(m,lead){const mx=maxHP(m,S),f=m.hp/mx;
+  return`<img src="${icon(m.s)}" alt=""><div class="pinfo"><b>${lead?'<span class="lead">★</span> ':''}${nameOf(m)} <small>Nv${m.lv}</small> ${chip(SPECIES[m.s].t)}</b><div class="hpbar"><i style="width:${f*100}%;background:${hpCol(f)}"></i></div></div><span class="r">${m.hp}/${mx}</span>`}
 let locTimer=0;
 function showLoc(z){showLocText(ZNAME[z])}
 function showLocText(t){const l=$('#loc');l.textContent=t;l.classList.add('show');clearTimeout(locTimer);locTimer=setTimeout(()=>l.classList.remove('show'),2200)}

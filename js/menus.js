@@ -26,14 +26,14 @@ async function pickParty(title,{force=false}={}){
 async function zoobumonsMenu(){
   let sel=0;
   while(true){
-    const p=showPanel(`Seu time (${S.party.length}/6)`,{foot:S.box.length?`${S.box.length} guardado(s) no PC da UPA.`:''});
-    const i=await choose(S.party.map(m=>({html:monRow(m)})),{root:p.list,start:sel});
+    const p=showPanel(`Seu time (${S.party.length}/6)`,{foot:`★ = principal, entra primeiro na batalha.${S.box.length?` ${S.box.length} guardado(s) no PC da UPA.`:''}`});
+    const i=await choose(S.party.map((m,k)=>({html:monRow(m,k===0)})),{root:p.list,start:sel});
     if(i<0)return;
     sel=i;
     const m=S.party[i];
-    const a=await choose([{label:'Ver ficha'},{label:'Pôr na frente',disabled:i===0},{label:'Voltar'}],{cls:'side'});
+    const a=await choose([{label:'Ver ficha'},{label:i===0?'★ Já é o principal':'★ Deixar como principal',disabled:i===0},{label:'Voltar'}],{cls:'side'});
     if(a===0)await monSheet(m);
-    else if(a===1){S.party.splice(i,1);S.party.unshift(m);sel=0}
+    else if(a===1){S.party.splice(i,1);S.party.unshift(m);sel=0;save()}
   }
 }
 async function monSheet(m){
