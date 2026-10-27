@@ -22,7 +22,7 @@ addEventListener('keyup',e=>{const b=KEYS[e.code];if(b)up(b)});
 addEventListener('blur',()=>{dirStack.length=0;held.b=false});
 // toque: com texto na tela, tocar em qualquer lugar avança o texto
 $('#game').addEventListener('pointerdown',e=>{
-  if(!started||e.target.closest('.box,#menuBtn,#somBtn,#somPop,#pad'))return;
+  if(!started||e.target.closest('.box,#menuBtn,#pad'))return;
   if(sayActive)press('a');
 });
 // joystick: arrastar a bolinha escolhe a direção (a que mais pesa entre horizontal e vertical)
@@ -50,13 +50,14 @@ for(const[id,b]of[['#btnA','a'],['#btnB','b']]){
 function updatePad(){const vis=started&&mode==='world'&&!busy,pad=$('#pad');if(pad.hidden===vis){pad.hidden=!vis;if(!vis){joyId=null;$('#knob').style.transform='';setJoyDir(null)}}}
 $('#game').addEventListener('contextmenu',e=>e.preventDefault());
 $('#menuBtn').addEventListener('click',e=>{e.currentTarget.blur();press('start')});
-// janelinha do som: funciona em qualquer tela, sem depender do menu do jogo
-const somPop=$('#somPop');
-function somOpen(v){somPop.hidden=!v;$('#somBtn').setAttribute('aria-expanded',String(v))}
-$('#somBtn').addEventListener('click',e=>{e.stopPropagation();e.currentTarget.blur();auInit();somOpen(somPop.hidden)});
-somPop.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('[data-som]');if(!b)return;auInit();
-  if(b.dataset.som==='musica')setMusica(!AU.musicOn);else{setEfeitos(!AU.sfxOn);sfx('ok')}});
-addEventListener('pointerdown',e=>{if(!somPop.hidden&&!e.target.closest('#somPop,#somBtn'))somOpen(false)});
-somLabel();
+// iPhone: dois toques rápidos dão zoom na página e ela não volta sozinha. Bloqueia o zoom do segundo toque
+// mas entrega o clique normalmente (o menu de golpes usa toque duplo pra confirmar) e bloqueia a pinça.
+let lastTouch=0;
+document.addEventListener('touchend',e=>{
+  const now=Date.now(),quick=now-lastTouch<350;lastTouch=now;
+  if(!quick||e.target.closest('input,textarea,select'))return;
+  e.preventDefault();e.target.dispatchEvent(new MouseEvent('click',{bubbles:true,cancelable:true,view:window}));
+},{passive:false});
+for(const ev of['gesturestart','gesturechange'])document.addEventListener(ev,e=>e.preventDefault(),{passive:false});
 $('#pclose').addEventListener('click',e=>{e.currentTarget.blur();press('b')});
 
