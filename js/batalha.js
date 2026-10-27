@@ -143,14 +143,14 @@ async function learn(m,k){
 }
 async function pickMove(){
   const m=S.party[B.me],e=B.team[B.ei];
-  const items=m.moves.map(k=>({label:MOVES[k].n,k}));
+  const items=m.moves.map(k=>({label:MOVES[k].n,k,confirm:true}));
   while(items.length<4)items.push({label:'—',disabled:true});
   items.push({label:'◀ Voltar'});
   const mi=$('#minfo');mi.hidden=false;$('#textbox').hidden=true;
   const i=await choose(items,{cls:'moves',cols:2,onMove:it=>{
     if(!it.k){mi.innerHTML=it.label==='◀ Voltar'?'Voltar pro menu da batalha':'';return}
     const mv=MOVES[it.k],ef=effOf(mv.t,SPECIES[e.s].t);
-    mi.innerHTML=`${chip(mv.t)}<div>Poder ${mv.p}</div><div>Precisão ${mv.a}%</div><div class="eff">${ef>1?'Super eficaz!':ef<1?'Pouco eficaz':''}</div>`;
+    mi.innerHTML=`${chip(mv.t)}<div>Poder ${mv.p}</div><div>Precisão ${mv.a}%</div><div class="eff">${ef>1?'Super eficaz!':ef<1?'Pouco eficaz':''}</div><div class="dica">Toque de novo pra usar</div>`;
   }});
   mi.hidden=true;return i>=4?-1:i;
 }

@@ -31,8 +31,9 @@ function choose(items,{root=null,cls='side',cols=1,cancel=true,onMove=null,start
     if(items[sel]?.disabled){const k=items.findIndex(x=>!x.disabled);if(k>=0)sel=k}
     const els=items.map((it,i)=>{
       const d=document.createElement('div');d.className='opt'+(it.disabled?' off':'');d.innerHTML=it.html??esc(it.label);
-      d.addEventListener('click',()=>{if(done)return;sel=i;draw();pick()});
-      d.addEventListener('mousemove',()=>{if(!done&&sel!==i){sel=i;draw()}});
+      // opção com confirm: o primeiro toque só seleciona (pra ver os detalhes), o segundo usa
+      d.addEventListener('click',()=>{if(done)return;if(it.confirm&&sel!==i){sel=i;sfx('cursor');draw();return}sel=i;draw();pick()});
+      d.addEventListener('pointermove',e=>{if(e.pointerType==='mouse'&&!done&&sel!==i){sel=i;draw()}});
       el.appendChild(d);return d;
     });
     function draw(){

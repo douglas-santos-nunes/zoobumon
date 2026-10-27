@@ -228,3 +228,6 @@ body:not(.playing) #somPop{top:auto;right:max(14px,env(safe-area-inset-right,0px
 .dexst{display:grid;grid-template-columns:38px 1fr 34px;align-items:center;gap:8px;font:600 13px var(--f-pix)}
 .dexst i{display:block;height:8px;border-radius:4px;background:#58a0e0}
 .dexst b{text-align:right}
+
+/* dica no quadro do golpe */
+#minfo .dica{color:#8a8aa0;font-size:.85em}
