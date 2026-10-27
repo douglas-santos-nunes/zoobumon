@@ -43,7 +43,7 @@ function drawPreview(ts){
 }
 function startGame(s,isNew){
   S=s;
-  S.bag=S.bag||{};S.gear=S.gear||[];S.eq=S.eq||[];S.box=S.box||[];S.wins=S.wins||0;S.caught=S.caught||1;S.txp=S.txp||0;
+  S.bag=S.bag||{};S.gear=(S.gear||[]).filter(g=>GEAR[g]);S.eq=(S.eq||[]).filter(g=>GEAR[g]);S.box=S.box||[];S.wins=S.wins||0;S.caught=S.caught||1;S.txp=S.txp||0;
   // zoobumons de espécies que saíram do jogo somem do save; golpes que saíram também
   const ok=m=>m&&SPECIES[m.s];
   for(const m of [...S.party,...S.box].filter(ok)){m.moves=(m.moves||[]).filter(k=>MOVES[k]);if(!m.moves.length)m.moves=['investida']}

@@ -128,7 +128,6 @@ const GEAR={
   amuagua:{n:'Amuleto da Maré',d:'+25% de dano em golpes de Água',price:450,boost:'Água'},
   amuplanta:{n:'Amuleto da Raiz',d:'+25% de dano em golpes de Planta',price:450,boost:'Planta'},
   amueletr:{n:'Amuleto do Raio',d:'+25% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
-  amupedra:{n:'Amuleto da Rocha',d:'+25% de dano em golpes de Pedra',price:450,boost:'Pedra'},
 };
 // skins: só visual. slot = onde vai no personagem; c = cores (principal, detalhe, enfeite)
 const SKINS={
