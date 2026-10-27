@@ -2,12 +2,13 @@
 /* =================== menus =================== */
 async function startMenu(){
   while(true){
-    const i=await choose(['ZOOBUMONS','BOLSA','TREINADOR','DUELO','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
-    if(i<0||i===5)return;
-    if(i===0)await zoobumonsMenu();
-    else if(i===1)await bagMenu();
-    else if(i===2)await trainerMenu();
-    else if(i===3){
+    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','DUELO','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
+    if(i<0||i===6)return;
+    if(i===0)await dexMenu();
+    else if(i===1)await zoobumonsMenu();
+    else if(i===2)await bagMenu();
+    else if(i===3)await trainerMenu();
+    else if(i===4){
       const t=await duelPanel();hidePanel();
       if(t){await say(`${t.name} te desafiou com ${t.team.length} zoobumon(s)!`);await fight({team:t.team,owner:t.owner,name:t.name,bg:'vila',friendly:true,reward:100});return}
     }
@@ -41,6 +42,43 @@ async function monSheet(m){
     <div>ATQ ${st(m,'atk',S)} · DEF ${st(m,'def',S)} · VEL ${st(m,'spd',S)}</div>
     <div>Faltam ${Math.max(0,b-m.xp)} de XP pro próximo nível</div>${sp.evo?`<div>Evolui no nível ${sp.evo[1]}</div>`:''}</div></div>
     <div class="mvs">${m.moves.map(k=>`<div>${chip(MOVES[k].t)} ${MOVES[k].n} <small>Poder ${MOVES[k].p}</small></div>`).join('')}</div>`});
+  await choose([{label:'Voltar'}],{root:p.list});
+}
+// Zoobudex: como na FireRed. Nunca visto = só o número; visto = só a foto; pego = foto, nome e a ficha completa
+const dexNum=i=>'#'+String(i+1).padStart(3,'0');
+async function dexMenu(){
+  let sel=0,msg='';
+  while(true){
+    const ids=Object.keys(SPECIES),d=dexOf(),nv=ids.filter(k=>d.v[k]).length,np=ids.filter(k=>d.p[k]).length;
+    const p=showPanel('Zoobudex',{foot:msg||`Vistos ${nv} · Pegos ${np} de ${ids.length}`});
+    const items=ids.map((k,i)=>{
+      const pego=d.p[k],visto=d.v[k],sp=SPECIES[k];
+      const img=visto?`<img src="${icon(k)}" alt="">`:'<span class="dexvazio"></span>';
+      const nome=pego?sp.n:visto?'?????':'———';
+      return{html:`<span class="dexn">${dexNum(i)}</span>${img}<div class="pinfo"><b>${esc(nome)}</b><small>${pego?chip(sp.t):visto?'Visto em batalha':''}</small></div>${pego?'<span class="r">●</span>':''}`};
+    });
+    items.push({label:'Voltar'});
+    const i=await choose(items,{root:p.list,start:sel});
+    if(i<0||i===ids.length)return;
+    sel=i;const k=ids[i];
+    if(d.p[k]){await dexEntry(k,i);msg=''}
+    else msg=d.v[k]?'Você só viu esse em batalha. Pegue um pra ver a ficha.':'Ainda não visto. Explore o mato alto!';
+  }
+}
+async function dexEntry(k,i){
+  const sp=SPECIES[k],d=dexOf(),b=sp.b;
+  const nomeDe=id=>d.v[id]?SPECIES[id].n:'?????';
+  const from=Object.keys(SPECIES).find(x=>SPECIES[x].evo&&SPECIES[x].evo[0]===k);
+  const onde=Object.entries(ENC).filter(([,l])=>l.some(e=>e[0]===k)).map(([z,l])=>{const e=l.find(e=>e[0]===k);return`${ZNAME[z]} (Nv ${e[2]}-${e[3]})`});
+  const bar=(l,v)=>`<div class="dexst"><span>${l}</span><i style="width:${Math.min(100,v/1.3)}%"></i><b>${v}</b></div>`;
+  const p=showPanel(`${dexNum(i)} ${sp.n}`,{body:`<div class="sheetm"><img class="big" src="${icon(k)}" alt=""><div>
+    <div>${chip(sp.t)}</div>
+    ${from?`<div>Evolui de ${esc(nomeDe(from))} no nível ${SPECIES[from].evo[1]}</div>`:''}
+    ${sp.evo?`<div>Evolui pra ${esc(nomeDe(sp.evo[0]))} no nível ${sp.evo[1]}</div>`:'<div>Não evolui</div>'}
+    <div>Onde achar: ${onde.length?onde.join(', '):'não aparece no mato (só por evolução ou como inicial)'}</div></div></div>
+    <div class="dexsts">${bar('PV',b.hp)}${bar('ATQ',b.atk)}${bar('DEF',b.def)}${bar('VEL',b.spd)}</div>
+    <div class="mvs">${sp.ls.map(([l,m])=>`<div>${chip(MOVES[m].t)} ${MOVES[m].n} <small>Nv ${l} · Poder ${MOVES[m].p}</small></div>`).join('')}</div>`});
+  p.body.classList.add('grow');
   await choose([{label:'Voltar'}],{root:p.list});
 }
 // PC da UPA: retirar e guardar

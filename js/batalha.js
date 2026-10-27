@@ -6,7 +6,7 @@ function hud(){
   if(!B){$('#ehud').hidden=$('#phud').hidden=true;return}
   const e=B.team[B.ei],m=S.party[B.me];
   $('#ehud').hidden=!B.showE;$('#phud').hidden=!B.showP;
-  if(e){$('#en').textContent=nameOf(e);fitName($('#en'));$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
+  if(e){dexSee(e.s);$('#en').textContent=nameOf(e);fitName($('#en'));$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
   if(m){const mx=maxHP(m,S),t=SPECIES[m.s].t;$('#pn').textContent=nameOf(m);fitName($('#pn'));$('#pl').textContent='Nv'+m.lv;$('#pt').textContent=t;$('#pt').style.background=TYPEC[t];
     setBar($('#php'),m.hp/mx);$('#phpt').textContent=`${m.hp}/${mx}`;
     const a=xpFor(m.lv),b=xpFor(m.lv+1);$('#pxp').style.width=(m.lv>=100?100:clamp((m.xp-a)/(b-a)*100,0,100))+'%'}
@@ -196,7 +196,7 @@ async function throwNet(id){
     await tween(700,t=>{B.starT=t});
     B.stars=null;B.starT=0;
     jingle('captura');await say(`Peguei! ${sp.n} foi capturado!`);
-    S.caught++;
+    S.caught++;dexCatch(e.s);
     if(S.party.length<6){S.party.push(e);await say(`${sp.n} entrou no seu time.`)}
     else{S.box.push(e);await say(`Seu time está cheio. ${sp.n} foi pra Caixa.`)}
     await addTxp(10);
@@ -239,7 +239,7 @@ async function evolve(m){
   let iv=280;
   for(let i=0;i<14;i++){EVO.show=i%2?'wb':'wa';await sleep(iv);iv=Math.max(55,iv*.82)}
   EVO.show='wb';await sleep(450);EVO.show='fb';
-  const old=maxHP(m,S);m.s=to;m.hp+=maxHP(m,S)-old;m.evoPending=false;
+  const old=maxHP(m,S);m.s=to;m.hp+=maxHP(m,S)-old;m.evoPending=false;dexCatch(to);
   jingle('evoluiu');await say(`Parabéns! ${from} evoluiu para ${nameOf(m)}!`);
   mode='world';EVO=null;
 }

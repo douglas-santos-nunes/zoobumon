@@ -49,6 +49,7 @@ function startGame(s,isNew){
   for(const m of [...S.party,...S.box].filter(ok)){m.moves=(m.moves||[]).filter(k=>MOVES[k]);if(!m.moves.length)m.moves=['investida']}
   S.party=S.party.filter(ok);S.box=S.box.filter(ok);
   while(S.party.length<1&&S.box.length)S.party.push(S.box.shift());
+  for(const m of[...S.party,...S.box])dexCatch(m.s);
   S.respawn=S.respawn||{x:6,y:7};
   S.skins=S.skins||[];S.look.acc=S.look.acc||{};
   scene=S.pos&&INT[S.pos.sc]?S.pos.sc:'mundo';

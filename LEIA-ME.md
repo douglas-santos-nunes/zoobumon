@@ -65,7 +65,8 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 
 - **Andar:** arraste a bolinha do controle (canto de baixo, à esquerda). Segure **B** pra correr.
 - **Falar/entrar:** fique de frente pra pessoa ou porta e aperte **A**.
-- **Menu:** botão no canto de cima (zoobumons, bolsa, ficha do treinador, duelo por código, salvar).
+- **Menu:** botão no canto de cima (Zoobudex, zoobumons, bolsa, ficha do treinador, duelo por código, salvar).
+- **Zoobudex:** como na FireRed. Os que você nunca viu aparecem só com o número; os que viu em batalha mostram só a foto; os que pegou mostram nome, tipo, atributos, golpes, evolução e onde achar.
 - **Duelo por código:** Menu › Duelo. Mande seu código pra um amigo, ele cola no jogo dele e luta contra o seu time.
 - **Amigos online** (só com `online: true`): aparecem andando no mapa com o nome em cima. Fique de frente pra um amigo e aperte **A** pra **desafiar pra um duelo ao vivo**: cada um escolhe o golpe na sua vez.
   Duelos não machucam os times de verdade; quem vence ganha 150 moedas.

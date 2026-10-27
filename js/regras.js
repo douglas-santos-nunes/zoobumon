@@ -3,6 +3,10 @@
 const xpFor=lv=>lv<=1?0:Math.floor(lv**3*.8);
 const tlevel=txp=>1+Math.floor(Math.sqrt((txp||0)/30));
 const nameOf=m=>SPECIES[m.s].n;
+// Zoobudex do treinador: v = já viu em batalha, p = já pegou (pegar também conta como visto)
+function dexOf(){S.dex=S.dex||{v:{},p:{}};S.dex.v=S.dex.v||{};S.dex.p=S.dex.p||{};return S.dex}
+function dexSee(id){if(S&&SPECIES[id])dexOf().v[id]=1}
+function dexCatch(id){if(S&&SPECIES[id]){const d=dexOf();d.v[id]=1;d.p[id]=1}}
 function bon(o){
   const r={atk:0,def:0,hp:0,cap:0,xp:0,enc:1,spd:0,boost:{}};
   if(!o)return r;
