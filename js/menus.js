@@ -2,8 +2,9 @@
 /* =================== menus =================== */
 async function startMenu(){
   while(true){
-    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','DUELO','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
-    if(i<0||i===6)return;
+    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','DUELO','SOM','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
+    if(i<0||i===7)return;
+    if(i===5){await somMenu();continue}
     if(i===0)await dexMenu();
     else if(i===1)await zoobumonsMenu();
     else if(i===2)await bagMenu();

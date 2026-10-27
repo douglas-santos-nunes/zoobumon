@@ -74,7 +74,7 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 - **UPA** (telhado vermelho): entre, fale com a Enfermeira pelo balcão pra curar o time e use o **PC** do canto pra guardar e retirar zoobumons. O time anda com no máximo 6.
 - **Loja da Vila** (tijolinho com toldo verde): entre e fale com o Vendedor pra **comprar** (itens, equipamentos e skins) ou **vender** pela metade do preço.
 - **Skins**: bonés (inclusive MST e VERO), Peita do Brasil, chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual.
-- **Som:** música 8-bit (mapa, batalha, UPA/Loja, evolução) e efeitos. O botão **♪ Som** ao lado do Menu liga e desliga.
+- **Som:** música 8-bit (mapa, batalha, UPA/Loja, evolução) e efeitos. O botão **♪ Som** ao lado do Menu (ou Menu › Som) liga e desliga a **música** e os **efeitos** separadamente.
 - **Aparência**: dá pra trocar personagem, cabelo, barba e cores a qualquer hora, de graça, em Menu › Treinador › Aparência.
 
 ## Estrutura

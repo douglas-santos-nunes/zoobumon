@@ -50,7 +50,7 @@ for(const[id,b]of[['#btnA','a'],['#btnB','b']]){
 function updatePad(){const vis=started&&mode==='world'&&!busy,pad=$('#pad');if(pad.hidden===vis){pad.hidden=!vis;if(!vis){joyId=null;$('#knob').style.transform='';setJoyDir(null)}}}
 $('#game').addEventListener('contextmenu',e=>e.preventDefault());
 $('#menuBtn').addEventListener('click',e=>{e.currentTarget.blur();press('start')});
-$('#somBtn').addEventListener('click',e=>{e.currentTarget.blur();auInit();setSom(!AU.on)});
-setSom(AU.on);
+$('#somBtn').addEventListener('click',e=>{e.currentTarget.blur();auInit();if(started&&mode==='world'&&!busy)run(somMenu)});
+somLabel();
 $('#pclose').addEventListener('click',e=>{e.currentTarget.blur();press('b')});
 

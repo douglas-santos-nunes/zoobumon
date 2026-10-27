@@ -1,8 +1,10 @@
 'use strict';
 /* =================== som: músicas chiptune e efeitos, tudo gerado na hora (Web Audio) =================== */
 // O navegador só libera som depois do primeiro toque/tecla; até lá tudo fica em silêncio.
-const AU={ctx:null,master:null,music:null,sfx:null,on:true,track:null,want:null,ch:[],timer:0,duck:0};
-try{AU.on=localStorage.getItem('zoobumon-som')!=='0'}catch(e){}
+const AU={ctx:null,master:null,music:null,sfx:null,musicOn:true,sfxOn:true,track:null,want:null,ch:[],timer:0,duck:0};
+// cada um escolhe: tem gente que gosta dos efeitos mas não da música (o ajuste antigo de 'som' desligado vale pros dois)
+try{const old=localStorage.getItem('zoobumon-som')==='0',m=localStorage.getItem('zoobumon-musica'),e=localStorage.getItem('zoobumon-efeitos');
+  AU.musicOn=m?m==='1':!old;AU.sfxOn=e?e==='1':!old}catch(e){}
 
 const NOTE={C:0,'C#':1,D:2,'D#':3,E:4,F:5,'F#':6,G:7,'G#':8,A:9,'A#':10,B:11};
 function n2f(n){const m=/^([A-G]#?)(\d)$/.exec(n);if(!m)return 0;return 440*2**((NOTE[m[1]]+(+m[2]+1)*12-69)/12)}
@@ -13,9 +15,9 @@ function auInit(){
   if(AU.ctx){if(AU.ctx.state==='suspended')AU.ctx.resume();return}
   const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
   const c=AU.ctx=new C();
-  AU.master=c.createGain();AU.master.gain.value=AU.on?1:0;AU.master.connect(c.destination);
-  AU.music=c.createGain();AU.music.gain.value=.16;AU.music.connect(AU.master);
-  AU.sfx=c.createGain();AU.sfx.gain.value=.3;AU.sfx.connect(AU.master);
+  AU.master=c.createGain();AU.master.gain.value=1;AU.master.connect(c.destination);
+  AU.music=c.createGain();AU.music.gain.value=AU.musicOn?.16:0;AU.music.connect(AU.master);
+  AU.sfx=c.createGain();AU.sfx.gain.value=AU.sfxOn?.3:0;AU.sfx.connect(AU.master);
   const len=c.sampleRate*.5,b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=Math.random()*2-1;AU.noise=b;
   AU.timer=setInterval(schedule,40);
 }
@@ -103,7 +105,7 @@ function jingle(name){
 }
 // efeitos
 function sfx(k){
-  if(!AU.ctx||!AU.on)return;const t=AU.ctx.currentTime+.01,d=AU.sfx;
+  if(!AU.ctx||!AU.sfxOn)return;const t=AU.ctx.currentTime+.01,d=AU.sfx;
   switch(k){
     case'cursor':tone(t,1046,.035,'square',.25,d);break;
     case'ok':tone(t,784,.05,'square',.3,d);tone(t+.05,1175,.07,'square',.3,d);break;
@@ -123,8 +125,15 @@ function sfx(k){
     case'mato':noise(t,.07,.18,d,3500);break;
   }
 }
-function setSom(on){
-  AU.on=on;try{localStorage.setItem('zoobumon-som',on?'1':'0')}catch(e){}
-  if(AU.master)AU.master.gain.value=on?1:0;
-  const b=$('#somBtn');if(b){b.textContent=on?'♪ Som':'♪ Mudo';b.setAttribute('aria-pressed',String(on))}
+function setMusica(on){AU.musicOn=on;try{localStorage.setItem('zoobumon-musica',on?'1':'0')}catch(e){}if(AU.music)AU.music.gain.value=on?.16:0;somLabel()}
+function setEfeitos(on){AU.sfxOn=on;try{localStorage.setItem('zoobumon-efeitos',on?'1':'0')}catch(e){}if(AU.sfx)AU.sfx.gain.value=on?.3:0;somLabel()}
+function somLabel(){const b=$('#somBtn');if(!b)return;const any=AU.musicOn||AU.sfxOn;b.textContent=any?'♪ Som':'♪ Mudo';b.setAttribute('aria-pressed',String(any))}
+// telinha do som: música e efeitos separados
+async function somMenu(){
+  let sel=0;
+  while(true){
+    const i=await choose([{label:`Música: ${AU.musicOn?'LIGADA':'DESLIGADA'}`},{label:`Efeitos: ${AU.sfxOn?'LIGADOS':'DESLIGADOS'}`},{label:'VOLTAR'}],{cls:'side',start:sel});
+    if(i<0||i===2)return;
+    sel=i;if(i===0)setMusica(!AU.musicOn);else{setEfeitos(!AU.sfxOn);sfx('ok')}
+  }
 }
