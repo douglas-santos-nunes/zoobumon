@@ -70,7 +70,7 @@ const SPECIES={
   zap:{n:'Zap',t:'Elétrico',b:{hp:54,atk:60,def:50,spd:74},xp:70,cr:.35,ls:LS.zap,pal:{base:'#3ccf6a',light:'#90f0aa',dark:'#1e8a44',belly:'#ffffff',accent:'#4fb8f0'},sh:{rx:.7,ry:.6,cy:.55,sp:0,seed:3,nz:.4}},
   cocozinho:{n:'Procedimento Padrão',t:'Normal',b:{hp:62,atk:46,def:62,spd:34},xp:55,cr:.6,ls:LS.coco,evo:['pericle',24],pal:{base:'#8a5530',light:'#b8804e',dark:'#5a3418',belly:'#ffffff',accent:'#2a2a34'},sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:9,nz:.4}},
   pericle:{n:'Procedimento Pericle',t:'Normal',b:{hp:92,atk:78,def:90,spd:42},xp:160,cr:.15,ls:LS.coco,sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:9,nz:.4},
-    pal:{base:'#6e5a26',light:'#9a8440',dark:'#3a2c10',belly:'#d8c860',accent:'#1e1e24',mofo:'#7aa040',fedor:'#a8c860',olho:'#ecec9a',veia:'#d83a3a',dente:'#d8c860'}},
+    pal:{base:'#6e5a26',light:'#9a8440',dark:'#3a2c10',belly:'#d8c860',accent:'#1e1e24',mofo:'#7aa040',fedor:'#a8c860',olho:'#ecec9a',veia:'#d83a3a',dente:'#d8c860',milho:'#f4d23a'}},
   gudang:{n:'Gudang',t:'Fogo',b:{hp:46,atk:64,def:42,spd:60},xp:66,cr:.4,ls:LS.cigarro,evo:['rastafolha',26],pal:{base:'#c8925a',light:'#e8bc84',dark:'#8a5a30',belly:'#f4e8d4',accent:'#e0a040'},sh:{rx:.5,ry:.7,cy:.55,sp:0,seed:13,nz:.4}},
   rastafolha:{n:'Rastafolha',t:'Planta',b:{hp:70,atk:84,def:58,spd:72},xp:150,cr:.15,ls:LS.rasta,sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:13,nz:.4},
     pal:{base:'#7cc85a',belly:'#a8e078',accent:'#f2c03a',dark:'#2a6a2c',light:'#b4ec8c',folha:'#3f9a3c',caule:'#5a9a3a',gorro_v:'#d83a3a',gorro_a:'#f2c03a',gorro_g:'#38a050',faixa:'#2a2226',dread:'#4a2a18'}},
