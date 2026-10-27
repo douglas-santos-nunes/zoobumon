@@ -2,7 +2,7 @@
 
 RPG de captura em pixel art no estilo GBA, feito pra jogar no celular com os amigos.
 
-- **O jogo** fica no GitHub Pages (grátis): `https://douglas-santos-nunes.github.io/zoobumon/`
+- **O jogo** fica no GitHub Pages (grátis), no endereço `https://zoobumon.duckdns.org/` (domínio grátis do DuckDNS apontando pro GitHub Pages; o arquivo `CNAME` guarda esse endereço)
 - **Contas, saves e o online** ficam no Supabase (grátis)
 
 > **Como está agora:** login e save na nuvem **ligados** (`contas: true` em `js/config.js`), então o progresso fica na conta e vale em qualquer aparelho. Amigos no mapa e duelo ao vivo estão **desligados** (`online: false`): cada um evolui no seu ritmo. O Duelo por código (Menu › Duelo) continua funcionando.
@@ -28,7 +28,7 @@ RPG de captura em pixel art no estilo GBA, feito pra jogar no celular com os ami
 ## 3. Ajustar o login
 
 1. Menu da esquerda: **Authentication** → **URL Configuration**.
-2. Em **Site URL**, coloque `https://douglas-santos-nunes.github.io/zoobumon/` e salve.
+2. Em **Site URL**, coloque `https://zoobumon.duckdns.org/` e salve.
 3. (Opcional, deixa mais fácil pros amigos) **Authentication** → **Sign In / Providers** → **Email** → desligue **Confirm email**.
    Assim a conta funciona na hora, sem precisar clicar no link do email.
 
@@ -55,7 +55,7 @@ Essa chave pode ficar pública: quem protege os saves são as regras do banco (p
 1. Em **https://github.com/new** crie um repositório chamado `zoobumon`, **Public**, sem marcar nada mais.
 2. Envie os arquivos desta pasta pra ele (o Claude faz isso pra você com o Git deste computador).
 3. No repositório: **Settings** → **Pages** → em *Branch* escolha `main` e a pasta `/ (root)` → **Save**.
-4. Em 1 ou 2 minutos o jogo aparece em `https://douglas-santos-nunes.github.io/zoobumon/`.
+4. Em 1 ou 2 minutos o jogo aparece em `https://zoobumon.duckdns.org/`.
 
 Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela de entrada.
 
