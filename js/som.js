@@ -11,17 +11,41 @@ function n2f(n){const m=/^([A-G]#?)(\d)$/.exec(n);if(!m)return 0;return 440*2**(
 // "E5:2 G5:1 -:1" vira [[nota,duração em colcheias],...]
 const seq=s=>s.trim().split(/\s+/).map(t=>{const[n,l]=t.split(':');return[n,+l||1]});
 
-function auInit(){
-  if(AU.ctx){if(AU.ctx.state==='suspended')AU.ctx.resume();return}
-  const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
-  const c=AU.ctx=new C();
-  AU.master=c.createGain();AU.master.gain.value=1;AU.master.connect(c.destination);
-  AU.music=c.createGain();AU.music.gain.value=AU.musicOn?.16:0;AU.music.connect(AU.master);
-  AU.sfx=c.createGain();AU.sfx.gain.value=AU.sfxOn?.3:0;AU.sfx.connect(AU.master);
-  const len=c.sampleRate*.5,b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=Math.random()*2-1;AU.noise=b;
-  AU.timer=setInterval(schedule,40);
+// meio segundo de silêncio em WAV, gerado aqui mesmo (sem arquivo)
+function silentWav(){
+  const n=4000,b=new Uint8Array(44+n),v=new DataView(b.buffer),w=(o,s)=>{for(let i=0;i<s.length;i++)b[o+i]=s.charCodeAt(i)};
+  w(0,'RIFF');v.setUint32(4,36+n,true);w(8,'WAVE');w(12,'fmt ');v.setUint32(16,16,true);v.setUint16(20,1,true);v.setUint16(22,1,true);
+  v.setUint32(24,8000,true);v.setUint32(28,8000,true);v.setUint16(32,1,true);v.setUint16(34,8,true);w(36,'data');v.setUint32(40,n,true);b.fill(128,44);
+  let s='';for(const x of b)s+=String.fromCharCode(x);return'data:audio/wav;base64,'+btoa(s);
 }
-for(const ev of['pointerdown','keydown'])addEventListener(ev,auInit,{passive:true});
+function auInit(){
+  if(!AU.ctx){
+    const C=window.AudioContext||window.webkitAudioContext;if(!C)return;
+    const c=AU.ctx=new C();
+    AU.master=c.createGain();AU.master.gain.value=1;AU.master.connect(c.destination);
+    AU.music=c.createGain();AU.music.gain.value=AU.musicOn?.16:0;AU.music.connect(AU.master);
+    AU.sfx=c.createGain();AU.sfx.gain.value=AU.sfxOn?.3:0;AU.sfx.connect(AU.master);
+    const len=c.sampleRate*.5,b=c.createBuffer(1,len,c.sampleRate),d=b.getChannelData(0);for(let i=0;i<len;i++)d[i]=Math.random()*2-1;AU.noise=b;
+    AU.timer=setInterval(schedule,40);
+  }
+  const c=AU.ctx;
+  // o iPhone deixa o áudio "suspenso" (ou "interrompido") até um toque que conte de verdade
+  if(c.state!=='running')c.resume().catch(()=>{});
+  if(!AU.unlocked){
+    // tocar um som vazio dentro do toque libera o áudio de vez no iOS
+    try{const s=c.createBufferSource();s.buffer=c.createBuffer(1,1,22050);s.connect(c.destination);s.start(0)}catch(e){}
+    // com o botão de silencioso do iPhone ligado o Safari corta o som do navegador;
+    // tocar um <audio> (em silêncio, em loop) muda o áudio pro modo "reprodução" e o jogo volta a ter som
+    try{if(navigator.audioSession)navigator.audioSession.type='playback'}catch(e){}
+    try{
+      const a=AU.silent||(AU.silent=new Audio(silentWav()));a.loop=true;a.setAttribute('playsinline','');
+      const p=a.play();if(p)p.then(()=>{AU.unlocked=true}).catch(()=>{});
+    }catch(e){}
+  }
+}
+// pointerdown sozinho não conta como toque pro iOS liberar áudio: escuta também o fim do toque e o clique
+for(const ev of['pointerdown','touchstart','touchend','mouseup','click','keydown'])addEventListener(ev,auInit,{passive:true});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&AU.ctx&&AU.ctx.state!=='running')AU.ctx.resume().catch(()=>{})});
 
 // uma nota com envelope curto (estilo GBA): ataque rápido, cai pro sustain e solta
 function tone(t,f,dur,type,vol,dest,slide){
