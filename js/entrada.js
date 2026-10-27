@@ -22,7 +22,7 @@ addEventListener('keyup',e=>{const b=KEYS[e.code];if(b)up(b)});
 addEventListener('blur',()=>{dirStack.length=0;held.b=false});
 // toque: com texto na tela, tocar em qualquer lugar avança o texto
 $('#game').addEventListener('pointerdown',e=>{
-  if(!started||e.target.closest('.box,#menuBtn,#somBtn,#pad'))return;
+  if(!started||e.target.closest('.box,#menuBtn,#somBtn,#somPop,#pad'))return;
   if(sayActive)press('a');
 });
 // joystick: arrastar a bolinha escolhe a direção (a que mais pesa entre horizontal e vertical)
@@ -50,7 +50,13 @@ for(const[id,b]of[['#btnA','a'],['#btnB','b']]){
 function updatePad(){const vis=started&&mode==='world'&&!busy,pad=$('#pad');if(pad.hidden===vis){pad.hidden=!vis;if(!vis){joyId=null;$('#knob').style.transform='';setJoyDir(null)}}}
 $('#game').addEventListener('contextmenu',e=>e.preventDefault());
 $('#menuBtn').addEventListener('click',e=>{e.currentTarget.blur();press('start')});
-$('#somBtn').addEventListener('click',e=>{e.currentTarget.blur();auInit();if(started&&mode==='world'&&!busy)run(somMenu)});
+// janelinha do som: funciona em qualquer tela, sem depender do menu do jogo
+const somPop=$('#somPop');
+function somOpen(v){somPop.hidden=!v;$('#somBtn').setAttribute('aria-expanded',String(v))}
+$('#somBtn').addEventListener('click',e=>{e.stopPropagation();e.currentTarget.blur();auInit();somOpen(somPop.hidden)});
+somPop.addEventListener('click',e=>{e.stopPropagation();const b=e.target.closest('[data-som]');if(!b)return;auInit();
+  if(b.dataset.som==='musica')setMusica(!AU.musicOn);else{setEfeitos(!AU.sfxOn);sfx('ok')}});
+addEventListener('pointerdown',e=>{if(!somPop.hidden&&!e.target.closest('#somPop,#somBtn'))somOpen(false)});
 somLabel();
 $('#pclose').addEventListener('click',e=>{e.currentTarget.blur();press('b')});
 

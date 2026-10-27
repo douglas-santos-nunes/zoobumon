@@ -127,7 +127,14 @@ function sfx(k){
 }
 function setMusica(on){AU.musicOn=on;try{localStorage.setItem('zoobumon-musica',on?'1':'0')}catch(e){}if(AU.music)AU.music.gain.value=on?.16:0;somLabel()}
 function setEfeitos(on){AU.sfxOn=on;try{localStorage.setItem('zoobumon-efeitos',on?'1':'0')}catch(e){}if(AU.sfx)AU.sfx.gain.value=on?.3:0;somLabel()}
-function somLabel(){const b=$('#somBtn');if(!b)return;const any=AU.musicOn||AU.sfxOn;b.textContent=any?'♪ Som':'♪ Mudo';b.setAttribute('aria-pressed',String(any))}
+function somLabel(){
+  const b=$('#somBtn');if(!b)return;b.textContent=AU.musicOn||AU.sfxOn?'♪ Som':'♪ Mudo';
+  const m=document.querySelector('#somPop [data-som=musica]'),e=document.querySelector('#somPop [data-som=efeitos]');
+  if(m){m.textContent=`Música: ${AU.musicOn?'ligada':'desligada'}`;m.setAttribute('aria-pressed',String(AU.musicOn))}
+  if(e){e.textContent=`Efeitos: ${AU.sfxOn?'ligados':'desligados'}`;e.setAttribute('aria-pressed',String(AU.sfxOn))}
+}
+// nome antigo (algum arquivo velho em cache ainda pode chamar)
+function setSom(on){setMusica(on);setEfeitos(on)}
 // telinha do som: música e efeitos separados
 async function somMenu(){
   let sel=0;

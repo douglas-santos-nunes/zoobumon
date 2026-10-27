@@ -291,7 +291,7 @@ function frame(ts){
     const bc=B?(BG[B.bg]||BG.rota):null;
     const gbg=mode==='battle'&&bc?`linear-gradient(${bc[0]} ${horizon}px,${bc[1]} ${horizon}px)`:mode==='evo'?'#14121c':'#000';
     if(lastBg!==gbg){lastBg=gbg;$('#game').style.background=gbg}
-    const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb){mb.hidden=!showMb;$('#somBtn').hidden=!showMb}
+    const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb)mb.hidden=!showMb;
     if(mode==='world')drawWorld(ts);else if(mode==='battle'&&B)drawBattle();else if(mode==='evo'&&EVO)drawEvo(ts);
   }
   requestAnimationFrame(frame);

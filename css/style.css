@@ -209,11 +209,17 @@ body.playing{overflow:hidden;overscroll-behavior:none}
 .lookopts .chipbtn[aria-pressed="true"]{background:#fff3cf;border-color:var(--gold);color:#38384a}
 @media (max-width:420px){.lookedit img.big{width:64px;height:96px}}
 
-/* botão de som ao lado do Menu */
-#somBtn{position:absolute;right:calc(max(10px,env(safe-area-inset-right,0px)) + 112px);top:calc(env(safe-area-inset-top,0px) + 10px);z-index:4;font:600 15px var(--f-pix);
+/* botão de som: no jogo fica ao lado do Menu; no login e na criação fica no canto de baixo */
+#somBtn{position:fixed;z-index:20;right:calc(max(10px,env(safe-area-inset-right,0px)) + 112px);top:calc(env(safe-area-inset-top,0px) + 10px);font:600 15px var(--f-pix);
   background:linear-gradient(180deg,#fefdf8,#ecead0);color:#38384a;border:3px solid #45507a;border-radius:10px;padding:8px 11px;cursor:pointer;box-shadow:inset 0 0 0 2px #fff,0 3px 0 rgba(0,0,0,.35)}
-#somBtn[aria-pressed="false"]{color:#9a96a8}
-#somBtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+body:not(.playing) #somBtn{top:auto;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 14px)}
+#somBtn:focus-visible,#somPop button:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+#somPop{position:fixed;z-index:21;right:calc(max(10px,env(safe-area-inset-right,0px)) + 112px);top:calc(env(safe-area-inset-top,0px) + 62px);display:flex;flex-direction:column;gap:6px;
+  background:#f8f8f0;border:3px solid #45507a;border-radius:12px;padding:8px;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#somPop[hidden]{display:none}
+body:not(.playing) #somPop{top:auto;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(env(safe-area-inset-bottom,0px) + 66px)}
+#somPop button{font:600 15px var(--f-pix);text-align:left;min-width:170px;padding:10px 12px;border-radius:8px;cursor:pointer;border:2px solid #c8c8d8;background:#ecebf4;color:#9a96a8}
+#somPop button[aria-pressed="true"]{background:#fff3cf;border-color:var(--gold);color:#38384a}
 
 /* Zoobudex no jogo */
 .dexn{font:600 14px var(--f-pix);color:#8a8aa0;width:42px;flex:none}
