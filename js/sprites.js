@@ -399,6 +399,9 @@ const ACC_PARTS={
   grau:{front:[Cp(4.9,7.6,7.4,7.6,.2,'frame',{m:1}),Cp(4.9,9.9,7.4,9.9,.2,'frame',{m:1}),Cp(4.9,7.6,4.9,9.9,.2,'frame',{m:1}),Cp(7.4,7.6,7.4,9.9,.2,'frame',{m:1}),Cp(7.4,8.4,8.6,8.4,.2,'frame')],back:[],
     side:[Cp(4,7.7,6.2,7.7,.2,'frame'),Cp(4,9.8,6.2,9.8,.2,'frame'),Cp(4,7.7,4,9.8,.2,'frame'),Cp(6.2,7.7,6.2,9.8,.2,'frame'),Cp(6.2,8.4,9.2,8.1,.18,'frame')]},
   mochila:{front:[Cp(5.3,11.9,5.7,16,.45,'X2',{m:1})],back:[E(8,14.6,4.1,4.5,'X1'),E(8,12.6,3.7,1.5,'X2'),Cp(6,16.8,10,16.8,.5,'X2')],side:[E(11.4,14.6,1.9,3.8,'X1'),Cp(9.2,12,10.6,12.2,.4,'X2')]},
+  // camisa de time: a cor da camisa vem da skin; aqui só a gola em V e o escudinho
+  camisa:{front:[Cp(6.4,11.7,8,13.2,.42,'X2'),Cp(9.6,11.7,8,13.2,.42,'X2'),E(6.1,14.4,.72,.85,'X3'),E(6.1,14.2,.32,.36,'X1',{noLine:1}),Cp(4.3,18.4,11.7,18.4,.38,'X2',{noLine:1})],
+    back:[Cp(6.2,11.8,9.8,11.8,.42,'X2')],side:[Cp(6.4,11.9,9.4,11.9,.4,'X2')]},
   cachecol:{front:[Cp(4.8,11.7,11.2,11.7,1.05,'X1'),Cp(10.2,12.2,10.8,15.4,.85,'X1'),Cp(10.3,14,10.8,14,.3,'X2'),Cp(5.4,11.7,6.4,11.7,.3,'X2'),Cp(9.4,11.7,10.4,11.7,.3,'X2')],
     back:[Cp(4.8,11.6,11.2,11.6,1.05,'X1'),Cp(7.4,11.6,8.6,11.6,.3,'X2')],side:[Cp(5,11.7,10.6,11.7,1,'X1'),Cp(9.6,12,11,15,.8,'X1')]},
 };
@@ -420,7 +423,7 @@ function charParts(dir,f,back,look){
     P.push(Cp(8.4,12.6,8.4+sw*1.5,16,1.05,'shirt'),E(8.4+sw*1.5,16.8,.95,.95,'skin'));
     P.push(Cp(8,17,8-1.3*sw,20.7,1.45,'pants'),Cp(8,17,8+1.3*sw,20.7,1.45,'pants'));
     P.push(E(7.3-1.3*sw,21.7,2,1.1,'shoes'),E(7.3+1.3*sw,21.7,2,1.1,'shoes'));
-    P.push(E(8,14.8,fem?3.4:3.7,4.4,'shirt'),Cp(6.4,18,9.6,18,1.5,'pants'));
+    P.push(E(8,14.8,fem?3.4:3.7,4.4,'shirt'),Cp(6.4,18,9.6,18,1.5,'pants'),...acc(look,'corpo','side'));
     P.push(Cp(7.6,12.6,7.6-sw*1.5,16,1.15,'shirt'),E(7.6-sw*1.5,16.9,1,1,'skin'));
     P.push(...acc(look,'costas','side'),...acc(look,'pescoco','side'));
     P.push(Cp(8,11.4,8.4,12.6,1.2,'skind',{fl:1}),E(7.7,7.9,4.45,4.75,'skin',{fl:1}),E(3.35,9.7,.85,.7,'skin',{fl:1}));
@@ -438,7 +441,7 @@ function charParts(dir,f,back,look){
   const lA=f===1?-1.1:0,lB=f===2?-1.1:0,a=sw*.7,ax=fem?.4:0;
   P.push(Cp(3.6+ax,12.6,3.3+ax,16.3+a,1.15,'shirt'),E(3.3+ax,17.1+a,1,1,'skin'),Cp(12.4-ax,12.6,12.7-ax,16.3-a,1.15,'shirt'),E(12.7-ax,17.1-a,1,1,'skin'));
   P.push(Cp(6.3,17,6.3,20.6+lA,1.5,'pants'),Cp(9.7,17,9.7,20.6+lB,1.5,'pants'),E(6.2,21.7+lA,1.9,1.1,'shoes'),E(9.8,21.7+lB,1.9,1.1,'shoes'));
-  P.push(E(8,14.8,fem?4.1:4.6,4.4,'shirt'),Cp(5.4,18,10.6,18,1.6,'pants'));
+  P.push(E(8,14.8,fem?4.1:4.6,4.4,'shirt'),Cp(5.4,18,10.6,18,1.6,'pants'),...acc(look,'corpo',back?'back':'front'));
   P.push(...(back?[...acc(look,'costas','back'),...acc(look,'pescoco','back')]:[...acc(look,'pescoco','front'),...acc(look,'costas','front')]));
   if(!back&&style.under)P.push(...style.under);
   if(style.ears)P.push(...EARS_FRONT);
@@ -461,7 +464,7 @@ function charParts(dir,f,back,look){
   return P;
 }
 // letreiro em fonte de pixel 3x5
-const PFONT={U:'101101101101111',P:'110101110100100',C:'111100100100111',E:'111100110100111',N:'101111111101101',T:'111010010010010',R:'110101110101101',O:'010101101101010',L:'100100100100111',M:'101111101101101',S:'111100111001111',V:'101101101101010',J:'011001001101010',A:'010101111101101'};
+const PFONT={'1':'010110010010111','0':'111101101101111',U:'101101101101111',P:'110101110100100',C:'111100100100111',E:'111100110100111',N:'101111111101101',T:'111010010010010',R:'110101110101101',O:'010101101101010',L:'100100100100111',M:'101111101101101',S:'111100111001111',V:'101101101101010',J:'011001001101010',A:'010101111101101'};
 function pixText(g,txt,x,y,col,sh,k=2){
   [...txt].forEach((ch,n)=>{const m=PFONT[ch];if(!m)return;
     for(let r=0;r<5;r++)for(let c=0;c<3;c++)if(m[r*3+c]==='1'){if(sh)R(g,sh,x+n*4*k+c*k+1,y+r*k+1,k,k);R(g,col,x+n*4*k+c*k,y+r*k,k,k)}});
@@ -471,6 +474,7 @@ function buildChar(look){
   look={sex:'m',...look};
   const col={skin:skinRamp(look.skin),hair:ramp(look.hair),shirt:ramp(look.shirt),pants:ramp(look.pants),shoes:ramp('#5a3e2e'),skind:skinRamp(darker(look.skin,.82)),brow:ramp(darker(look.beardColor&&look.style==='raspado'?look.beardColor:look.hair,.8)),beard:ramp(look.beardColor||look.hair),stub:ramp(mixHex(darker(look.skin,.8),look.beardColor||look.hair,.35))};
   for(const slot in look.acc||{}){const sk=SKINS[look.acc[slot]];if(sk)(sk.c||[]).forEach((c,i)=>{col[slot+(i+1)]=ramp(c)})}
+  const tee=SKINS[look.acc&&look.acc.corpo];if(tee&&tee.slot==='corpo')col.shirt=ramp(tee.c[0]);
   const out={};
   for(const dir of['down','up','left']){
     out[dir]=[0,1,2].map(f=>renderSprite(32,48,charParts(dir,f,dir==='up',look),col,false,2));
@@ -478,6 +482,7 @@ function buildChar(look){
   // boné com letreiro: as letras vão em pixel branco na frente da copa
   const cap=SKINS[look.acc&&look.acc.cabeca];
   if(cap&&cap.txt)for(const c of out.down){const w=pixTextW(cap.txt,1);pixText(c.getContext('2d'),cap.txt,Math.round(16-w/2),6,'#ffffff',null,1)}
+  if(tee&&tee.num)for(const c of out.up){const w=pixTextW(tee.num,1);pixText(c.getContext('2d'),tee.num,Math.round(16-w/2),26,tee.c[1],null,1)}
   out.right=out.left.map(c=>mk(32,48,g=>{g.translate(32,0);g.scale(-1,1);g.drawImage(c,0,0)}));
   return out;
 }

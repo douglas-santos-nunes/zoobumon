@@ -131,6 +131,7 @@ const SKINS={
   bone_azul:{n:'Boné azul',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],price:250},
   bone_mst:{n:'Boné MST',slot:'cabeca',kind:'bone',c:['#d83a3a','#a02828'],txt:'MST',price:350},
   bone_vero:{n:'Boné VERO',slot:'cabeca',kind:'bone',c:['#3a6ad8','#28489a'],txt:'VERO',price:350},
+  peita_brasil:{n:'Peita do Brasil',slot:'corpo',kind:'camisa',c:['#f6d32a','#1e9a4a','#2a5ad8'],num:'10',price:500},
   chapeu:{n:'Chapéu de palha',slot:'cabeca',kind:'chapeu',c:['#e8c870','#c8a050','#c83a3a'],price:400},
   gorro:{n:'Gorro',slot:'cabeca',kind:'gorro',c:['#38a050','#f4f4f4'],price:300},
   coroa:{n:'Coroa dourada',slot:'cabeca',kind:'coroa',c:['#f2c03a','#c88a18','#e83a5a'],price:2500},
@@ -140,7 +141,7 @@ const SKINS={
   cachecol:{n:'Cachecol',slot:'pescoco',kind:'cachecol',c:['#d84040','#f4f4f4'],price:300},
   touca:{n:'Touca de enfermeira',slot:'cabeca',kind:'touca',c:['#ffffff','#e04848'],price:0,hidden:1},
 };
-const SLOTN={cabeca:'Cabeça',rosto:'Rosto',pescoco:'Pescoço',costas:'Costas'};
+const SLOTN={cabeca:'Cabeça',rosto:'Rosto',pescoco:'Pescoço',costas:'Costas',corpo:'Camisa'};
 const CLASSES={
   guerreiro:{n:'Guerreiro',d:'+15% de ataque pros seus zoobumons',atk:.15},
   guardiao:{n:'Guardião',d:'+15% de defesa e +10% de vida',def:.15,hp:.1},
