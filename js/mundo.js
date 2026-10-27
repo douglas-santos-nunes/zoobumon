@@ -143,7 +143,7 @@ function worldPress(b){
   const t=tileAt(fx,fy);
   if(t==='~')run(()=>say('A água está calma e funda. Melhor não nadar.'));
   else if(t==='R')run(()=>say('Uma pedra enorme. Não dá pra mover.'));
-  else if(bd)run(()=>say(bd.kind==='centro'?'UPA: cura grátis e o PC pra guardar seus zoobumons.':'Loja da Vila: itens, equipamentos e skins.'));
+  else if(bd)run(()=>say(bd.kind==='centro'?'UPA: cura grátis e o PC pra guardar seus zoobumons.':'Loja: itens, equipamentos e skins.'));
 }
 // entra no Centro ou na Loja: troca de cena e aparece em cima do tapete da porta
 async function enterBuilding(b){sfx('porta');

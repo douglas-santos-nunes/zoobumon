@@ -10,6 +10,10 @@ const BUILDINGS=[
   {kind:'centro',x:16,y:42,w:5,h:4,door:[18,45]},   // Distrito Corporativo
   {kind:'centro',x:50,y:44,w:5,h:4,door:[52,47]},   // Rua do Boteco
   {kind:'centro',x:84,y:44,w:5,h:4,door:[86,47]},   // Morro do Côco
+  // e uma Loja do lado de cada UPA nova
+  {kind:'loja',x:21,y:42,w:5,h:4,door:[23,45]},
+  {kind:'loja',x:55,y:44,w:5,h:4,door:[57,47]},
+  {kind:'loja',x:78,y:44,w:5,h:4,door:[80,47]},
 ];
 function buildMap(){
   rect('T',0,0,MW,2);rect('T',0,MH-2,MW,2);rect('T',0,0,2,MH);rect('T',MW-2,0,2,MH);
@@ -63,7 +67,7 @@ function buildMap(){
   rect('=',44,34,16,1);                            // bosque -> boteco
   rect('=',80,53,1,10);rect('=',80,62,8,1);
   // chão limpo em volta das UPAs novas (tira prédio/casa/pedra que estava ali) e caminho até a rua
-  rect('c',15,41,10,7);rect('.',49,43,7,5);rect('d',83,43,7,6);rect('=',86,48,1,5);
+  rect('c',15,41,11,7);rect('.',49,43,11,6);rect('d',77,43,13,6);rect('=',86,48,1,5);rect('=',80,48,1,5);
   for(const b of BUILDINGS)rect('B',b.x,b.y,b.w,b.h);
   // ninguém fica em cima de árvore, pedra ou parede
   for(const n of NPCS)if('TRYOH~'.includes(MAP[n.y][n.x]))MAP[n.y][n.x]=zoneAt(n.x,n.y)==='serra'?'d':'.';
@@ -85,7 +89,7 @@ const INT={
     '#p_bb__bb_p#',
     '#__________#',
     '#####EE#####']},
-  loja:{name:'Loja da Vila',floor:'madeira',entry:[4,7],rows:[
+  loja:{name:'Loja',floor:'madeira',entry:[4,7],rows:[
     '##########',
     '##########',
     '#FFSS_SSK#',

@@ -215,7 +215,7 @@ const SHOP_CATS=[['i','Itens','Poções e Redes'],['g','Equipamentos','Deixam se
 const shopDef=(t,k)=>t==='i'?ITEMS[k]:t==='g'?GEAR[k]:SKINS[k];
 const shopDesc=(t,k)=>t==='s'?SLOTN[SKINS[k].slot]:shopDef(t,k).d;
 async function shopMenu(){
-  await say('Vendedor: Bem-vindo à Loja da Vila! Vai comprar ou vender?');
+  await say('Vendedor: Bem-vindo à Loja! Vai comprar ou vender?');
   while(true){
     setText(`Você tem ${S.coins} moedas.`);
     const a=await choose([{label:'COMPRAR'},{label:'VENDER'},{label:'SAIR'}],{cls:'side'});
