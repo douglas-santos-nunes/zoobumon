@@ -2,14 +2,15 @@
 /* =================== menus =================== */
 async function startMenu(){
   while(true){
-    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','DUELO','SOM','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
-    if(i<0||i===7)return;
-    if(i===5){await somMenu();continue}
+    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','RANKING','DUELO','SOM','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
+    if(i<0||i===8)return;
+    if(i===4){await rankMenu();hidePanel();continue}
+    if(i===6){await somMenu();continue}
     if(i===0)await dexMenu();
     else if(i===1)await zoobumonsMenu();
     else if(i===2)await bagMenu();
     else if(i===3)await trainerMenu();
-    else if(i===4){
+    else if(i===5){
       const t=await duelPanel();hidePanel();
       if(t){await say(`${t.name} te desafiou com ${t.team.length} zoobumon(s)!`);await fight({team:t.team,owner:t.owner,name:t.name,bg:'vila',friendly:true,reward:100});return}
     }
@@ -43,6 +44,17 @@ async function monSheet(m){
     <div>ATQ ${st(m,'atk',S)} · DEF ${st(m,'def',S)} · VEL ${st(m,'spd',S)}</div>
     <div>Faltam ${Math.max(0,b-m.xp)} de XP pro próximo nível</div>${sp.evo?`<div>Evolui no nível ${sp.evo[1]}</div>`:''}</div></div>
     <div class="mvs">${m.moves.map(k=>`<div>${chip(MOVES[k].t)} ${MOVES[k].n} <small>PP ${ppOf(m,k)}/${ppMax(k)} · Poder ${MOVES[k].p}</small></div>`).join('')}</div>`});
+  await choose([{label:'Voltar'}],{root:p.list});
+}
+// ranking: sua posição em cima e o top 10 dos treinadores (por XP de treinador)
+async function rankMenu(){
+  const p=showPanel('Ranking dos treinadores',{body:'<p>Carregando o ranking...</p>'});
+  const r=await rankLoad();
+  const row=(n,x,eu)=>`<div class="rk${eu?' eu':''}"><span class="rkp">${n<=3?['🥇','🥈','🥉'][n-1]:n+'º'}</span><div class="pinfo"><b>${esc(x.nome)}</b><small>Nv de treinador ${x.nivel} · ${x.pegos} pegos · melhor zoobumon Nv ${x.melhor}</small></div><span class="r">${x.txp} XP</span></div>`;
+  if(r.off)p.body.innerHTML='<p>Entre com a sua conta pra aparecer no ranking e ver os outros treinadores.</p>';
+  else if(r.err)p.body.innerHTML='<p>Não deu pra carregar o ranking agora. Confira a internet e tente de novo.</p>';
+  else p.body.innerHTML=`<div class="rkhead">Você</div>${row(r.pos,r.mine,true)}<div class="rkhead">Top 10</div>${r.top.map((x,k)=>row(k+1,x,x.user_id===r.mine.user_id)).join('')||'<p>Ninguém no ranking ainda.</p>'}`;
+  p.body.classList.add('grow');
   await choose([{label:'Voltar'}],{root:p.list});
 }
 // Zoobudex: como na FireRed. Nunca visto = só o número; visto = só a foto; pego = foto, nome e a ficha completa
