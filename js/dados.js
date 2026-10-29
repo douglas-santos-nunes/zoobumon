@@ -120,14 +120,14 @@ const ITEMS={
   redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:200,net:1.8},
 };
 const GEAR={
-  faixa:{n:'Faixa de Força',d:'+12% ataque dos seus zoobumons',price:300,atk:.12},
-  escudo:{n:'Escudo de Couro',d:'+12% defesa dos seus zoobumons',price:300,def:.12},
-  lente:{n:'Lente do Caçador',d:'+20% de chance de captura',price:350,cap:.2},
-  botas:{n:'Botas Velozes',d:'Você anda e corre mais rápido',price:200,spd:1},
-  amufogo:{n:'Amuleto de Brasa',d:'+10% de dano em golpes de Fogo',price:450,boost:'Fogo'},
-  amuagua:{n:'Amuleto da Maré',d:'+10% de dano em golpes de Água',price:450,boost:'Água'},
-  amuplanta:{n:'Amuleto da Raiz',d:'+10% de dano em golpes de Planta',price:450,boost:'Planta'},
-  amueletr:{n:'Amuleto do Raio',d:'+10% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
+  faixa:{n:'Faixa de Força',d:'+10% ataque dos seus zoobumons',price:1000,atk:.1},
+  escudo:{n:'Escudo de Couro',d:'+10% defesa dos seus zoobumons',price:1000,def:.1},
+  lente:{n:'Lente do Caçador',d:'+20% de chance de captura',price:1000,cap:.2},
+  botas:{n:'Botas Velozes',d:'Você anda e corre mais rápido',price:1000,spd:1},
+  amufogo:{n:'Amuleto de Brasa',d:'+10% de dano em golpes de Fogo',price:1000,boost:'Fogo'},
+  amuagua:{n:'Amuleto da Maré',d:'+10% de dano em golpes de Água',price:1000,boost:'Água'},
+  amuplanta:{n:'Amuleto da Raiz',d:'+10% de dano em golpes de Planta',price:1000,boost:'Planta'},
+  amueletr:{n:'Amuleto do Raio',d:'+10% de dano em golpes Elétricos',price:1000,boost:'Elétrico'},
 };
 // skins: só visual. slot = onde vai no personagem; c = cores (principal, detalhe, enfeite)
 const SKINS={

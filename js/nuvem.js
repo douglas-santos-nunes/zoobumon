@@ -17,13 +17,14 @@ function cloudSave(){
 // ranking: cada um só escreve a própria linha; todo mundo pode ler (regras em supabase/esquema.sql)
 function rankRow(){
   const mons=[...S.party,...S.box],d=S.dex&&S.dex.p?Object.keys(S.dex.p).length:0;
-  return{user_id:me.id,nome:String(S.name||'Treinador').slice(0,20),txp:Math.floor(S.txp||0),nivel:tlevel(S.txp),pegos:Math.max(d,S.caught||0),melhor:Math.max(1,...mons.map(m=>m.lv||1)),updated_at:new Date().toISOString()};
+  return{user_id:me.id,nome:String(S.name||'Treinador').slice(0,20),txp:Math.floor(S.txp||0),nivel:tlevel(S.txp),pegos:Math.max(d,S.caught||0),melhor:Math.max(1,...mons.map(m=>m.lv||1)),
+    time:S.party.map(m=>[m.s,m.lv]),visual:S.look,vitorias:S.wins||0,updated_at:new Date().toISOString()};
 }
 async function rankSave(){if(!sb||!me||!S)return;const{error}=await sb.from('ranking').upsert(rankRow());if(error)console.warn('Ranking:',error.message)}
 async function rankLoad(){
   if(!sb||!me)return{off:true};
   await rankSave();
-  const top=await sb.from('ranking').select('user_id,nome,txp,nivel,pegos,melhor').order('txp',{ascending:false}).order('updated_at',{ascending:true}).limit(10);
+  const top=await sb.from('ranking').select('user_id,nome,txp,nivel,pegos,melhor,time,visual,vitorias').order('txp',{ascending:false}).order('updated_at',{ascending:true}).limit(10);
   if(top.error)return{err:top.error.message};
   const mine=rankRow(),acima=await sb.from('ranking').select('user_id',{count:'exact',head:true}).gt('txp',mine.txp);
   return{top:top.data||[],mine,pos:(acima.count||0)+1};

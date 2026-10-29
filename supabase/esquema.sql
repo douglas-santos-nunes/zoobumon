@@ -45,3 +45,8 @@ create policy "ranking: criar a propria linha" on public.ranking for insert with
 drop policy if exists "ranking: atualizar a propria linha" on public.ranking;
 create policy "ranking: atualizar a propria linha" on public.ranking for update using (auth.uid() = user_id) with check (auth.uid() = user_id);
 create index if not exists ranking_txp on public.ranking (txp desc);
+
+-- Perfil no ranking: time atual, visual e duelos vencidos (o jogo atualiza junto com o save)
+alter table public.ranking add column if not exists time jsonb not null default '[]'::jsonb;
+alter table public.ranking add column if not exists visual jsonb not null default '{}'::jsonb;
+alter table public.ranking add column if not exists vitorias integer not null default 0;

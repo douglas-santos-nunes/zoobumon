@@ -50,12 +50,33 @@ async function monSheet(m){
 async function rankMenu(){
   const p=showPanel('Ranking dos treinadores',{body:'<p>Carregando o ranking...</p>'});
   const r=await rankLoad();
-  const row=(n,x,eu)=>`<div class="rk${eu?' eu':''}"><span class="rkp">${n<=3?['🥇','🥈','🥉'][n-1]:n+'º'}</span><div class="pinfo"><b>${esc(x.nome)}</b><small>Nv de treinador ${x.nivel} · ${x.pegos} pegos · melhor zoobumon Nv ${x.melhor}</small></div><span class="r">${x.txp} XP</span></div>`;
+  const row=(n,x,eu,k)=>`<div class="rk${eu?' eu':''}" data-k="${k}" role="button" tabindex="0"><span class="rkp">${n<=3?['🥇','🥈','🥉'][n-1]:n+'º'}</span><div class="pinfo"><b>${esc(x.nome)}</b><small>Nv de treinador ${x.nivel} · ${x.pegos} pegos · melhor zoobumon Nv ${x.melhor}</small></div><span class="r">${x.txp} XP</span></div>`;
   if(r.off)p.body.innerHTML='<p>Entre com a sua conta pra aparecer no ranking e ver os outros treinadores.</p>';
   else if(r.err)p.body.innerHTML='<p>Não deu pra carregar o ranking agora. Confira a internet e tente de novo.</p>';
-  else p.body.innerHTML=`<div class="rkhead">Você</div>${row(r.pos,r.mine,true)}<div class="rkhead">Top 10</div>${r.top.map((x,k)=>row(k+1,x,x.user_id===r.mine.user_id)).join('')||'<p>Ninguém no ranking ainda.</p>'}`;
+  else p.body.innerHTML=`<div class="rkhead">Você</div>${row(r.pos,r.mine,true,'eu')}<div class="rkhead">Top 10 · toque num treinador pra ver o perfil</div>${r.top.map((x,k)=>row(k+1,x,x.user_id===r.mine.user_id,k)).join('')||'<p>Ninguém no ranking ainda.</p>'}`;
   p.body.classList.add('grow');
-  await choose([{label:'Voltar'}],{root:p.list});
+  // tocar num treinador abre o perfil dele por cima; Voltar fecha o perfil e depois o ranking
+  let open=null;
+  p.body.onclick=e=>{const el=e.target.closest('.rk[data-k]');if(!el||r.off||r.err)return;const k=el.dataset.k,x=k==='eu'?r.mine:r.top[+k];if(!x)return;sfx('ok');open=x;rankProfile(x,k==='eu'?r.pos:+k+1)};
+  while(true){
+    await choose([{label:'Voltar'}],{root:p.list});
+    if(open&&!$('#rkpf').hidden){$('#rkpf').hidden=true;open=null;continue}
+    break;
+  }
+  p.body.onclick=null;$('#rkpf').hidden=true;
+}
+// ficha do outro treinador: boneco (visual e skins), números e o time com o principal marcado
+function rankProfile(x,pos){
+  let el=$('#rkpf');if(!el){el=document.createElement('div');el.id='rkpf';$('#pbody').after(el)}
+  const look=safeLook(x.visual),spr=buildChar(look).down[0],pv=mk(32,48,g=>g.drawImage(spr,0,0)).toDataURL();
+  const time=(Array.isArray(x.time)?x.time:[]).filter(t=>Array.isArray(t)&&SPECIES[t[0]]).slice(0,6);
+  el.innerHTML=`<div class="sheetm"><img class="big pf" src="${pv}" alt="Boneco de ${esc(x.nome)}"><div>
+    <div><b>${esc(x.nome)}</b> <small>${pos}º no ranking</small></div>
+    <div>Nível de treinador ${x.nivel} · ${x.txp} XP</div>
+    <div>${x.pegos} zoobumons pegos · ${x.vitorias||0} duelos vencidos</div></div></div>
+    <div class="rkhead">Time atual</div>
+    <div class="pftime">${time.map(([s,lv],i)=>`<div class="pfm${i?'':' lead'}"><img src="${icon(s)}" alt=""><b>${i?'':'★ '}${esc(SPECIES[s].n)}</b><small>Nv ${lv|0}</small>${chip(SPECIES[s].t)}</div>`).join('')||'<p>Sem zoobumons no time.</p>'}</div>`;
+  el.hidden=false;el.scrollTop=0;
 }
 // Zoobudex: como na FireRed. Nunca visto = só o número; visto = só a foto; pego = foto, nome e a ficha completa
 const dexNum=i=>'#'+String(i+1).padStart(3,'0');
