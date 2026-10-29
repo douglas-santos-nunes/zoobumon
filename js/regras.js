@@ -26,7 +26,7 @@ const ppMax=k=>{const p=(MOVES[k]||{}).p||40;return p<=45?30:p<=60?20:p<=80?15:p
 function ppOf(m,k){return m.pp&&m.pp[k]!=null?m.pp[k]:ppMax(k)}
 function usePP(m,k){if(!MOVES[k]||k==='desespero')return;m.pp=m.pp||{};m.pp[k]=Math.max(0,ppOf(m,k)-1)}
 function restorePP(m){delete m.pp}
-function healAll(){for(const m of[...S.party,...S.box]){m.hp=maxHP(m,S);restorePP(m)}}
+function healAll(){for(const m of[...S.party,...S.box]){m.hp=maxHP(m,S);restorePP(m);delete m.st}}
 function calcDamage(A,Ao,D,Do,mv){
   const L=A.lv,atk=st(A,'atk',Ao),def=st(D,'def',Do);
   let d=((2*L/5+2)*mv.p*atk/def)/50+2;

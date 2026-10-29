@@ -157,6 +157,7 @@ async function bagMenu(){
     if(t<0){msg='';continue}
     const m=S.party[t],mx=maxHP(m,S);
     if(m.hp<=0){msg='Zoobumon desmaiado: leve à UPA.';continue}
+    if(it.cure){if(m.st!==it.cure){msg='Esse não está envenenado.';continue}delete m.st;S.bag[ids[i]]--;msg=`${nameOf(m)} não está mais envenenado!`;continue}
     if(it.pp){if(!m.pp||!Object.keys(m.pp).length){msg='Os golpes dele já estão com PP cheio.';continue}restorePP(m);S.bag[ids[i]]--;msg=`Os golpes de ${nameOf(m)} estão com PP cheio!`;continue}
     if(m.hp>=mx){msg='Esse já está com a vida cheia.';continue}
     const h=Math.min(it.heal,mx-m.hp);m.hp+=h;S.bag[ids[i]]--;msg=`${nameOf(m)} recuperou ${h} PV.`;

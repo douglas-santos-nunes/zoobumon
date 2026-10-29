@@ -75,6 +75,8 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 - **Loja** (tijolinho com toldo verde, tem uma do lado de cada UPA): entre e fale com o Vendedor pra **comprar** (itens, equipamentos e skins) ou **vender** pela metade do preço.
 - **Skins**: bonés MST e VERO, Peita do Brasil, chapéu, gorro, coroa, óculos, mochila e cachecol. Use em Menu › Treinador › Visual.
 - **Som:** música 8-bit (mapa, batalha, UPA/Loja, evolução) e efeitos. Em **Menu › Som** dá pra ligar e desligar a **música** e os **efeitos** separadamente.
+- **Veneno:** golpes de Planta têm 10% de chance de envenenar (zoobumon de Planta não pega). Envenenado (ENV) perde 1/8 da vida por turno até curar na UPA ou com **Antídoto**.
+- **XP dividido:** se você trocar de zoobumon no meio da luta, o XP do inimigo derrotado é dividido entre os que lutaram e continuam de pé.
 - **PP:** cada golpe tem um número de usos (os fortes têm menos). Recupere na UPA ou com o **Elixir** da Loja. Se todos acabarem, o zoobumon usa **Desespero**, que também machuca ele.
 - **Aparência**: dá pra trocar personagem, cabelo, barba e cores a qualquer hora, de graça, em Menu › Treinador › Aparência.
 

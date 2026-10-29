@@ -6,9 +6,10 @@ const NPCS=[
   {x:9,y:10,dir:'down',name:'Prof. Ipê',look:{style:'raspado',beard:'cheia',hair:'#e4e4ec',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#5868a0'},talk:async()=>{
     await say(`Prof. Ipê: Olá, ${S.name}! Os zoobumons vivem no mato alto.`);
     await say('Enfraqueça um zoobumon e jogue uma Rede. Quanto menos vida ele tiver, mais fácil de pegar.');
-    await say('Ao sul fica a Trilha 1 (Nv 2 a 5). A leste, o Barro Vermelho (Nv 6 a 10). No sudeste, o Beco das 7 Facadas (Nv 9 a 15).');
-    await say('Depois da Trilha tem o Distrito Corporativo. Depois do Barro Vermelho, a Praia Brava. Depois do Beco, a Rua do Boteco.');
-    await say('E lá no fim de tudo, o Morro do Côco. Só os treinadores mais fortes voltam de lá!');
+    const nv=z=>{const l=ENC[z];return`Nv ${Math.min(...l.map(e=>e[2]))} a ${Math.max(...l.map(e=>e[3]))}`};
+    await say(`Ao sul fica a Trilha 1 (${nv('rota')}). A leste, o Barro Vermelho (${nv('pedreira')}). No sudeste, o Beco das 7 Facadas (${nv('bosque')}).`);
+    await say(`Depois da Trilha, o Distrito Corporativo (${nv('cidade')}). Depois do Barro Vermelho, a Praia Brava (${nv('praia')}). Depois do Beco, a Rua do Boteco (${nv('boteco')}).`);
+    await say(`E lá no fim de tudo, o Morro do Côco (${nv('serra')}). Só os treinadores mais fortes voltam de lá!`);
   }},
   {x:16,y:10,dir:'down',name:'Kael',look:{style:'espetado',hair:'#c83030',skin:'#dca474',shirt:'#2c2c34',pants:'#3a4a7c'},talk:n=>rivalTalk(n)},
   {x:13,y:13,dir:'left',name:'Lia',look:{sex:'f',style:'rabo',hair:'#e8c050',skin:'#f8d4ac',shirt:'#8848c0',pants:'#2a2a32'},talk:async()=>{
@@ -45,7 +46,7 @@ const INT_NPCS={
   centro:[{x:6,y:2,dir:'down',name:'Enfermeira',fixed:1,look:{sex:'f',style:'coque',hair:'#f08aa8',skin:'#f8d4ac',shirt:'#f4f4f4',pants:'#e8e8f0',acc:{cabeca:'touca'}},talk:async()=>{
     await say('Enfermeira: Bem-vindo à UPA! Vou cuidar do seu time.');
     jingle('cura');await fadeTo(.6,200,'#fff');healAll();{const d=(curB||BUILDINGS[0]).door;S.respawn={x:d[0],y:d[1]+1}}await fadeTo(0,300);
-    await say('Pronto! Vida e PP recuperados, seus zoobumons estão novinhos em folha. Volte sempre!');save();
+    await say('Pronto! Vida, PP e veneno curados, seus zoobumons estão novinhos em folha. Volte sempre!');save();
   }}],
   loja:[{x:1,y:5,dir:'down',name:'Vendedor',fixed:1,look:{style:'curto',hair:'#3a2a22',skin:'#dca474',shirt:'#3870d0',pants:'#2a2a32',acc:{cabeca:'bone_vero'}},talk:()=>shopMenu()},
     {x:3,y:3,dir:'up',name:'Cliente',look:{sex:'f',style:'chanel',hair:'#3a2a22',skin:'#a8703e',shirt:'#e0a020',pants:'#3a4a7c'},talk:async()=>{

@@ -6,8 +6,8 @@ function hud(){
   if(!B){$('#ehud').hidden=$('#phud').hidden=true;return}
   const e=B.team[B.ei],m=S.party[B.me];
   $('#ehud').hidden=!B.showE;$('#phud').hidden=!B.showP;
-  if(e){dexSee(e.s);$('#en').textContent=nameOf(e);fitName($('#en'));$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
-  if(m){const mx=maxHP(m,S),t=SPECIES[m.s].t;$('#pn').textContent=nameOf(m);fitName($('#pn'));$('#pl').textContent='Nv'+m.lv;$('#pt').textContent=t;$('#pt').style.background=TYPEC[t];
+  if(e){dexSee(e.s);$('#ecap').hidden=!(B.wild&&dexOf().p[e.s]);$('#es').hidden=e.st!=='env';$('#en').textContent=nameOf(e);fitName($('#en'));$('#el').textContent='Nv'+e.lv;const t=SPECIES[e.s].t;$('#et').textContent=t;$('#et').style.background=TYPEC[t];setBar($('#ehp'),e.hp/maxHP(e,B.owner))}
+  if(m){const mx=maxHP(m,S),t=SPECIES[m.s].t;$('#ps').hidden=m.st!=='env';$('#pn').textContent=nameOf(m);fitName($('#pn'));$('#pl').textContent='Nv'+m.lv;$('#pt').textContent=t;$('#pt').style.background=TYPEC[t];
     setBar($('#php'),m.hp/mx);$('#phpt').textContent=`${m.hp}/${mx}`;
     const a=xpFor(m.lv),b=xpFor(m.lv+1);$('#pxp').style.width=(m.lv>=100?100:clamp((m.xp-a)/(b-a)*100,0,100))+'%'}
 }
@@ -17,6 +17,7 @@ async function battle(opt){
   const team=opt.team;if(opt.owner)team.forEach(m=>m.hp=maxHP(m,opt.owner));
   B={team,ei:0,pvp:opt.pvp||null,owner:opt.owner||null,wild:!!opt.wild,name:opt.name||'',bg:opt.bg||'rota',me:S.party.findIndex(m=>m.hp>0),
     eX:200,pX:-140,eY:0,pY:0,eA:1,pA:0,eBlink:false,pBlink:false,ball:null,showE:false,showP:false};
+  B.part=new Set([S.party[B.me]]);
   await battleFx();
   mode='battle';hud();
   const f=fadeTo(0,300);await tween(800,t=>{B.eX=(1-(1-(1-t)**2))*200});await f;
@@ -55,12 +56,24 @@ async function battleLoop(){
     }
     const res=await resolveTurn(act);
     if(res&&res!=='continue')return res;
+    if(!res){const pr=await poisonTick();if(pr&&pr!=='continue')return pr}
   }
 }
 function aiPick(A,Ao,D){
   const sc=A.moves.map(k=>{const mv=MOVES[k];return mv.p*effOf(mv.t,SPECIES[D.s].t)*(SPECIES[A.s].t===mv.t?1.5:1)*(1+(bon(Ao).boost[mv.t]||0))*mv.a/100});
   if(rnd()<.75){let bi=0;sc.forEach((v,i)=>{if(v>sc[bi])bi=i});return A.moves[bi]}
   return A.moves[ri(0,A.moves.length-1)];
+}
+// fim do turno: quem está envenenado perde 1/8 da vida máxima
+async function poisonTick(){
+  for(const side of['me','en']){
+    const m=side==='me'?S.party[B.me]:B.team[B.ei];if(!m||m.hp<=0||m.st!=='env')continue;
+    const mx=maxHP(m,side==='me'?S:B.owner);m.hp=Math.max(0,m.hp-Math.max(1,Math.floor(mx/8)));hud();
+    for(let i=0;i<2;i++){if(side==='me')B.pBlink=true;else B.eBlink=true;await sleep(80);B.pBlink=B.eBlink=false;await sleep(80)}
+    await say(`${side==='me'?nameOf(m):enemyLabel()} sofre com o veneno!`);
+    if(m.hp<=0){const r=await fainted(side);if(r)return r}
+  }
+  return null;
 }
 async function resolveTurn(act){
   const E=B.team[B.ei],M=S.party[B.me];
@@ -86,6 +99,7 @@ async function attack(side,mvId){
   for(let i=0;i<4;i++){if(me)B.eBlink=true;else B.pBlink=true;await sleep(65);B.eBlink=B.pBlink=false;await sleep(65)}
   D.hp=Math.max(0,D.hp-r.dmg);hud();await sleep(520);
   if(mvId==='desespero'&&A.hp>0){A.hp=Math.max(0,A.hp-Math.max(1,Math.floor(r.dmg/4)));hud();await say(`${me?nameOf(A):enemyLabel()} se machucou no desespero!`);if(A.hp<=0)return await fainted(me?'me':'en')}
+  if(mv.t==='Planta'&&D.hp>0&&!D.st&&SPECIES[D.s].t!=='Planta'&&brnd()<.1){D.st='env';hud();await say(`${me?enemyLabel():nameOf(D)} foi envenenado!`)}
   if(r.crit)await say('Um golpe crítico!');
   if(r.eff>1)await say('É super eficaz!');else if(r.eff<1)await say('Não é muito eficaz...');
   if(D.hp<=0)return await fainted(me?'en':'me');
@@ -99,12 +113,15 @@ async function fainted(side){
     // no duelo ao vivo não tem XP no meio da luta (mudaria os números de um lado só)
     if(!B.pvp){
       const gain=Math.max(1,Math.floor(SPECIES[e.s].xp*e.lv/6*(B.wild?1:1.4)*(1+bon(S).xp)));
-      await giveXP(S.party[B.me],gain);
+      const quem=[...(B.part||[])].filter(m=>m.hp>0&&S.party.includes(m));if(!quem.length)quem.push(S.party[B.me]);
+      const parte=Math.max(1,Math.floor(gain/quem.length));
+      if(quem.length>1)await say(`O XP foi dividido entre ${quem.length} zoobumons que lutaram.`);
+      for(const m of quem)await giveXP(m,parte);
       await addTxp(Math.ceil(gain/4));
     }
     const nx=B.pvp?B.team.findIndex(m=>m.hp>0):B.team.findIndex((m,i)=>i>B.ei&&m.hp>0);
     if(nx>=0){
-      B.ei=nx;B.eY=0;B.eA=1;B.eX=140;hud();
+      B.ei=nx;B.eY=0;B.eA=1;B.eX=140;B.part=new Set([S.party[B.me]]);hud();
       await tween(400,t=>{B.eX=(1-t)*140});
       await say(`${B.name} mandou ${nameOf(B.team[nx])}!`);
       return'continue';
@@ -122,7 +139,7 @@ async function fainted(side){
 }
 async function switchTo(i,voluntary){
   if(voluntary){await say(`Volta, ${nameOf(S.party[B.me])}!`);await tween(300,t=>{B.pX=-t*140})}
-  B.me=i;B.pY=0;B.pA=1;B.pX=-140;hud();
+  B.me=i;B.pY=0;B.pA=1;B.pX=-140;if(B.part)B.part.add(S.party[i]);hud();
   await tween(350,t=>{B.pX=-(1-t)*140});
   await say(`Vai, ${nameOf(S.party[i])}!`);
 }
@@ -139,9 +156,17 @@ async function giveXP(m,amt){
   }
 }
 async function learn(m,k){
-  if(m.moves.length<4){m.moves.push(k);await say(`${nameOf(m)} aprendeu ${MOVES[k].n}!`);return}
-  let wi=0;m.moves.forEach((x,i)=>{if(MOVES[x].p<MOVES[m.moves[wi]].p)wi=i});
-  if(MOVES[k].p>MOVES[m.moves[wi]].p){const old=MOVES[m.moves[wi]].n;m.moves[wi]=k;await say(`${nameOf(m)} esqueceu ${old} e aprendeu ${MOVES[k].n}!`)}
+  const nv=MOVES[k];
+  if(m.moves.length<4){m.moves.push(k);await say(`${nameOf(m)} aprendeu ${nv.n}!`);return}
+  await say(`${nameOf(m)} quer aprender ${nv.n} (${nv.t}, poder ${nv.p}), mas já sabe 4 golpes.`);
+  while(true){
+    setText(`Esquecer qual golpe pra aprender ${nv.n}?`);
+    const opts=m.moves.map(x=>({label:`${MOVES[x].n} · ${MOVES[x].t} · poder ${MOVES[x].p}`}));opts.push({label:`Não aprender ${nv.n}`});
+    const i=await choose(opts,{cls:'side',cancel:false});
+    if(i<4&&i>=0){const old=MOVES[m.moves[i]].n;if(m.pp)delete m.pp[m.moves[i]];m.moves[i]=k;await say(`1, 2 e... pronto! ${nameOf(m)} esqueceu ${old} e aprendeu ${nv.n}!`);return}
+    setText(`Desistir de aprender ${nv.n}?`);
+    if(await choose([{label:'SIM'},{label:'NÃO'}],{cls:'yesno',cancel:false})===0){await say(`${nameOf(m)} não aprendeu ${nv.n}.`);return}
+  }
 }
 async function pickMove(){
   const m=S.party[B.me],e=B.team[B.ei];
@@ -169,6 +194,7 @@ async function battleBag(){
   if(it.net){if(!B.wild){await say('Não dá pra capturar o zoobumon de outro treinador!');return null}return await throwNet(id)}
   const t=await pickParty('Usar em qual zoobumon?');if(t<0)return null;
   const m=S.party[t],mx=maxHP(m,S);
+  if(it.cure){if(m.hp<=0||m.st!==it.cure){await say('Não vai ter efeito.');return null}delete m.st;S.bag[id]--;hud();await say(`${nameOf(m)} não está mais envenenado!`);return{k:'item'}}
   if(it.pp){if(m.hp<=0||!m.pp||!Object.keys(m.pp).length){await say('Não vai ter efeito.');return null}restorePP(m);S.bag[id]--;await say(`Os golpes de ${nameOf(m)} estão com PP cheio!`);return{k:'item'}}
   if(m.hp<=0||m.hp>=mx){await say('Não vai ter efeito.');return null}
   const h=Math.min(it.heal,mx-m.hp);m.hp+=h;S.bag[id]--;hud();
@@ -270,9 +296,8 @@ async function startWild(){
   const z=zoneAt(P.x,P.y),tb=ENC[z]||ENC.rota;
   let r=rnd()*tb.reduce((a,e)=>a+e[1],0),pk=tb[0];
   for(const e of tb){if((r-=e[1])<0){pk=e;break}}
-  // quem já passou do nível da área encontra bichos mais fortes, pra continuar valendo a pena treinar ali
-  const top=Math.max(...S.party.map(m=>m.lv));let lv=ri(pk[2],pk[3]);
-  if(top>pk[3])lv=Math.min(top,lv+Math.floor((top-pk[3])*.75));
+  // cada região tem a sua faixa de nível fixa (é a que o Prof. Ipê fala); pra treinar mais, vá pra região seguinte
+  const lv=ri(pk[2],pk[3]);
   let sp=pk[0];while(SPECIES[sp].evo&&lv>=SPECIES[sp].evo[1])sp=SPECIES[sp].evo[0];
   await fight({team:[mkMon(sp,lv)],wild:true,bg:z});
 }

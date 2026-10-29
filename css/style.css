@@ -264,3 +264,10 @@ input,textarea,select{font-size:max(16px,1em)}
 .pfm img{width:64px;height:64px;image-rendering:pixelated}
 .pfm b{font-size:14px;line-height:1.1}
 .pfm.lead{background:#fff3cf;box-shadow:inset 0 0 0 2px var(--gold)}
+
+/* batalha: marca de envenenado e redinha de "já capturei esse" ao lado do nome */
+.stchip{display:inline-block;font:600 12px/1.6 var(--f-pix);padding:0 6px;border-radius:6px;color:#fff;background:#9a4ad0;vertical-align:middle}
+.hbox .stchip{font-size:2.1cqw;padding:0 .9cqw;border-radius:.8cqw}
+.stchip[hidden],.capicon[hidden]{display:none}
+.capicon{display:inline-block;width:1.15em;height:1.15em;margin-right:.3em;vertical-align:-.15em;border-radius:50%;border:2px solid #45507a;
+  background:radial-gradient(circle at 50% 50%,#fff 0 22%,transparent 23%),linear-gradient(180deg,#e04848 0 46%,#45507a 46% 54%,#f8f8f0 54%)}

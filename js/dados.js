@@ -115,6 +115,7 @@ const PAL={
 const ITEMS={
   pocao:{n:'Poção',d:'Cura 25 PV de um zoobumon',price:60,heal:25},
   superp:{n:'Super Poção',d:'Cura 70 PV de um zoobumon',price:180,heal:70},
+  antidoto:{n:'Antídoto',d:'Cura o envenenamento de um zoobumon',price:80,cure:'env'},
   cafecoado:{n:'Elixir',d:'Recupera os PP de todos os golpes de um zoobumon',price:120,pp:1},
   rede:{n:'Rede',d:'Captura zoobumons selvagens',price:60,net:1},
   redeouro:{n:'Rede de Ouro',d:'Captura com 1,8× mais chance',price:200,net:1.8},
