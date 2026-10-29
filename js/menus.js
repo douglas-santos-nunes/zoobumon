@@ -2,15 +2,18 @@
 /* =================== menus =================== */
 async function startMenu(){
   while(true){
-    const i=await choose(['ZOOBUDEX','ZOOBUMONS','BOLSA','TREINADOR','RANKING','DUELO','SOM','SALVAR','FECHAR'].map(l=>({label:l})),{cls:'side'});
-    if(i<0||i===8)return;
-    if(i===4){await rankMenu();hidePanel();continue}
-    if(i===6){await somMenu();continue}
-    if(i===0)await dexMenu();
-    else if(i===1)await zoobumonsMenu();
-    else if(i===2)await bagMenu();
-    else if(i===3)await trainerMenu();
-    else if(i===5){
+    const ops=['ZOOBUDEX','ZOOBUMONS','BOLSA','MAPA','TIPOS','TREINADOR','RANKING','DUELO','SOM','SALVAR','FECHAR'];
+    const i=await choose(ops.map(l=>({label:l})),{cls:'side',cols:2}),op=ops[i];
+    if(i<0||op==='FECHAR')return;
+    if(op==='RANKING'){await rankMenu();hidePanel();continue}
+    if(op==='SOM'){await somMenu();continue}
+    if(op==='ZOOBUDEX')await dexMenu();
+    else if(op==='ZOOBUMONS')await zoobumonsMenu();
+    else if(op==='BOLSA')await bagMenu();
+    else if(op==='MAPA')await mapaMenu();
+    else if(op==='TIPOS')await tiposMenu();
+    else if(op==='TREINADOR')await trainerMenu();
+    else if(op==='DUELO'){
       const t=await duelPanel();hidePanel();
       if(t){await say(`${t.name} te desafiou com ${t.team.length} zoobumon(s)!`);await fight({team:t.team,owner:t.owner,name:t.name,bg:'vila',friendly:true,reward:100});return}
     }
@@ -299,4 +302,44 @@ async function sellMenu(){
     if(t==='i')S.bag[k]--;else if(t==='g')S.gear=S.gear.filter(x=>x!==k);else S.skins=S.skins.filter(x=>x!==k);
     msg=`Vendeu ${d.n} por ${v} moedas.`;save();
   }
+}
+
+/* =================== mapa e tipos =================== */
+// mapa do mundo visto de cima: cada bloco vira 4 pixels, com o nome das regiões, UPAs, Lojas e onde você está
+const MAPA_COR={T:'#2e6b34',',':'#4fa846','.':'#7cc860','=':'#d8c08a','~':'#4a88d8',s:'#efe0a8',Y:'#d8c88a',c:'#b4b6c2',d:'#c89a6a',R:'#8a8278',H:'#c8584a',O:'#6a7aa0',f:'#a6dc7e',B:'#7cc860'};
+let MAPA_BASE=null;
+function mapaBase(){
+  if(MAPA_BASE)return MAPA_BASE;
+  const k=4;
+  MAPA_BASE=mk(MW*k,MH*k,g=>{
+    for(let y=0;y<MH;y++)for(let x=0;x<MW;x++){const ch=MAP[y][x];R(g,MAPA_COR[ch]||'#7cc860',x*k,y*k,k,k);
+      if(ch==='T'&&(x+y)%2)R(g,'#25592b',x*k+1,y*k+1,2,2)}
+    for(const b of BUILDINGS){const X=b.x*k,Y=b.y*k,W=b.w*k,H=b.h*k,c=b.kind==='centro';
+      R(g,'#33293a',X,Y,W,H);R(g,c?'#fbf7f2':'#b8643a',X+1,Y+1,W-2,H-2);R(g,c?'#e04848':'#3aa05a',X+1,Y+1,W-2,5);
+      if(c){R(g,'#e04848',X+W/2-1,Y+H/2-2,2,6);R(g,'#e04848',X+W/2-3,Y+H/2,6,2)}else R(g,'#f2c03a',X+W/2-3,Y+H/2-1,6,4)}
+  });
+  return MAPA_BASE;
+}
+async function mapaMenu(){
+  const k=4,base=mapaBase(),zonas={};
+  for(let y=2;y<MH-2;y++)for(let x=2;x<MW-2;x++){if('TR~'.includes(MAP[y][x]))continue;const z=zoneAt(x,y),a=zonas[z]||(zonas[z]={x:0,y:0,n:0});a.x+=x;a.y+=y;a.n++}
+  const aqui=scene==='mundo'?{x:P.x,y:P.y}:curB?{x:curB.door[0],y:curB.door[1]}:{x:P.x,y:P.y};
+  const cv=mk(MW*k,MH*k,g=>{g.drawImage(base,0,0);g.font='600 13px "Zoobu Pixel",monospace';g.textAlign='center';g.textBaseline='middle';
+    for(const[z,a]of Object.entries(zonas)){const t=ZNAME[z],x=a.x/a.n*k,y=a.y/a.n*k,w=g.measureText(t).width+8;
+      g.fillStyle='rgba(248,248,240,.88)';g.fillRect(x-w/2,y-8,w,16);g.strokeStyle='#45507a';g.lineWidth=1;g.strokeRect(x-w/2+.5,y-7.5,w-1,15);g.fillStyle='#38384a';g.fillText(t,x,y+1)}});
+  const p=showPanel('Mapa',{foot:`Você está em: ${ZNAME[zoneAt(aqui.x,aqui.y)]}`,
+    body:`<div class="mapawrap"><img class="mapaimg" src="${cv.toDataURL()}" alt="Mapa do mundo"><i class="mapaeu" style="left:${(aqui.x+.5)/MW*100}%;top:${(aqui.y+.5)/MH*100}%"></i></div>
+    <div class="mapaleg"><span><i class="eu"></i>Você</span><span><i class="upa"></i>UPA</span><span><i class="loja"></i>Loja</span><span><i class="mato"></i>Mato alto</span></div>`});
+  p.body.classList.add('grow');
+  await choose([{label:'Voltar'}],{root:p.list});
+}
+// quem bate forte em quem: tirado direto da tabela que a batalha usa, então nunca fica desatualizado
+async function tiposMenu(){
+  // só os tipos que algum zoobumon tem (Pedra aparece sozinho quando existir um)
+  const tipos=Object.keys(TYPEC).filter(t=>Object.values(SPECIES).some(s=>s.t===t)),lista=t=>t.length?t.map(chip).join(' '):'<small>ninguém</small>';
+  const rows=tipos.map(t=>{const forte=tipos.filter(d=>effOf(t,d)>1),fraco=tipos.filter(d=>effOf(t,d)<1),medo=tipos.filter(a=>effOf(a,t)>1);
+    return`<div class="tiporow"><div class="tipohd">${chip(t)}</div><div class="tipoln"><b>Bate forte em</b> ${lista(forte)}</div><div class="tipoln"><b>Bate fraco em</b> ${lista(fraco)}</div><div class="tipoln"><b>Apanha muito de</b> ${lista(medo)}</div></div>`}).join('');
+  const p=showPanel('Tipos',{foot:'Forte = dano em dobro · Fraco = metade do dano',body:`<div class="hwtxt">O tipo do golpe contra o tipo do zoobumon que leva o golpe:</div>${rows}`});
+  p.body.classList.add('grow');
+  await choose([{label:'Voltar'}],{root:p.list});
 }

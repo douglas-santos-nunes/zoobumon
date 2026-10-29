@@ -293,3 +293,23 @@ input,textarea,select{font-size:max(16px,1em)}
 #atualizando[hidden]{display:none}
 #atualizando>div{background:#f8f8f0;border:3px solid #45507a;border-radius:12px;padding:16px 20px;text-align:center;font:600 20px var(--f-pix);color:#38384a;box-shadow:0 4px 0 rgba(0,0,0,.35)}
 #atualizando small{display:block;margin-top:6px;font-size:16px;font-weight:400}
+
+/* mapa do mundo e tabela de tipos (menu lateral) */
+.mapawrap{position:relative;line-height:0;border:2px solid #45507a;border-radius:8px;overflow:hidden}
+.mapaimg{width:100%;image-rendering:pixelated;display:block}
+.mapaeu,.mapaleg i.eu{width:10px;height:10px;border-radius:50%;background:#ff3a3a;border:2px solid #fff;box-shadow:0 0 0 1px #33293a}
+.mapaeu{position:absolute;transform:translate(-50%,-50%);animation:mapapisca 1s steps(2) infinite}
+@keyframes mapapisca{50%{opacity:.25}}
+@media (prefers-reduced-motion:reduce){.mapaeu{animation:none}}
+.mapaleg{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:8px;font-size:15px}
+.mapaleg span{display:inline-flex;align-items:center;gap:5px}
+.mapaleg i{display:inline-block;width:12px;height:12px;border-radius:3px;border:1px solid #33293a;box-sizing:border-box}
+.mapaleg i.eu{border-radius:50%;width:12px;height:12px}
+.mapaleg i.upa{background:#fbf7f2;border-top:4px solid #e04848}
+.mapaleg i.loja{background:#b8643a;border-top:4px solid #3aa05a}
+.mapaleg i.mato{background:#4fa846}
+.tiporow{padding:8px 0;border-top:1px solid #d8d2c0}
+.tiporow:first-of-type{border-top:0}
+.tipohd .tchip{font-size:15px;padding:1px 10px}
+.tipoln{margin-top:4px;font-size:15px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.tipoln b{font-weight:600;margin-right:2px;min-width:120px}
