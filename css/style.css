@@ -313,3 +313,8 @@ input,textarea,select{font-size:max(16px,1em)}
 .tipohd .tchip{font-size:15px;padding:1px 10px}
 .tipoln{margin-top:4px;font-size:15px;display:flex;flex-wrap:wrap;gap:4px;align-items:center}
 .tipoln b{font-weight:600;margin-right:2px;min-width:120px}
+
+/* ranking: bolinha verde de quem está jogando agora */
+.onl{display:inline-block;width:10px;height:10px;border-radius:50%;background:#3ad05a;box-shadow:0 0 0 2px #fff,0 0 6px #3ad05a;vertical-align:.08em;margin-left:4px}
+.pfon{font-size:15px;color:#5a5a6a}
+.pfon .onl{margin:0 4px 0 2px}

@@ -4,15 +4,34 @@ const CFG=window.CB_CONFIG||{};
 const sb=CFG.contas!==false&&CFG.supabaseUrl&&CFG.supabaseKey&&window.supabase?window.supabase.createClient(CFG.supabaseUrl,CFG.supabaseKey):null;
 let me=null,cloudTimer=0;
 
-// salva na nuvem um pouco depois da última mudança, pra não mandar a cada passo
-function cloudSave(){
+// salva na nuvem um pouco depois da última mudança, pra não mandar a cada passo (agora=true manda na hora)
+function cloudSave(agora){
   if(!sb||!me||!S)return;
   clearTimeout(cloudTimer);
-  cloudTimer=setTimeout(async()=>{
+  const enviar=async()=>{
     const{error}=await sb.from('saves').upsert({user_id:me.id,data:S,updated_at:new Date().toISOString()});
     if(error)console.warn('Não salvou na nuvem:',error.message);
     rankSave();
-  },800);
+  };
+  if(agora)enviar();else cloudTimer=setTimeout(enviar,800);
+}
+// fechou, trocou de app ou bloqueou o celular: salva na hora, com a posição no mapa.
+// no meio da batalha não salva (a luta não fica guardada; vale o save de antes dela)
+function salvarAoSair(){
+  if(!started||!S||mode!=='world')return;
+  save();cloudSave(true);
+}
+document.addEventListener('visibilitychange',()=>{if(document.hidden)salvarAoSair()});
+addEventListener('pagehide',salvarAoSair);
+// "jogando agora" no ranking: enquanto o jogo está aberto na tela, a linha do ranking é renovada a cada minuto
+setInterval(()=>{if(started&&!document.hidden)rankSave()},60e3);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&started)rankSave()});
+const JOGANDO_MS=150e3;
+const jogandoAgora=x=>!!x.updated_at&&Date.now()-Date.parse(x.updated_at)<JOGANDO_MS;
+function vistoHa(x){
+  const min=Math.floor((Date.now()-Date.parse(x.updated_at||0))/60e3);
+  if(!x.updated_at||isNaN(min))return'';
+  if(min<60)return`Visto há ${Math.max(1,min)} min`;const h=Math.floor(min/60);if(h<24)return`Visto há ${h} h`;const d=Math.floor(h/24);return`Visto há ${d} dia${d>1?'s':''}`;
 }
 // ranking: cada um só escreve a própria linha; todo mundo pode ler (regras em supabase/esquema.sql)
 function rankRow(){
@@ -24,7 +43,7 @@ async function rankSave(){if(!sb||!me||!S)return;const{error}=await sb.from('ran
 async function rankLoad(){
   if(!sb||!me)return{off:true};
   await rankSave();
-  const top=await sb.from('ranking').select('user_id,nome,txp,nivel,pegos,melhor,time,visual,vitorias').order('txp',{ascending:false}).order('updated_at',{ascending:true}).limit(10);
+  const top=await sb.from('ranking').select('user_id,nome,txp,nivel,pegos,melhor,time,visual,vitorias,updated_at').order('txp',{ascending:false}).order('updated_at',{ascending:true}).limit(10);
   if(top.error)return{err:top.error.message};
   const mine=rankRow(),acima=await sb.from('ranking').select('user_id',{count:'exact',head:true}).gt('txp',mine.txp);
   return{top:top.data||[],mine,pos:(acima.count||0)+1};

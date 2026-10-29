@@ -53,7 +53,7 @@ async function monSheet(m){
 async function rankMenu(){
   const p=showPanel('Ranking dos treinadores',{body:'<p>Carregando o ranking...</p>'});
   const r=await rankLoad();
-  const row=(n,x,eu,k)=>`<div class="rk${eu?' eu':''}" data-k="${k}" role="button" tabindex="0"><span class="rkp">${n<=3?['🥇','🥈','🥉'][n-1]:n+'º'}</span><div class="pinfo"><b>${esc(x.nome)}</b><small>Nv de treinador ${x.nivel} · ${x.pegos} pegos · melhor zoobumon Nv ${x.melhor}</small></div><span class="r">${x.txp} XP</span></div>`;
+  const row=(n,x,eu,k)=>`<div class="rk${eu?' eu':''}" data-k="${k}" role="button" tabindex="0"><span class="rkp">${n<=3?['🥇','🥈','🥉'][n-1]:n+'º'}</span><div class="pinfo"><b>${esc(x.nome)}${jogandoAgora(x)?' <i class="onl" title="Jogando agora"></i>':''}</b><small>Nv de treinador ${x.nivel} · ${x.pegos} pegos · melhor zoobumon Nv ${x.melhor}</small></div><span class="r">${x.txp} XP</span></div>`;
   if(r.off)p.body.innerHTML='<p>Entre com a sua conta pra aparecer no ranking e ver os outros treinadores.</p>';
   else if(r.err)p.body.innerHTML='<p>Não deu pra carregar o ranking agora. Confira a internet e tente de novo.</p>';
   else p.body.innerHTML=`<div class="rkhead">Você</div>${row(r.pos,r.mine,true,'eu')}<div class="rkhead">Top 10 · toque num treinador pra ver o perfil</div>${r.top.map((x,k)=>row(k+1,x,x.user_id===r.mine.user_id,k)).join('')||'<p>Ninguém no ranking ainda.</p>'}`;
@@ -75,6 +75,7 @@ function rankProfile(x,pos){
   const time=(Array.isArray(x.time)?x.time:[]).filter(t=>Array.isArray(t)&&SPECIES[t[0]]).slice(0,6);
   el.innerHTML=`<div class="sheetm"><img class="big pf" src="${pv}" alt="Boneco de ${esc(x.nome)}"><div>
     <div><b>${esc(x.nome)}</b> <small>${pos}º no ranking</small></div>
+    <div class="pfon">${jogandoAgora(x)?'<i class="onl"></i> Jogando agora':esc(vistoHa(x))}</div>
     <div>Nível de treinador ${x.nivel} · ${x.txp} XP</div>
     <div>${x.pegos} zoobumons pegos · ${x.vitorias||0} duelos vencidos</div></div></div>
     <div class="rkhead">Time atual</div>
