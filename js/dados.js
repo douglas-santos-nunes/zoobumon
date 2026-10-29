@@ -25,6 +25,7 @@ const MOVES={
   expresso:{n:'Expresso Fervendo',t:'Fogo',p:65,a:95}, filacopa:{n:'Fila da Copa',t:'Normal',p:70,a:90}, cafeina:{n:'Overdose de Cafeína',t:'Fogo',p:85,a:85}, ultimogole:{n:'Quem Bebeu o Último?',t:'Fogo',p:100,a:80},
   maisumponto:{n:'Só Mais Um Ponto',t:'Normal',p:50,a:100}, agendar:{n:'Vamos Agendar Outra',t:'Normal',p:75,a:90}, camerafechada:{n:'Câmera Desligada',t:'Normal',p:60,a:100}, alinhado:{n:'Alinhamento Total',t:'Normal',p:100,a:75},
   feijaorequentado:{n:'Feijão Requentado',t:'Normal',p:45,a:100}, tampavoadora:{n:'Tampa Voadora',t:'Normal',p:60,a:95}, microondas:{n:'Esquenta no Micro-ondas',t:'Fogo',p:70,a:90}, devolve:{n:'Devolve Meu Pote!',t:'Normal',p:90,a:85},
+  gelinho:{n:'Gelinho do Freezer',t:'Água',p:65,a:95}, degelo:{n:'Degelo da Geladeira',t:'Água',p:95,a:80},
   garrafiada:{n:'Garras Afiadas',t:'Normal',p:55,a:100}, mordidamaluca:{n:'Mordida Maluca',t:'Normal',p:70,a:90}, naotonemai:{n:'Não Tô Nem Aí',t:'Normal',p:85,a:85}, furiatexugo:{n:'Fúria de Texugo',t:'Normal',p:110,a:70},
   desespero:{n:'Desespero',t:'Normal',p:40,a:100},
   pedrada:{n:'Pedrada',t:'Pedra',p:45,a:100}, desabamento:{n:'Desabamento',t:'Pedra',p:75,a:85},
@@ -42,7 +43,7 @@ const LS={
   serpente:[[1,'investida'],[1,'folha'],[6,'bote'],[11,'veneno'],[18,'constricao'],[24,'furia'],[30,'botedobro']],
   cafeteria:[[1,'investida'],[1,'brasa'],[5,'cafe'],[10,'expresso'],[16,'filacopa'],[22,'cafeina'],[30,'ultimogole']],
   daily:[[1,'investida'],[1,'maisumponto'],[6,'cafe'],[11,'camerafechada'],[16,'reuniao'],[22,'agendar'],[30,'alinhado']],
-  marmita:[[1,'investida'],[1,'feijaorequentado'],[7,'tampavoadora'],[13,'microondas'],[20,'golpeduro'],[27,'devolve']],
+  marmita:[[1,'investida'],[1,'feijaorequentado'],[7,'tampavoadora'],[13,'gelinho'],[20,'golpeduro'],[27,'devolve'],[34,'degelo']],
   texugo:[[1,'arranhao'],[1,'mordida'],[8,'garrafiada'],[14,'mordidamaluca'],[22,'naotonemai'],[30,'furiatexugo']],
   cigarro:[[1,'tosse'],[1,'brasa'],[7,'fumaca'],[13,'cinzas'],[21,'inferno']],
   escritorio:[[1,'investida'],[1,'cafe'],[6,'bajular'],[12,'reuniao'],[20,'planilha'],[30,'microgestao']],
@@ -93,7 +94,7 @@ const SPECIES={
     pal:{base:'#f4ecd8',belly:'#ffffff',accent:'#3a6ad8',dark:'#7a6a50',light:'#fffaf0',envelope:'#f4ecd8',dobra:'#ddd0b2',gravata:'#3a6ad8',selo:'#d83a3a',luz:'#ff3a2a'}},
   alinhamento:{n:'Alinhamento Semanal',t:'Normal',b:{hp:96,atk:86,def:84,spd:46},xp:200,cr:.08,ls:LS.daily,sh:{rx:.85,ry:.85,cy:.55,sp:0,seed:47,nz:.4},
     pal:{base:'#ffffff',belly:'#ffffff',accent:'#d83a3a',dark:'#5a5a66',light:'#ffffff',folha:'#fbfbfe',topo:'#d83a3a',argola:'#5a5a66',grade:'#c4c4d2'}},
-  marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,evo:['lancheriol',22],sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
+  marmitiol:{n:'Marmitiol',t:'Água',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,evo:['lancheriol',22],sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
     pal:{base:'#eef4f6',belly:'#ffffff',accent:'#3a8ad8',dark:'#5a6a7a',light:'#ffffff',pote:'#eaf2f6',tampa:'#3a8ad8',arroz:'#fbf6e8',feijao:'#5a3020',farofa:'#e8c070',tomate:'#e04848',fita:'#f0e0a8'}},
   texugo:{n:'Texugo',t:'Normal',b:{hp:70,atk:92,def:60,spd:84},xp:120,cr:.18,ls:LS.texugo,evo:['texugomilho',26],sh:{rx:.75,ry:.65,cy:.58,sp:0,seed:59,nz:.5},
     pal:{base:'#8e8a94',belly:'#b4b0ba',accent:'#e83a2a',dark:'#1e1a22',light:'#c4c0ca',capa:'#f6f4ee'}},
@@ -127,8 +128,8 @@ novoZ('abelhote','zumbel',{n:'Abelhote',t:'Planta',b:{hp:66,atk:82,def:70,spd:88
 novoZ('colmeiona','zumbel',{n:'Colmeiona',t:'Planta',b:{hp:110,atk:104,def:100,spd:70},xp:230,cr:.05,pal:{base:'#f2c228',colmeia:'#e0a83a',dark:'#5a3410',light:'#f8d070',mel:'#f2a81c',coroa:'#f2c03a',accent:'#ff3a2a'}});
 novoZ('zapfone','zap',{n:'Zapfone',t:'Elétrico',b:{hp:72,atk:84,def:72,spd:96},xp:130,cr:.22,pal:{celular:'#26262e',tela:'#cfeee0',trinca:'#ffffff',dark:'#0e0e14'}});
 novoZ('antena5g','zap',{n:'Antenão 5G',t:'Elétrico',b:{hp:104,atk:116,def:94,spd:88},xp:240,cr:.04,pal:{base:'#3ccf6a',metal:'#9aa0ac',dark:'#3a3e48',light:'#d8dce4',luz:'#ff2a1a',sinal:'#34b7f1',caixa:'#2fae5a',painel:'#eef0f4',belly:'#ffffff'}});
-novoZ('lancheriol','marmitiol',{n:'Lancheriol',t:'Normal',b:{hp:94,atk:72,def:96,spd:46},xp:130,cr:.22,pal:{lancheira:'#3a7ad8',bolso:'#2a5aa8',ziper:'#e8e8f0',alca:'#2a2a32',floco:'#ffffff',dark:'#1a2a4a',light:'#8ab8f0'}});
-novoZ('geladeirol','marmitiol',{n:'Geladeirol',t:'Normal',b:{hp:124,atk:96,def:124,spd:40},xp:240,cr:.04,pal:{base:'#eef2f8',geladeira:'#eef2f8',dark:'#5a6070',puxador:'#9aa0ac',ima1:'#e04848',ima2:'#f2c03a',ima3:'#38a050',gelo:'#bfe8f8',belly:'#e0e6f0',light:'#ffffff'}});
+novoZ('lancheriol','marmitiol',{n:'Lancheriol',t:'Água',b:{hp:94,atk:72,def:96,spd:46},xp:130,cr:.22,pal:{lancheira:'#3a7ad8',bolso:'#2a5aa8',ziper:'#e8e8f0',alca:'#2a2a32',floco:'#ffffff',dark:'#1a2a4a',light:'#8ab8f0'}});
+novoZ('geladeirol','marmitiol',{n:'Geladeirol',t:'Água',b:{hp:124,atk:96,def:124,spd:40},xp:240,cr:.04,pal:{base:'#eef2f8',geladeira:'#eef2f8',dark:'#5a6070',puxador:'#9aa0ac',ima1:'#e04848',ima2:'#f2c03a',ima3:'#38a050',gelo:'#bfe8f8',belly:'#e0e6f0',light:'#ffffff'}});
 novoZ('texugomilho','texugo',{n:'Texugo do Milho',t:'Normal',b:{hp:88,atk:106,def:78,spd:96},xp:150,cr:.12,pal:{palha:'#e8c870',fita:'#d83a3a',milho:'#f4d23a',folhamilho:'#58a040',xadrez:'#d84848'}});
 novoZ('texugomel','texugo',{n:'Texugo do Mel',t:'Normal',b:{hp:100,atk:130,def:86,spd:110},xp:250,cr:.04,pal:{base:'#4a4650',belly:'#7a7682',dark:'#141016',mel:'#f2a81c',favo:'#f2c03a',abelha:'#f2c228',olhovermelho:'#ff2a1a'}});
 // as formas do meio dos que eram sozinhos também evoluem
