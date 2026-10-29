@@ -124,10 +124,10 @@ const GEAR={
   escudo:{n:'Escudo de Couro',d:'+12% defesa dos seus zoobumons',price:300,def:.12},
   lente:{n:'Lente do Caçador',d:'+20% de chance de captura',price:350,cap:.2},
   botas:{n:'Botas Velozes',d:'Você anda e corre mais rápido',price:200,spd:1},
-  amufogo:{n:'Amuleto de Brasa',d:'+20% de dano em golpes de Fogo',price:450,boost:'Fogo'},
-  amuagua:{n:'Amuleto da Maré',d:'+20% de dano em golpes de Água',price:450,boost:'Água'},
-  amuplanta:{n:'Amuleto da Raiz',d:'+20% de dano em golpes de Planta',price:450,boost:'Planta'},
-  amueletr:{n:'Amuleto do Raio',d:'+20% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
+  amufogo:{n:'Amuleto de Brasa',d:'+10% de dano em golpes de Fogo',price:450,boost:'Fogo'},
+  amuagua:{n:'Amuleto da Maré',d:'+10% de dano em golpes de Água',price:450,boost:'Água'},
+  amuplanta:{n:'Amuleto da Raiz',d:'+10% de dano em golpes de Planta',price:450,boost:'Planta'},
+  amueletr:{n:'Amuleto do Raio',d:'+10% de dano em golpes Elétricos',price:450,boost:'Elétrico'},
 };
 // skins: só visual. slot = onde vai no personagem; c = cores (principal, detalhe, enfeite)
 const SKINS={

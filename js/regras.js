@@ -14,7 +14,7 @@ function bon(o){
   if(c){for(const k of['atk','def','hp','cap','xp'])r[k]+=c[k]||0;if(c.enc)r.enc=c.enc}
   // nível de treinador: +1% de ataque e defesa a cada 5 níveis, no máximo +10% (as insígnias dos chefões vão somar por fora)
   const tl=tlevel(o.txp),tb=Math.min(.1,Math.floor(tl/5)*.01);r.atk+=tb;r.def+=tb;
-  for(const id of o.eq||[]){const G=GEAR[id];if(!G)continue;r.atk+=G.atk||0;r.def+=G.def||0;r.cap+=G.cap||0;r.spd+=G.spd||0;if(G.boost)r.boost[G.boost]=(r.boost[G.boost]||0)+.2}
+  for(const id of o.eq||[]){const G=GEAR[id];if(!G)continue;r.atk+=G.atk||0;r.def+=G.def||0;r.cap+=G.cap||0;r.spd+=G.spd||0;if(G.boost)r.boost[G.boost]=(r.boost[G.boost]||0)+.1}
   return r;
 }
 function st(m,k,o){const b=SPECIES[m.s].b[k];let v=Math.floor(b*2*m.lv/100)+5;const bo=bon(o);if(k==='atk')v*=1+bo.atk;if(k==='def')v*=1+bo.def;return Math.round(v)}
