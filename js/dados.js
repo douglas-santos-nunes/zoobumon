@@ -182,10 +182,10 @@ const CLASSES={
   sabio:{n:'Sábio',d:'Seus zoobumons ganham +35% de XP',xp:.35},
 };
 const ENC={
-  praia:[['cervejinha',24,14,18],['gotinho',12,14,18],['zap',12,14,18],['caramelo',12,14,18],['marmitiol',10,15,19],['zumbel',10,14,18],['chopp',4,22,24]],
-  cidade:[['estagiario',22,12,16],['daily',22,12,16],['cafezinho',20,12,16],['marmitiol',10,13,17],['ratuxo',10,12,16],['cocozinho',8,12,16],['puxasaco',5,20,22],['reuniaoemail',4,22,24],['cafeteira',4,22,24]],
-  boteco:[['pericle',3,24,27],['texugo',5,18,22],['cervejinha',18,16,20],['gudang',16,16,20],['caramelo',14,16,20],['cocozinho',12,16,20],['zubumafilho',12,16,20],['marmitiol',8,17,21],['chopp',8,22,25],['ratazao',8,20,24],['caramelao',4,24,27]],
-  serra:[['pericle',6,26,32],['texugo',9,26,32],['zubumapai',14,26,32],['rastafolha',12,26,32],['caramelao',12,26,32],['ratazao',12,24,30],['chopp',10,24,30],['puxasaco',10,24,30],['cafeteira',8,24,30],['reuniaoemail',8,24,30],
+  praia:[['abelhote',4,22,24],['cervejinha',24,14,18],['gotinho',12,14,18],['zap',12,14,18],['caramelo',12,14,18],['marmitiol',10,15,19],['zumbel',10,14,18],['chopp',4,22,24]],
+  cidade:[['zapfone',4,22,24],['lancheriol',4,22,24],['estagiario',22,12,16],['daily',22,12,16],['cafezinho',20,12,16],['marmitiol',10,13,17],['ratuxo',10,12,16],['cocozinho',8,12,16],['puxasaco',5,20,22],['reuniaoemail',4,22,24],['cafeteira',4,22,24]],
+  boteco:[['abelhote',4,22,26],['texugomilho',4,24,27],['zapfone',2,24,27],['pericle',3,24,27],['texugo',5,18,22],['cervejinha',18,16,20],['gudang',16,16,20],['caramelo',14,16,20],['cocozinho',12,16,20],['zubumafilho',12,16,20],['marmitiol',8,17,21],['chopp',8,22,25],['ratazao',8,20,24],['caramelao',4,24,27]],
+  serra:[['texugomilho',4,28,32],['abelhote',3,26,32],['lancheriol',3,26,32],['zapfone',3,26,32],['galinferno',1,38,40],['tromba',1,38,40],['cobrumetriplo',1,38,40],['reiesgoto',1,36,38],['caramelomito',1,38,40],['zubumavo',1,40,40],['procfatal',1,40,40],['rastarei',1,40,40],['colmeiona',1,38,40],['antena5g',1,38,40],['geladeirol',1,38,40],['texugomel',1,40,40],['pericle',6,26,32],['texugo',9,26,32],['zubumapai',14,26,32],['rastafolha',12,26,32],['caramelao',12,26,32],['ratazao',12,24,30],['chopp',10,24,30],['puxasaco',10,24,30],['cafeteira',8,24,30],['reuniaoemail',8,24,30],
     ['galardente',3,28,32],['zegotinha',3,28,32],['floresko',3,28,32],['garrafa',2,38,40],['alinhamento',2,38,40],['litraco',2,38,40],['lider',2,36,38]],
   rota:[['daily',7,3,5],['ratuxo',42,2,4],['zumbel',32,2,4],['caramelo',8,3,5],['zap',5,3,5],['cocozinho',10,2,4],['estagiario',8,3,5],['cervejinha',6,3,5]],
   pedreira:[['marmitiol',6,7,9],['cafezinho',14,6,9],['daily',14,6,9],['ratuxo',20,7,9],['caramelo',8,6,9],['zap',5,7,9],['gudang',9,6,9],['estagiario',7,6,9],['cervejinha',6,6,9]],
