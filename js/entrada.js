@@ -22,7 +22,7 @@ addEventListener('keyup',e=>{const b=KEYS[e.code];if(b)up(b)});
 addEventListener('blur',()=>{dirStack.length=0;held.b=false});
 // toque: com texto na tela, tocar em qualquer lugar avança o texto
 $('#game').addEventListener('pointerdown',e=>{
-  if(!started||e.target.closest('.box,#menuBtn,#teamBar,#pad'))return;
+  if(!started||e.target.closest('.box,#menuBtn,#teamBar,#hwBtn,#pad'))return;
   if(sayActive)press('a');
 });
 // joystick: arrastar a bolinha escolhe a direção (a que mais pesa entre horizontal e vertical)

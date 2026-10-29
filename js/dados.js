@@ -173,6 +173,10 @@ const SKINS={
   oculos_grau:{n:'Óculos de grau',slot:'rosto',kind:'grau',c:[],price:200},
   mochila:{n:'Mochila',slot:'costas',kind:'mochila',c:['#e0a020','#a87010'],price:450},
   cachecol:{n:'Cachecol',slot:'pescoco',kind:'cachecol',c:['#d84040','#f4f4f4'],price:300},
+  chapeu_bruxa:{n:'Chapéu de bruxa',slot:'cabeca',kind:'bruxa',c:['#3a2a5a','#8a3ac8','#f2c03a'],price:0,hidden:1},
+  caveira:{n:'Máscara de caveira',slot:'rosto',kind:'caveira',c:['#f4f0e4','#2a2230','#d6cfbc','#ff6a3a','#ffffff'],price:0,hidden:1},
+  panico:{n:'Máscara do Pânico',slot:'cabeca',kind:'panico',c:['#f6f4ee','#1c1a22','#d8d4ca'],price:0,hidden:1},
+  abobora:{n:'Cabeça de abóbora',slot:'cabeca',kind:'abobora',c:['#f08a1c','#ffd23a','#4a8a2a'],price:0,hidden:1},
   touca:{n:'Touca de enfermeira',slot:'cabeca',kind:'touca',c:['#ffffff','#e04848'],price:0,hidden:1},
 };
 const SLOTN={cabeca:'Cabeça',rosto:'Rosto',pescoco:'Pescoço',costas:'Costas',corpo:'Camisa'};

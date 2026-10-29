@@ -270,3 +270,20 @@ input,textarea,select{font-size:max(16px,1em)}
 .hbox .stchip{font-size:2.1cqw;padding:0 .9cqw;border-radius:.8cqw}
 .stchip[hidden],.capicon[hidden]{display:none}
 .capicon{display:inline-block;width:1.35em;height:1.35em;margin-right:.3em;vertical-align:-.28em;background:url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%2016%2016'%3E%3Cpath%20d%3D'M1.4%2014.8L6%209.6'%20stroke%3D'%2333293a'%20stroke-width%3D'3'%20stroke-linecap%3D'round'%2F%3E%3Cpath%20d%3D'M1.4%2014.8L6%209.6'%20stroke%3D'%23b07a44'%20stroke-width%3D'1.5'%20stroke-linecap%3D'round'%2F%3E%3Cpath%20d%3D'M5.2%205.6Q9.6%2017.4%2015%205.6Z'%20fill%3D'%23e8f4fa'%20stroke%3D'%2333293a'%20stroke-width%3D'1.2'%20stroke-linejoin%3D'round'%2F%3E%3Cpath%20d%3D'M7%207.4Q9.4%2012.6%2010.2%2013.4M10%206.4V13.6M13%207.2Q11.4%2012%2010.4%2013.4M6.2%208.4H14M7.4%2010.6H12.8'%20stroke%3D'%237cb4ea'%20stroke-width%3D'.8'%20fill%3D'none'%2F%3E%3Cellipse%20cx%3D'10.1'%20cy%3D'5.6'%20rx%3D'5'%20ry%3D'2.1'%20fill%3D'none'%20stroke%3D'%2333293a'%20stroke-width%3D'2.2'%2F%3E%3Cellipse%20cx%3D'10.1'%20cy%3D'5.6'%20rx%3D'5'%20ry%3D'2.1'%20fill%3D'none'%20stroke%3D'%23f2c03a'%20stroke-width%3D'1.1'%2F%3E%3C%2Fsvg%3E") center/contain no-repeat}
+
+/* evento de Halloween: abóbora abaixo do Menu, com o progresso embaixo */
+#hwBtn{position:absolute;z-index:4;right:max(10px,env(safe-area-inset-right,0px));top:calc(env(safe-area-inset-top,0px) + 62px);display:flex;flex-direction:column;align-items:center;gap:1px;
+  padding:4px 6px 3px;background:rgba(40,24,52,.88);border:2px solid #f08a1c;border-radius:10px;box-shadow:0 3px 0 rgba(0,0,0,.35);cursor:pointer;color:#ffd23a;font:600 13px var(--f-pix)}
+#hwBtn[hidden]{display:none}
+#hwBtn svg{display:block;animation:hwpulo 1.6s ease-in-out infinite}
+#hwBtn.pronto{border-color:#ffd23a;box-shadow:0 0 10px #ffd23a,0 3px 0 rgba(0,0,0,.35)}
+#hwBtn:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+@keyframes hwpulo{0%,100%{transform:translateY(0)}50%{transform:translateY(-2px)}}
+@media (prefers-reduced-motion:reduce){#hwBtn svg{animation:none}}
+.hwtxt{margin:4px 0}
+.hwbar{height:12px;border:2px solid #45507a;border-radius:7px;background:#e6e1d0;overflow:hidden;margin:6px 0}
+.hwbar i{display:block;height:100%;background:linear-gradient(90deg,#f08a1c,#ffd23a)}
+.hwprem{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:8px}
+.hwprem figure{margin:0;text-align:center}
+.hwprem img{width:56px;height:84px;image-rendering:pixelated;background:#e6e1d0;border-radius:10px;display:block;margin:0 auto 3px}
+.hwprem figcaption{font-size:14px}

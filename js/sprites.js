@@ -196,7 +196,7 @@ const SHAPES={
     Tr(28.6,27,34.6,15,37.4,27,'base',{g:'ponta'}),E(37.4,16.4,2.6,2.2,'base',{g:'ponta'}),
     E(19.6,52,2,1.3,'mofo',{noLine:1}),E(44,46.4,1.8,1.2,'mofo',{noLine:1}),E(27,36,1.4,1,'mofo',{noLine:1}),E(41,55.6,1.6,1,'mofo',{noLine:1}),E(35,29,1.2,.8,'mofo',{noLine:1}),
     Cp(22,40.6,25.4,39.6,.3,'dark',{noLine:1}),Cp(39,57.6,43,56.8,.3,'dark',{noLine:1}),
-    E(18,55.6,1.7,1.2,'milho',{rot:0.2}),E(17.6,55.300000000000004,.5,.32,'shine',{noLine:1}),E(23.4,57.6,1.7,1.2,'milho',{rot:-0.3}),E(23,57.300000000000004,.5,.32,'shine',{noLine:1}),E(29,56.8,1.7,1.2,'milho',{rot:0.5}),E(28.6,56.5,.5,.32,'shine',{noLine:1}),E(44.6,53.4,1.7,1.2,'milho',{rot:-0.2}),E(44.2,53.1,.5,.32,'shine',{noLine:1}),E(48.6,56.4,1.7,1.2,'milho',{rot:0.4}),E(48.2,56.1,.5,.32,'shine',{noLine:1}),E(38.4,58.2,1.7,1.2,'milho',{rot:0.1}),E(38,57.900000000000006,.5,.32,'shine',{noLine:1}),E(19.4,46.4,1.7,1.2,'milho',{rot:0.6}),E(19,46.1,.5,.32,'shine',{noLine:1}),E(45.6,43.4,1.7,1.2,'milho',{rot:-0.5}),E(45.2,43.1,.5,.32,'shine',{noLine:1}),E(40.2,49.4,1.7,1.2,'milho',{rot:0.3}),E(39.800000000000004,49.1,.5,.32,'shine',{noLine:1}),E(24.4,38.2,1.7,1.2,'milho',{rot:-0.4}),E(24,37.900000000000006,.5,.32,'shine',{noLine:1}),E(38.8,36.4,1.7,1.2,'milho',{rot:0.4}),E(38.4,36.1,.5,.32,'shine',{noLine:1}),E(30,31.4,1.7,1.2,'milho',{rot:0.2}),E(29.6,31.099999999999998,.5,.32,'shine',{noLine:1}),E(34.6,25.2,1.7,1.2,'milho',{rot:-0.3}),E(34.2,24.9,.5,.32,'shine',{noLine:1}),
+    E(18,55.6,1.7,1.2,'milho',{rot:0.2}),E(17.6,55.3,.5,.32,'shine',{noLine:1}),E(23.4,57.6,1.7,1.2,'milho',{rot:-0.3}),E(23,57.3,.5,.32,'shine',{noLine:1}),E(29,56.8,1.7,1.2,'milho',{rot:0.5}),E(28.6,56.5,.5,.32,'shine',{noLine:1}),E(44.6,53.4,1.7,1.2,'milho',{rot:-0.2}),E(44.2,53.1,.5,.32,'shine',{noLine:1}),E(48.6,56.4,1.7,1.2,'milho',{rot:0.4}),E(48.2,56.1,.5,.32,'shine',{noLine:1}),E(38.4,58.2,1.7,1.2,'milho',{rot:0.1}),E(38,57.9,.5,.32,'shine',{noLine:1}),E(19.4,46.4,1.7,1.2,'milho',{rot:0.6}),E(19,46.1,.5,.32,'shine',{noLine:1}),E(45.6,43.4,1.7,1.2,'milho',{rot:-0.5}),E(45.2,43.1,.5,.32,'shine',{noLine:1}),E(40.2,49.4,1.7,1.2,'milho',{rot:0.3}),E(39.8,49.1,.5,.32,'shine',{noLine:1}),E(24.4,38.2,1.7,1.2,'milho',{rot:-0.4}),E(24,37.9,.5,.32,'shine',{noLine:1}),E(38.8,36.4,1.7,1.2,'milho',{rot:0.4}),E(38.4,36.1,.5,.32,'shine',{noLine:1}),E(30,31.4,1.7,1.2,'milho',{rot:0.2}),E(29.6,31.1,.5,.32,'shine',{noLine:1}),E(34.6,25.2,1.7,1.2,'milho',{rot:-0.3}),E(34.2,24.9,.5,.32,'shine',{noLine:1}),
     E(25,42.8,5.2,5.4,'olho',F),Cp(20.6,41,23,42.4,.25,'veia',{f:1,noLine:1}),Cp(20.8,45,23.2,44.2,.25,'veia',{f:1,noLine:1}),Cp(25,38.4,25.4,40.4,.22,'veia',{f:1,noLine:1}),E(26.2,43.6,1.4,1.4,'pupil',F),E(24.8,41.8,.6,.6,'shine',F),
     E(39.2,44.6,3.2,1.8,'olho',F),E(39.6,45.2,.8,.7,'pupil',F),Cp(35.6,43.2,42.8,43.8,1,'dark',F),
     E(32,51,7.6,2.8,'mouth',F),
@@ -515,6 +515,20 @@ const ACC_PARTS={
   coroa:{front:[Tr(4.4,4.2,5.6,0.8,6.9,4.2,'X1'),Tr(6.8,4.2,8,0.2,9.2,4.2,'X1'),Tr(9.1,4.2,10.4,0.8,11.6,4.2,'X1'),Cp(4.6,4.6,11.4,4.6,1,'X1'),E(8,4.6,.75,.75,'X3'),E(5.6,4.7,.45,.45,'X3',{m:1})],
     back:[Tr(4.4,4.2,5.6,0.8,6.9,4.2,'X1'),Tr(6.8,4.2,8,0.2,9.2,4.2,'X1'),Tr(9.1,4.2,10.4,0.8,11.6,4.2,'X1'),Cp(4.6,4.6,11.4,4.6,1,'X1')],
     side:[Tr(5,4.2,6.4,0.8,7.6,4.2,'X1'),Tr(8,4.2,9.4,0.4,10.8,4.2,'X1'),Cp(5,4.6,11.6,4.6,1,'X1'),E(6.4,4.7,.5,.5,'X3')]},
+  // Halloween: chapéu de bruxa com ponta dobrada e fivela dourada
+  bruxa:{front:[E(8,4.9,5,2.1,'X1'),Tr(5.4,4.6,10.6,4.6,8.8,0.3,'X1'),Tr(8.2,1.4,9.4,0.2,12.6,1.8,'X1'),E(8,5.9,7.4,1.4,'X1'),Cp(5.6,4.7,10.4,4.7,.6,'X2'),E(8,4.7,.65,.55,'X3')],back:[E(8,4.9,5,2.1,'X1'),Tr(5.4,4.6,10.6,4.6,8.8,0.3,'X1'),Tr(8.2,1.4,9.4,0.2,12.6,1.8,'X1'),E(8,5.9,7.4,1.4,'X1'),Cp(5.6,4.7,10.4,4.7,.6,'X2')],side:[E(8.4,4.9,4.8,2.1,'X1'),Tr(5.8,4.6,11,4.6,9.2,0.3,'X1'),Tr(8.6,1.4,9.8,0.2,13,1.8,'X1'),E(8.4,5.9,7.4,1.4,'X1'),Cp(6,4.7,10.8,4.7,.6,'X2'),E(8.4,4.7,.65,.55,'X3')]},
+  // máscara de caveira: cobre o rosto, olhos fundos, nariz de triângulo e dentinhos; atrás só o elástico
+  caveira:{front:[E(8,8.7,4.6,4,'X1'),E(8,11.9,3,1.6,'X1'),E(4.9,10.4,1.1,1.6,'X3',{m:1,noLine:1,rot:.3}),E(7,6.4,1.6,.7,'X5',{noLine:1}),E(6.1,8.9,1.35,1.25,'X2',{m:1}),E(5.8,8.6,.3,.3,'X4',{m:1,noLine:1}),Tr(7.3,10.9,8.7,10.9,8,9.8,'X2'),Cp(6.1,12,9.9,12,.6,'X1'),Cp(6.3,11.9,9.7,11.9,.12,'X2',{noLine:1}),Cp(7,11.4,7,12.6,.13,'X2',{noLine:1}),Cp(8,11.4,8,12.6,.13,'X2',{noLine:1}),Cp(9,11.4,9,12.6,.13,'X2',{noLine:1})],
+    back:[Cp(3.4,8.6,12.6,8.6,.35,'X2')],
+    side:[E(6.2,8.8,2.9,3.8,'X1'),E(5.5,11.7,1.9,1.4,'X1'),E(7.2,10.4,.8,1.3,'X3',{noLine:1,rot:-.3}),E(5,8.9,.95,1.2,'X2'),E(4.8,8.6,.25,.25,'X4',{noLine:1}),Tr(3.4,10.8,4.3,10.8,3.9,9.9,'X2'),Cp(3.9,12,6.4,12,.5,'X1'),Cp(4,11.9,6.3,11.9,.12,'X2',{noLine:1}),Cp(4.8,11.4,4.8,12.5,.13,'X2',{noLine:1}),Cp(5.8,11.4,5.8,12.5,.13,'X2',{noLine:1}),Cp(8.6,8.4,12,8.2,.3,'X2')]},
+  // máscara do Pânico: capuz preto cobrindo a cabeça e caindo nos ombros, rosto branco comprido, olhos caídos e a boca gritando
+  panico:{front:[Tr(2.6,12.6,13.4,12.6,8,6,'X2'),E(8,7.4,5.3,5.2,'X2'),E(8,9.8,5,3.2,'X2'),E(8,8.4,3.5,4.4,'X1'),E(10.4,9.6,.9,2.4,'X3',{noLine:1,rot:.15}),
+      E(6.3,7.6,1,1.8,'X2',{m:1,rot:.4,noLine:1}),E(8,11.2,1.05,1.9,'X2',{noLine:1}),E(6.9,5.6,1.2,.5,'X1',{noLine:1})],
+    back:[Tr(2.6,12.8,13.4,12.8,8,6,'X2'),E(8,7.4,5.3,5.2,'X2')],
+    side:[Tr(5,12.6,13.4,12.6,9.6,6,'X2'),E(8.6,7.4,5,5.2,'X2'),E(5.4,8.4,2.5,4.3,'X1'),E(4.7,7.6,.85,1.7,'X2',{rot:.35,noLine:1}),E(4.1,11.2,.75,1.8,'X2',{noLine:1})]},
+  // cabeça de abóbora: cobre a cabeça toda, por cima de cabelo e rosto, com a cara entalhada acesa por dentro
+  abobora:{front:[E(4.9,7.8,3,4.6,'X1'),E(11.1,7.8,3,4.6,'X1'),E(8,7.6,3.3,5.1,'X1'),Cp(8,3,8.8,1.3,.7,'X3'),Tr(4.6,8.2,6,5.9,7.1,8.2,'X2',{m:1}),E(8,10.3,3.4,1.1,'X2'),Tr(6.4,9.1,7.4,9.1,6.9,10.4,'X1',{noLine:1}),Tr(8.6,9.1,9.6,9.1,9.1,10.4,'X1',{noLine:1}),Tr(7.4,11.5,8.6,11.5,8,10.3,'X1',{noLine:1})],
+    back:[E(4.9,7.8,3,4.6,'X1'),E(11.1,7.8,3,4.6,'X1'),E(8,7.6,3.3,5.1,'X1'),Cp(8,3,8.8,1.3,.7,'X3')],side:[E(5.1,7.8,3,4.6,'X1'),E(11.3,7.8,3,4.6,'X1'),E(8.2,7.6,3.3,5.1,'X1'),Cp(8.2,3,9,1.3,.7,'X3'),Tr(3.4,8.2,4.6,5.9,5.8,8.2,'X2'),E(5.4,10.3,2.6,1,'X2'),Tr(4.6,9.1,5.6,9.1,5.1,10.4,'X1',{noLine:1})]},
   touca:{front:[E(8,3.6,3.6,1.8,'X1'),Cp(6.8,3.4,9.2,3.4,.35,'X2'),Cp(8,2.4,8,4.4,.35,'X2')],back:[E(8,3.8,3.6,1.8,'X1')],side:[E(8.2,3.6,3.2,1.6,'X1')]},
   sol:{front:[E(6.2,8.75,1.5,1.1,'lens',{m:1}),Cp(7.5,8.5,8.5,8.5,.26,'lens'),Cp(4.6,8.4,3.5,8.2,.22,'lens',{m:1}),E(5.7,8.35,.42,.26,'shine',{m:1})],back:[],
     side:[E(4.9,8.8,1.2,.95,'lens'),Cp(5.8,8.4,9.2,8.1,.2,'lens'),E(4.6,8.5,.3,.2,'shine')]},
@@ -527,8 +541,10 @@ const ACC_PARTS={
   cachecol:{front:[Cp(4.8,11.7,11.2,11.7,1.05,'X1'),Cp(10.2,12.2,10.8,15.4,.85,'X1'),Cp(10.3,14,10.8,14,.3,'X2'),Cp(5.4,11.7,6.4,11.7,.3,'X2'),Cp(9.4,11.7,10.4,11.7,.3,'X2')],
     back:[Cp(4.8,11.6,11.2,11.6,1.05,'X1'),Cp(7.4,11.6,8.6,11.6,.3,'X2')],side:[Cp(5,11.7,10.6,11.7,1,'X1'),Cp(9.6,12,11,15,.8,'X1')]},
 };
-function acc(look,slot,view){
-  const id=look.acc&&look.acc[slot],sk=SKINS[id];if(!sk||sk.slot!==slot)return[];
+// o que cobre a cabeça inteira vai por cima de tudo e esconde o cabelo
+const HW_CAPUZ=['abobora','panico'];
+function acc(look,slot,view,late){
+  const id=look.acc&&look.acc[slot],sk=SKINS[id];if(!sk||sk.slot!==slot||!!late!==HW_CAPUZ.includes(sk.kind))return[];
   return(ACC_PARTS[sk.kind][view]||[]).map(p=>/^X\d$/.test(p.c)?{...p,c:slot+p.c[1]}:p);
 }
 const mixHex=(a,b,t)=>{const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)),A=p(a),B=p(b);return'#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
@@ -539,6 +555,10 @@ function charParts(dir,f,back,look){
   const sw=f===1?1:f===2?-1:0,P=[],fem=look.sex==='f';
   const st0=HAIR_PARTS[look.style]||HAIR_PARTS[fem?'longo':'curto'],beard=!fem&&BEARD_PARTS[look.beard];
   const style={ears:st0.ears,front:hairG(st0.front),back:hairG(st0.back),side:hairG(st0.side),under:st0.under&&hairG(st0.under)};
+  // abóbora e Pânico escondem o cabelo todo; chapéu de bruxa tira o cabelo de cima (fica só o que cai pelos lados)
+  const hk=(SKINS[look.acc&&look.acc.cabeca]||{}).kind,top=p=>p.t==='e'?p.y-p.ry<4.6&&p.y<6.6:p.t==='c'?Math.min(p.ay,p.by)<4.6:Math.min(p.p[1],p.p[3],p.p[5])<3;
+  if(HW_CAPUZ.includes(hk)){for(const k of['front','back','side','under'])style[k]=[];style.ears=0}
+  if(hk==='bruxa')for(const k of['front','back','side'])style[k]=style[k].filter(p=>!top(p));
   // a franja cobre a testa: sobrancelha só aparece sem franja
   const browOk=!fem&&['raspado','topete','espetado'].includes(look.style);
   if(dir==='left'){
@@ -557,7 +577,7 @@ function charParts(dir,f,back,look){
     P.push(E(5.15,9.15,.85,1.3,'eyew'),E(4.9,9.3,.64,1.05,'iris'),E(4.95,9.75,.5,.35,'iris2'),E(4.85,9.4,.3,.58,'pupil'),E(4.65,8.8,.28,.28,'shine'),E(5.15,9.85,.13,.13,'shine'),
       Cp(4.4,7.95,5.85,7.85,.2,'pupil'),E(6.7,10.55,.7,.36,'blush'),Cp(4.1,11.25,4.7,11.45,.22,fem?'lips':'mouth'),Cp(4.7,11.45,5.3,11.3,.22,fem?'lips':'mouth'));
     if(fem)P.push(Cp(5.9,7.85,6.5,7.4,.2,'pupil'),Cp(4.3,7.9,3.9,7.6,.18,'pupil'));
-    P.push(...acc(look,'rosto','side'));
+    P.push(...acc(look,'rosto','side'),...acc(look,'cabeca','side',1));
     return P;
   }
   const lA=f===1?-1.1:0,lB=f===2?-1.1:0,a=sw*.7,ax=fem?.4:0;
@@ -568,7 +588,7 @@ function charParts(dir,f,back,look){
   if(!back&&style.under)P.push(...style.under);
   if(style.ears)P.push(...EARS_FRONT);
   P.push(Cp(8,11.4,8,12.6,1.25,'skind',{fl:1}),E(8,7.9,4.7,4.75,'skin',{fl:1}));
-  if(back){P.push(...style.back,...acc(look,'cabeca','back'));return P}
+  if(back){P.push(...style.back,...acc(look,'cabeca','back'),...acc(look,'cabeca','back',1));return P}
   if(beard)P.push(...downY(beard.front,.5));
   P.push(...style.front);
   if(fem&&look.style!=='chanel')P.push(...hairG(FRINGE));
@@ -582,7 +602,7 @@ function charParts(dir,f,back,look){
   P.push(E(8.45,10.2,.32,.24,'skind',{f:1,noLine:1}),E(4.95,10.55,.78,.38,'blush',EM));
   P.push(Cp(7.25,11.15,8,11.42,.23,fem?'lips':'mouth',EM));
   if(fem)P.push(Cp(4.9,8.0,4.35,7.6,.22,'pupil',EM),Cp(5.4,7.9,5.1,7.45,.18,'pupil',EM));
-  P.push(...acc(look,'rosto','front'));
+  P.push(...acc(look,'rosto','front'),...acc(look,'cabeca','front',1));
   return P;
 }
 // letreiro em fonte de pixel 3x5

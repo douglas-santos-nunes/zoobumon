@@ -32,6 +32,7 @@ async function battle(opt){
     jingle('vitoria');
     if(B.wild){const c=5+team[0].lv*3;S.coins+=c;await say(`Você achou ${c} moedas no mato.`)}
     else{const rw=opt.reward||100;S.coins+=rw;S.wins++;await addTxp(25);await say(`Você venceu ${B.name}! Ganhou ${rw} moedas.`)}
+    await hwVitoria();
   }else if(r==='lose'&&opt.friendly)await say(`Você perdeu para ${B.name}. Treine mais e volte!`);
   return r;
 }

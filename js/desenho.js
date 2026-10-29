@@ -170,7 +170,7 @@ function drawWorld(ts){
   camX=cx;camY=cy;
   R(ctx,inside?'#17121f':'#1a4420',0,0,VW,VH);
   const t0x=Math.floor(cx/TS),t0y=Math.floor(cy/TS),wf=Math.floor(ts/650)%2,wf3=Math.floor(ts/420)%3;
-  const actors=[];
+  const actors=[],hw=hwAtivo(),hwPortas=[];
   for(let ty=t0y;ty<=t0y+Math.ceil(VH/TS)+1;ty++)for(let tx=t0x;tx<=t0x+Math.ceil(VW/TS);tx++){
     const ch=tileAt(tx,ty),X=tx*TS-cx,Y=ty*TS-cy,h=hash(tx,ty);
     if(inside){if(tx<0||ty<0||tx>=SC().w||ty>=SC().h)continue;drawInteriorTile(ch,tx,ty,X,Y,h);continue}
@@ -187,6 +187,7 @@ function drawWorld(ts){
       default:img=T.grass[[0,1,2,3,3,3,1][h%7]];
     }
     ctx.drawImage(img,X,Y);
+    if(hw&&ch==='H'&&T.house.door.includes(img))hwPortas.push([X,Y,tx,ty]);
     if(ch==='='){const g=(a,b)=>'.,fT'.includes(tileAt(a,b));
       if(g(tx,ty-1))ctx.drawImage(T.edge.u,X,Y);if(g(tx,ty+1))ctx.drawImage(T.edge.d,X,Y);
       if(g(tx-1,ty))ctx.drawImage(T.edge.l,X,Y);if(g(tx+1,ty))ctx.drawImage(T.edge.r,X,Y)}
@@ -200,6 +201,8 @@ function drawWorld(ts){
   }
   if(!inside)for(const b of BUILDINGS)drawBuilding(b,cx,cy);
   else drawInteriorDecor(cx,cy);
+  // Halloween: enfeites só no dia do evento
+  if(hw){if(inside)hwDecorDentro(cx,cy,ts);else{hwDecorPredios(cx,cy,ts);hwDecorCasas(hwPortas,ts)}}
   if(goal&&Math.floor(ts/250)%2){const gx=goal.x*TS-cx,gy=goal.y*TS-cy;
     for(const[ox,oy]of[[1,1],[25,1],[1,25],[25,25]]){R(ctx,'#ffffff',gx+ox,gy+oy,6,2);R(ctx,'#ffffff',gx+ox+(ox>2?4:0),gy+oy,2,6)}}
   const frame=P.moving?(P.t<.5?(P.step?1:2):0):0;
@@ -215,6 +218,7 @@ function drawWorld(ts){
     if(a.me){const sx=P.moving&&P.t>.5?P.tx:P.x,sy=P.moving&&P.t>.5?P.ty:P.y;
       if(tileAt(sx,sy)===','){const v=hash(sx,sy)%4,im=(rustle&&rustle.x===sx&&rustle.y===sy&&ts<rustle.until?T.tallFrontRustle:T.tallFront)[v];ctx.drawImage(im,0,14,TS,18,sx*TS-cx,sy*TS-cy+14,TS,18)}}
   }
+  if(hw&&!inside)hwCeu(ts);
   if(VIG&&VIG.width)ctx.drawImage(VIG,0,0);
 }
 const BG={vila:['#eef0f6','#d6dbe9','#b9c2d8','#8f9ab8'],rota:['#eef4d8','#d2e6a8','#a8d070','#7cad4c'],pedreira:['#f4ead6','#e6d0a6','#ccac7c','#9e7e56'],bosque:['#d6e4cc','#aecaa0','#82ad6c','#56834a'],praia:['#e2f2fa','#f2e2b0','#e2c88a','#c8a868'],cidade:['#e6eaf2','#c8ccd6','#a8aebc','#7c8494'],boteco:['#f6ead8','#d8e6a8','#b0d078','#86ac56'],serra:['#e0e6f0','#cfc0a4','#a8936e','#7a6448']};
@@ -312,7 +316,7 @@ function frame(ts){
     const gbg=mode==='battle'&&bc?`linear-gradient(${bc[0]} ${horizon}px,${bc[1]} ${horizon}px)`:mode==='evo'?'#14121c':'#000';
     if(lastBg!==gbg){lastBg=gbg;$('#game').style.background=gbg}
     const mb=$('#menuBtn'),showMb=mode==='world'&&!busy;if(mb.hidden===showMb)mb.hidden=!showMb;
-    teamBar(showMb);
+    teamBar(showMb);hwTick(showMb);
     if(mode==='world')drawWorld(ts);else if(mode==='battle'&&B)drawBattle();else if(mode==='evo'&&EVO)drawEvo(ts);
   }
   requestAnimationFrame(frame);
