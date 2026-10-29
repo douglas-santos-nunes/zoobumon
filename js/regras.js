@@ -12,7 +12,8 @@ function bon(o){
   if(!o)return r;
   const c=null; // classes saíram do jogo: bônus só de equipamento e nível de treinador
   if(c){for(const k of['atk','def','hp','cap','xp'])r[k]+=c[k]||0;if(c.enc)r.enc=c.enc}
-  const tl=tlevel(o.txp);r.atk+=(tl-1)*.01;r.def+=(tl-1)*.01;
+  // nível de treinador: +1% de ataque e defesa a cada 5 níveis, no máximo +10% (as insígnias dos chefões vão somar por fora)
+  const tl=tlevel(o.txp),tb=Math.min(.1,Math.floor(tl/5)*.01);r.atk+=tb;r.def+=tb;
   for(const id of o.eq||[]){const G=GEAR[id];if(!G)continue;r.atk+=G.atk||0;r.def+=G.def||0;r.cap+=G.cap||0;r.spd+=G.spd||0;if(G.boost)r.boost[G.boost]=(r.boost[G.boost]||0)+.2}
   return r;
 }

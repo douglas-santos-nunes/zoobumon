@@ -126,7 +126,7 @@ async function switchTo(i,voluntary){
   await tween(350,t=>{B.pX=-(1-t)*140});
   await say(`Vai, ${nameOf(S.party[i])}!`);
 }
-async function addTxp(n){const b=tlevel(S.txp);S.txp+=n;const a=tlevel(S.txp);if(a>b)await say(`Seu nível de treinador subiu para ${a}! Seus zoobumons ficam um pouco mais fortes.`)}
+async function addTxp(n){const b=tlevel(S.txp);S.txp+=n;const a=tlevel(S.txp);if(a>b){const fb=Math.min(10,Math.floor(a/5)),ib=Math.min(10,Math.floor(b/5));await say(fb>ib?`Seu nível de treinador subiu para ${a}! Seus zoobumons ganham +${fb}% de ataque e defesa.`:`Seu nível de treinador subiu para ${a}!`)}}
 async function giveXP(m,amt){
   await say(`${nameOf(m)} ganhou ${amt} pontos de XP!`);
   m.xp+=amt;hud();await sleep(300);
