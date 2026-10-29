@@ -353,6 +353,99 @@ const SHAPES={
     Cp(25,36.6,29.4,36.6,.7,'pupil',{m:1,f:1}),Cp(25,35.6,29.4,35.6,.55,'base',{m:1,f:1,noLine:1}),E(24.4,39.6,1.7,1,'pink',{m:1,f:1,noLine:1}),
     E(32,41.6,4,2,'mouth',F),E(32,40.6,4.4,1.3,'base',{f:1,noLine:1}),E(32,42.6,1.8,.8,'pink',{f:1,noLine:1})],
 };
+
+// aumenta um desenho a partir dos pés (as formas novas crescem a partir da anterior)
+const grow=(arr,f,ox=32,oy=62)=>arr.map(p=>p.t==='e'?{...p,x:ox+(p.x-ox)*f,y:oy+(p.y-oy)*f,rx:p.rx*f,ry:p.ry*f}:p.t==='c'?{...p,ax:ox+(p.ax-ox)*f,ay:oy+(p.ay-oy)*f,bx:ox+(p.bx-ox)*f,by:oy+(p.by-oy)*f,r:p.r*f}:{...p,p:p.p.map((v,i)=>i%2?oy+(v-oy)*f:ox+(v-ox)*f)});
+Object.assign(SHAPES,{
+  // Galinferno: galo vermelho-escuro de asas de fogo enormes abertas e crista em labareda
+  galinferno:[E(8.39,30.79,11,3.2,'flame',{m:1,rot:-2.75}),E(9.06,26.11,12.5,3.2,'ember',{m:1,rot:-2.45}),E(12.18,22.51,13,3.2,'flame',{m:1,rot:-2.15}),E(16.9,21.7,12,3.2,'accent',{m:1,rot:-1.85}),E(20.64,23.61,10,3.2,'ember',{m:1,rot:-1.6}),E(17,34,6,5,'flame',{m:1}),
+    ...grow(SHAPES.galardente,1.04),Tr(26,8,28.6,0.6,31.4,7.6,'ember'),Tr(32.6,7.6,35.4,0,38,8.6,'ember'),E(32,36,3.4,3,'ember',{noLine:1,nb:1}),
+    E(27.4,18.4,1.2,1,'ember',{m:1,f:1,noLine:1})],
+  // Tromba d'Água (aprovado)
+  tromba:[Cp(9,54,15,22,2.2,'onda',M),E(7,18,2,2.8,'onda',M),E(12,10,1.4,2,'onda',M),
+    ...SHAPES.zegotinha,Cp(19,51.4,45,51.4,2.1,'cinto',{nb:1}),E(32,51.4,3.6,2.8,'cinto',{nb:1}),E(32,51.4,1.8,1.4,'fivela',{nb:1,noLine:1})],
+  // Cobrume Triplo (aprovado)
+  cobrumetriplo:[...SHAPES.floresko,Cp(32,46,32,22,4.4,'base'),Cp(32,46.6,32,23,2.2,'belly',NB),E(32,15.6,7.22,5.5,'base'),E(32,19.04,5.16,2.58,'base',{nb:1}),E(32,20.07,3.44,1.55,'belly',{nb:1,noLine:1}),Cp(27.18,18.87,36.82,18.87,0.47,'mouth',{f:1}),Cp(32,19.21,32,21.28,0.39,'lingua',{f:1}),E(28.56,15.26,1.98,1.63,'accent',{f:1}),Cp(28.56,14.14,28.56,16.37,0.36,'pupil',{f:1}),E(27.87,14.74,0.39,0.39,'shine',{f:1}),Cp(25.81,12.5,30.8,14.4,0.9,'dark',{f:1}),Tr(28.22,18.95,29.59,18.95,28.9,21.62,'claw',{f:1}),Cp(32,21.28,30.88,22.48,0.33,'lingua',{f:1}),E(35.44,15.26,1.98,1.63,'accent',{f:1}),Cp(35.44,14.14,35.44,16.37,0.36,'pupil',{f:1}),E(34.75,14.74,0.39,0.39,'shine',{f:1}),Cp(38.19,12.5,33.2,14.4,0.9,'dark',{f:1}),Tr(35.78,18.95,34.41,18.95,35.1,21.62,'claw',{f:1}),Cp(32,21.28,33.12,22.48,0.33,'lingua',{f:1}),
+    Tr(26.6,10.6,27.6,4.4,30,9.6,'chifre'),Tr(30.4,9,32,2.6,33.6,9,'chifre'),Tr(34,9.6,36.4,4.4,37.4,10.6,'chifre')],
+  // Rei do Esgoto: capa real caindo dos ombros (forro vermelho, borda dourada) e gola de pele de arminho
+  reiesgoto:[E(15,47,10,15,'ouro',{m:1,rot:.22}),E(15.6,47,9,14,'capa',{m:1,rot:.22}),E(32,49,17,13,'capa'),E(16.4,50,5.6,10,'forro',{m:1,rot:.22,noLine:1}),
+    ...grow(SHAPES.ratazao,1.06),
+    E(19.6,36,5.4,3.4,'arminho',{m:1,rot:.35}),E(18,35.4,.55,.75,'dark',{m:1,noLine:1}),E(21.6,37,.55,.75,'dark',{m:1,noLine:1}),E(16.4,37.6,.55,.75,'dark',{m:1,noLine:1}),
+    Cp(25,13.6,39,13.6,1.4,'coroa'),Tr(25,13.6,26.6,6,29.4,12.6,'coroa'),Tr(29.6,12.6,32,3.6,34.4,12.6,'coroa'),Tr(34.6,12.6,37.4,6,39,13.6,'coroa'),E(32,10.6,.95,.95,'gema',{noLine:1}),E(27,11.6,.7,.7,'gema',{noLine:1}),E(37,11.6,.7,.7,'gema',{noLine:1})],
+  // Caramelo Mito
+  caramelomito:[Tr(14,24,50,24,57,61,'capa'),Tr(14,24,7,61,57,61,'capa'),Cp(9,60,55,60,1.3,'borda'),...grow(SHAPES.caramelao,1.03),
+    Cp(23,40.4,41,40.4,.75,'ouro',{nb:1}),E(32,43.4,2.8,2.8,'ouro',{nb:1}),E(32,43.4,1.3,1.3,'gema',{nb:1,noLine:1})],
+  // Zubumavô (aprovado)
+  zubumavo:[...grow(SHAPES.zubumapai,1.03),E(32,37,6.6,4.8,'barba',{f:1}),E(32,40.4,4,3,'barba',{f:1}),Cp(21.4,19.4,29.6,20.6,1.1,'barba',{m:1,f:1}),
+    Cp(13.6,40,12.6,61,1.1,'bengala'),Cp(13.6,40,17.6,37,1.1,'bengala')],
+  // Procedimento Fatal: cocô monstro de chifres, braços de gosma pra cima, dois olhos verdes de fenda e bocão de dente
+  procfatal:[E(32,60.6,29,3.2,'poca',{noLine:1}),
+    Cp(12,46,5,30,2.8,'base',M),E(4.6,28.4,3.2,3,'base',M),Tr(1.4,26.6,2.6,21,5,26,'dente',M),Tr(4.6,25.6,6.6,20.6,7.6,26,'dente',M),
+    // chifres atrás do topo: a base fica escondida dentro da cabeça e eles curvam pra fora e pra cima
+    Cp(28.4,21,22.4,14.6,2.4,'chifre',M),Cp(22.4,14.6,20.6,8,1.6,'chifre',M),Tr(19.2,8.6,22,8.6,20.2,3.4,'chifre',M),Cp(24.6,17,23.6,15.6,.4,'dark',{m:1,noLine:1}),
+    E(32,54,24,8,'base'),E(32,44.4,20,7.8,'base'),E(32,35,15.6,7,'base'),E(32,26.6,11,6,'base'),E(32,19.6,7,4.6,'base'),
+    E(17,52,2,1.3,'mofo',{noLine:1}),E(46,48,1.8,1.2,'mofo',{noLine:1}),E(40,30,1.4,1,'mofo',{noLine:1}),E(22,40,1.4,1,'mofo',{noLine:1}),
+    E(25.4,34,4,3.3,'olho',{m:1,f:1}),Cp(26,31.6,26,36.4,.7,'pupil',{m:1,f:1}),Cp(19.6,29,29,32.2,1.2,'dark',{m:1,f:1}),
+    E(32,46,10.4,4,'mouth',F),Tr(23.6,43.4,26.2,43.4,24.9,47,'dente',{f:1}),Tr(27,43.4,29.6,43.4,28.3,47,'dente',{f:1}),Tr(30.4,43.4,33,43.4,31.7,47,'dente',{f:1}),Tr(33.8,43.4,36.4,43.4,35.1,47,'dente',{f:1}),Tr(37.2,43.4,39.8,43.4,38.5,47,'dente',{f:1}),Tr(40.6,43.4,43.2,43.4,41.9,47,'dente',{f:1}),Tr(25.4,49.4,27.8,49.4,26.6,46.4,'dente',{f:1}),Tr(28.8,49.4,31.2,49.4,30,46.4,'dente',{f:1}),Tr(32.2,49.4,34.6,49.4,33.4,46.4,'dente',{f:1}),Tr(35.6,49.4,38,49.4,36.8,46.4,'dente',{f:1}),Tr(39,49.4,41.4,49.4,40.2,46.4,'dente',{f:1}),E(38,50.6,.8,1.6,'fedor',{f:1,noLine:1}),
+    Cp(19,49,18,57,.8,'poca',{noLine:1}),Cp(46,47,47,56,.7,'poca',{noLine:1}),
+    Cp(9,46,11,42,.55,'fedor',{noLine:1}),Cp(11,42,9,38,.55,'fedor',{noLine:1}),Cp(55,46,53,42,.55,'fedor',{noLine:1}),Cp(53,42,55,38,.55,'fedor',{noLine:1}),
+    E(14,14,1.5,1.3,'accent'),E(12.8,12.4,1.3,.8,'wing',{rot:-.4}),E(15.2,12.4,1.3,.8,'wing',{rot:.4}),E(50,10,1.5,1.3,'accent'),E(48.8,8.4,1.3,.8,'wing',{rot:-.4}),E(51.2,8.4,1.3,.8,'wing',{rot:.4}),E(26,6,1.5,1.3,'accent'),E(24.8,4.4,1.3,.8,'wing',{rot:-.4}),E(27.2,4.4,1.3,.8,'wing',{rot:.4}),E(40,4,1.5,1.3,'accent'),E(38.8,2.4,1.3,.8,'wing',{rot:-.4}),E(41.2,2.4,1.3,.8,'wing',{rot:.4}),E(58,20,1.5,1.3,'accent'),E(56.8,18.4,1.3,.8,'wing',{rot:-.4}),E(59.2,18.4,1.3,.8,'wing',{rot:.4}),E(6,20,1.5,1.3,'accent'),E(4.8,18.4,1.3,.8,'wing',{rot:-.4}),E(7.2,18.4,1.3,.8,'wing',{rot:.4})],
+  // Rasta Rei: leque de folhas enorme, dreads até o chão, barba, coroa e violão
+  rastarei:[Cp(22,30,17.6,42,1.5,'dread',M),Cp(17.6,42,18.6,55,1.35,'dread',M),E(18.6,56.4,1.5,1.3,'gorro_v',M),Cp(24.6,31.6,20.8,43.6,1.5,'dread',M),Cp(20.8,43.6,21.8,56,1.35,'dread',M),E(21.8,57.4,1.5,1.3,'gorro_a',M),Cp(27,33,24.4,45,1.5,'dread',M),Cp(24.4,45,25.4,56.6,1.35,'dread',M),E(25.4,58,1.5,1.3,'gorro_g',M),...grow(SHAPES.rastafolha,1.12),E(32,46.2,4.6,3.2,'dread',{f:1}),
+    Tr(24.4,18.6,26,11.6,28.4,17.6,'coroa'),Tr(28.8,17.4,32,9.4,35.2,17.4,'coroa'),Tr(35.6,17.6,38,11.6,39.6,18.6,'coroa'),Cp(24,18.8,40,18.8,1.2,'coroa'),
+    Cp(50,44,58,24,1.3,'braco'),E(58.4,23,1.8,2.4,'braco'),E(47.4,48.6,6.4,7.2,'violao'),E(47.4,47,1.8,1.8,'dark',{noLine:1}),Cp(44,51,51,42,.25,'corda',{noLine:1}),Cp(45,52,52,43,.25,'corda',{noLine:1})],
+  // Abelhote: abelha soldado de capacete com penacho, lança de ferrão e escudo
+  abelhote:[...grow(SHAPES.zumbel,1.06),E(32,23.6,11.6,5.6,'capacete'),Cp(21,26.6,43,26.6,1.4,'capacete'),Tr(30,18.4,32,10,34,18.4,'penacho'),Tr(32,14,38,12,34,19,'penacho'),
+    Cp(52,62,57,10,1,'lanca'),Tr(55,12,59,11.6,57.4,4,'ferrao'),E(11,47,5.4,6.4,'escudo'),E(11,47,2.6,3.2,'dark',{noLine:1}),E(11,47,1.4,1.8,'escudo',{noLine:1})],
+  // Colmeiona: uma colmeia viva com asas, coroa, mel escorrendo e abelhas em volta
+  colmeiona:[E(10,30,7,13,'wing',{m:1,rot:-.6}),E(9,44,5,9,'wing',{m:1,rot:-1.1}),
+    E(24,58.6,4,2,'dark',M),
+    E(32,54,18,6,'colmeia'),E(32,46,17,6,'colmeia'),E(32,38,15,6,'colmeia'),E(32,30,12,5.6,'colmeia'),E(32,22.6,8,4.6,'colmeia'),
+    Cp(15,50,49,50,.4,'dark',{noLine:1}),Cp(16,42,48,42,.4,'dark',{noLine:1}),Cp(18,34,46,34,.4,'dark',{noLine:1}),Cp(21,26,43,26,.4,'dark',{noLine:1}),
+    E(32,52.4,3.6,2.6,'dark'),Cp(18,46,17,53,.9,'mel',{noLine:1}),Cp(45,38,46,46,.8,'mel',{noLine:1}),E(17,53.6,1.2,1.4,'mel',{noLine:1}),
+    ...eyes(26.6,37.6,.9,1),E(32,45.4,4,2,'mouth',F),Tr(29.4,44.6,31,44.6,30.2,46.8,'claw',{f:1}),Tr(33,44.6,34.6,44.6,33.8,46.8,'claw',{f:1}),
+    Tr(26,18.6,27.6,12,30,17.6,'coroa'),Tr(30.4,17.4,32,10,33.6,17.4,'coroa'),Tr(34,17.6,36.4,12,38,18.6,'coroa'),
+    E(6.6,12.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(9.4,12.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(8,14,2.2,1.5,'base'),Cp(8,12.8,8,15.2,.35,'dark',{noLine:1}),E(6.6,13.7,.35,.35,'pupil',{noLine:1}),E(54.6,10.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(57.4,10.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(56,12,2.2,1.5,'base'),Cp(56,10.8,56,13.2,.35,'dark',{noLine:1}),E(54.6,11.7,.35,.35,'pupil',{noLine:1}),E(2.6,48.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(5.4,48.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(4,50,2.2,1.5,'base'),Cp(4,48.8,4,51.2,.35,'dark',{noLine:1}),E(2.6,49.7,.35,.35,'pupil',{noLine:1}),E(58.6,38.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(61.4,38.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(60,40,2.2,1.5,'base'),Cp(60,38.8,60,41.2,.35,'dark',{noLine:1}),E(58.6,39.7,.35,.35,'pupil',{noLine:1}),E(44.6,4.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(47.4,4.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(46,6,2.2,1.5,'base'),Cp(46,4.8,46,7.2,.35,'dark',{noLine:1}),E(44.6,5.7,.35,.35,'pupil',{noLine:1})],
+  // Zapfone: celular com o Zap na tela trincada, bracinhos e perninhas
+  zapfone:[E(25,58.6,3.6,2,'celular',M),Cp(26,52,26,57,1.6,'celular',M),Cp(19,32,12,38,1.8,'celular',M),E(11.4,38.6,2,2,'celular',M),
+    Tr(18,8,46,8,46,54,'celular',{g:'cel'}),Tr(18,8,18,54,46,54,'celular',{g:'cel'}),
+    Tr(20.6,12,43.4,12,43.4,48,'tela',{fl:1,noLine:1}),Tr(20.6,12,20.6,48,43.4,48,'tela',{fl:1,noLine:1}),E(32,10,3,.7,'dark',{noLine:1}),Cp(28,51,36,51,.8,'dark',{noLine:1}),
+    E(32,28,10,9,'base'),Tr(24,33,21,41,29,36,'base'),...eyes(28,26,.75),Cp(28.6,31.6,35.4,31.6,.8,'belly',F),
+    Cp(36,14,30,22,.3,'trinca',{noLine:1}),Cp(30,22,34,24,.3,'trinca',{noLine:1}),Cp(30,22,26,20,.3,'trinca',{noLine:1}),Cp(34,24,40,40,.3,'trinca',{noLine:1})],
+  // Zapzilla: monstro gigante verde, espinhos de balão de conversa nas costas e raios em volta
+  // Antenão 5G: torre de celular viva, antenas nos lados, luzinha vermelha no topo, ondas de sinal e mensagens voando
+  antena5g:[Cp(30.16,9.25,27.86,7.41,.55,'sinal',{m:1,noLine:1}),Cp(27.86,7.41,27,4.6,.55,'sinal',{m:1,noLine:1}),Cp(27,4.6,27.86,1.79,.55,'sinal',{m:1,noLine:1}),Cp(27.86,1.79,30.16,-0.05,.55,'sinal',{m:1,noLine:1}),Cp(28.87,12.5,24.97,9.38,.55,'sinal',{m:1,noLine:1}),Cp(24.97,9.38,23.5,4.6,.55,'sinal',{m:1,noLine:1}),Cp(23.5,4.6,24.97,-0.18,.55,'sinal',{m:1,noLine:1}),Cp(24.97,-0.18,28.87,-3.3,.55,'sinal',{m:1,noLine:1}),Cp(27.58,15.76,22.08,11.35,.55,'sinal',{m:1,noLine:1}),Cp(22.08,11.35,20,4.6,.55,'sinal',{m:1,noLine:1}),Cp(20,4.6,22.08,-2.15,.55,'sinal',{m:1,noLine:1}),Cp(22.08,-2.15,27.58,-6.56,.55,'sinal',{m:1,noLine:1}),
+    E(18,61,4.4,1.6,'dark',M),Cp(18,61,28,10,1.5,'metal',M),
+    Cp(21,51,43,51,.8,'metal'),Cp(23.4,41,40.6,41,.8,'metal'),Cp(25.6,31,38.4,31,.8,'metal'),Cp(27.6,21,36.4,21,.8,'metal'),
+    Cp(21,51,40.6,41,.55,'dark',{noLine:1}),Cp(43,51,23.4,41,.55,'dark',{noLine:1}),Cp(23.4,41,38.4,31,.55,'dark',{noLine:1}),Cp(40.6,41,25.6,31,.55,'dark',{noLine:1}),
+    Cp(32,11,32,3,1,'metal'),E(32,2.8,1.9,1.9,'luz'),E(31.4,2.2,.6,.6,'light',{noLine:1}),
+    Cp(22.6,14,22.6,24,1.8,'painel',M),Cp(22.6,14,22.6,24,.4,'dark',{m:1,noLine:1}),E(19,30,3,4.2,'metal',{m:1,rot:-.35}),E(19.4,30,1.6,2.6,'light',{m:1,rot:-.35,noLine:1}),
+    E(32,36,9.4,8.4,'caixa'),E(32,33,7,2.4,'light',{noLine:1,fl:1}),...eyes(28.2,35.4,.75,1),E(32,40.4,2.6,1.4,'mouth',F),
+    E(8,40,3.6,3,'base'),Tr(6,42,4.4,44.6,8,42.6,'base'),E(6.8,40,.5,.5,'belly',{noLine:1}),E(9.2,40,.5,.5,'belly',{noLine:1}),E(56,46,3.6,3,'base'),Tr(54,48,52.4,50.6,56,48.6,'base'),E(54.8,46,.5,.5,'belly',{noLine:1}),E(57.2,46,.5,.5,'belly',{noLine:1}),E(9,54,3.6,3,'base'),Tr(7,56,5.4,58.6,9,56.6,'base'),E(7.8,54,.5,.5,'belly',{noLine:1}),E(10.2,54,.5,.5,'belly',{noLine:1})],
+  // Lancheriol: lancheira térmica azul com zíper, bolso, alça e floquinho de neve
+  lancheriol:[E(24,58.4,3.6,1.8,'alca',M),Cp(17,40,10,45,1.6,'lancheira',M),E(9.6,45.6,1.9,1.9,'lancheira',M),
+    Cp(21,24,23,13,1.5,'alca'),Cp(23,13,41,13,1.5,'alca'),Cp(41,13,43,24,1.5,'alca'),
+    Tr(13,24,51,24,51,56,'lancheira',{g:'l',fl:1}),Tr(13,24,13,56,51,56,'lancheira',{g:'l',fl:1}),Cp(14,25.4,50,25.4,.7,'ziper',{noLine:1}),E(46,27.4,1.2,1.6,'ziper'),
+    Tr(18,42,46,42,46,54,'bolso',{g:'b',fl:1}),Tr(18,42,18,54,46,54,'bolso',{g:'b',fl:1}),Cp(19,43.4,45,43.4,.5,'ziper',{noLine:1}),
+    Cp(32,45.6,32,52.4,.45,'floco',{noLine:1}),Cp(29,47.2,35,50.8,.45,'floco',{noLine:1}),Cp(29,50.8,35,47.2,.45,'floco',{noLine:1}),
+    ...eyes(26.4,32,.8,1),E(32,37.6,2.6,1.5,'mouth',F),Cp(16,28,16,52,.6,'light',{noLine:1})],
+  // Geladeirol: geladeira viva, porta de freezer, ímãs, cara brava e friozinho em volta
+  geladeirol:[E(22,60.4,3.6,1.6,'dark',M),Cp(14,38,7,44,1.8,'geladeira',M),E(6.6,44.6,2,2,'geladeira',M),
+    Tr(14,5,50,5,50,59,'geladeira',{g:'g',fl:1}),Tr(14,5,14,59,50,59,'geladeira',{g:'g',fl:1}),Cp(14,21,50,21,.7,'dark',{noLine:1}),
+    Cp(45.4,9,45.4,17,1,'puxador'),Cp(45.4,25,45.4,40,1,'puxador'),
+    E(20,11,1.8,1.6,'ima1'),E(25,13,1.4,1.4,'ima2'),Tr(30,9,34,9,32,13,'ima3'),
+    ...eyes(26,32,.95,1),E(32,40,4,2,'mouth',F),Cp(28.6,39.4,35.4,39.4,.5,'claw',{f:1,noLine:1}),Cp(17,24,17,56,.6,'light',{noLine:1}),
+    E(6,12,1.4,1.4,'gelo'),E(58,18,1.6,1.6,'gelo'),E(56,8,1,1,'gelo'),E(8,26,1,1,'gelo'),Cp(54,12,60,12,.4,'gelo',{noLine:1}),Cp(57,9,57,15,.4,'gelo',{noLine:1})],
+  // Texugo do Milho: caipira de festa junina, chapéu de palha remendado, lenço xadrez e espiga na mão
+  texugomilho:[...grow(SHAPES.texugo,1.06),E(32,16.4,16,3,'palha'),E(32,11.6,9,5,'palha'),Cp(23.4,14.4,40.6,14.4,1.2,'fita'),E(38,10.4,1.4,1.2,'xadrez',{noLine:1}),
+    Tr(22,38,42,38,32,46,'xadrez',{nb:1}),Cp(25,40,39,40,.4,'palha',{nb:1,noLine:1}),
+    E(9,40,3.2,6.4,'milho',{rot:.35}),Tr(6,46,9,52,12,45,'folhamilho'),Tr(8,46,13,51,13,44,'folhamilho'),E(8,37,.6,.6,'light',{noLine:1}),E(10,41,.6,.6,'light',{noLine:1})],
+  // Texugo do Mel: maior, todo melado, segurando um favo, abelhas bravas em volta e ele nem aí
+  texugomel:[...grow(SHAPES.texugo,1.14),E(25.9,24.6,1.4,1.5,'olhovermelho',{m:1,f:1}),E(26.2,24.8,.6,.7,'pupil',{m:1,f:1}),
+    Cp(22,14,21,22,1.1,'mel',{noLine:1}),Cp(40,13,41,24,1.1,'mel',{noLine:1}),E(21,22.6,1.3,1.6,'mel',{noLine:1}),E(41,24.6,1.3,1.6,'mel',{noLine:1}),Cp(29,36,30,40,.8,'mel',{f:1,noLine:1}),
+    E(55,42,5.6,6.4,'favo'),E(53.4,40,1.2,1.2,'mel',{noLine:1}),E(56.6,40,1.2,1.2,'mel',{noLine:1}),E(55,43.4,1.2,1.2,'mel',{noLine:1}),E(53.4,46,1.2,1.2,'mel',{noLine:1}),E(56.6,46,1.2,1.2,'mel',{noLine:1}),
+    E(4.6,8.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(7.4,8.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(6,10,2.2,1.5,'abelha'),Cp(6,8.8,6,11.2,.35,'dark',{noLine:1}),E(4.6,9.7,.35,.35,'pupil',{noLine:1}),E(56.6,6.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(59.4,6.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(58,8,2.2,1.5,'abelha'),Cp(58,6.8,58,9.2,.35,'dark',{noLine:1}),E(56.6,7.7,.35,.35,'pupil',{noLine:1}),E(10.6,2.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(13.4,2.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(12,4,2.2,1.5,'abelha'),Cp(12,2.8,12,5.2,.35,'dark',{noLine:1}),E(10.6,3.7,.35,.35,'pupil',{noLine:1}),E(46.6,24.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(49.4,24.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(48,26,2.2,1.5,'abelha'),Cp(48,24.8,48,27.2,.35,'dark',{noLine:1}),E(46.6,25.7,.35,.35,'pupil',{noLine:1})],
+});
 function speciesColors(sp){
   const pal={...PAL[sp.t],...(sp.pal||{})},o={};
   for(const k of['base','belly','accent','dark','light'])o[k]=ramp(pal[k]);

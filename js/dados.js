@@ -53,27 +53,27 @@ const GREY={base:'#8a7a8e',light:'#b8aabc',dark:'#5a4c5e',belly:'#ece0ec',accent
 // b = atributos base, xp = XP que dá ao ser derrotado, cr = facilidade de captura, sh = forma do sprite gerado
 const SPECIES={
   pintobrasa:{n:'Frangote',t:'Fogo',b:{hp:42,atk:58,def:40,spd:66},xp:64,cr:.45,ls:LS.fogo,evo:['galardente',22],pal:{base:'#f6a828',light:'#ffd870',dark:'#8a3a14',belly:'#ffe2a0',accent:'#ff4a1a'},sh:{rx:.55,ry:.6,cy:.6,sp:2,seed:11,nz:.55}},
-  galardente:{n:'Galinacio',t:'Fogo',b:{hp:66,atk:92,def:60,spd:88},xp:150,cr:.15,ls:LS.fogo,pal:{base:'#e8552a',light:'#ff9a4a',dark:'#9a2a18',belly:'#ffd27a',accent:'#ffe14a'},sh:{rx:.78,ry:.8,cy:.54,sp:3,seed:11,nz:.55}},
+  galardente:{n:'Galinacio',t:'Fogo',b:{hp:66,atk:92,def:60,spd:88},xp:150,cr:.15,ls:LS.fogo,evo:['galinferno',38],pal:{base:'#e8552a',light:'#ff9a4a',dark:'#9a2a18',belly:'#ffd27a',accent:'#ffe14a'},sh:{rx:.78,ry:.8,cy:.54,sp:3,seed:11,nz:.55}},
   gotinho:{n:'Pingaço',t:'Água',b:{hp:50,atk:48,def:60,spd:46},xp:64,cr:.45,ls:LS.agua,evo:['zegotinha',22],sh:{rx:.62,ry:.55,cy:.62,sp:0,seed:23,nz:.4},
     pal:{base:'#2f6cc0',light:'#7ab8f0',dark:'#173e7a',belly:'#8cc2f0',accent:'#f8f8f8',faixa:'#d83a3a'}},
-  zegotinha:{n:'Zé Gotinha',t:'Água',b:{hp:76,atk:74,def:86,spd:62},xp:150,cr:.15,ls:LS.agua,pal:{base:'#245aa8',light:'#6aa8e8',dark:'#10305e',belly:'#7cb4ea',accent:'#f8f8f8',faixa:'#d83a3a',luva:'#d83a3a'},sh:{rx:.85,ry:.72,cy:.56,sp:1,seed:23,nz:.4}},
+  zegotinha:{n:'Zé Gotinha',t:'Água',b:{hp:76,atk:74,def:86,spd:62},xp:150,cr:.15,ls:LS.agua,evo:['tromba',38],pal:{base:'#245aa8',light:'#6aa8e8',dark:'#10305e',belly:'#7cb4ea',accent:'#f8f8f8',faixa:'#d83a3a',luva:'#d83a3a'},sh:{rx:.85,ry:.72,cy:.56,sp:1,seed:23,nz:.4}},
   brotelo:{n:'Cobrume',t:'Planta',b:{hp:50,atk:56,def:46,spd:56},xp:64,cr:.45,ls:LS.serpente,evo:['floresko',22],sh:{rx:.62,ry:.58,cy:.6,sp:0,seed:37,nz:.4},
     pal:{base:'#4c9a3a',light:'#8ad060',dark:'#1c4220',belly:'#e8dc98',accent:'#f2d030',lingua:'#e83a4a'}},
-  floresko:{n:'Cobrume Duplo',t:'Planta',b:{hp:76,atk:90,def:68,spd:76},xp:150,cr:.15,ls:LS.serpente,sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:37,nz:.4},
+  floresko:{n:'Cobrume Duplo',t:'Planta',b:{hp:76,atk:90,def:68,spd:76},xp:150,cr:.15,ls:LS.serpente,evo:['cobrumetriplo',38],sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:37,nz:.4},
     pal:{base:'#2f7a36',light:'#6ab84e',dark:'#0f2a14',belly:'#d8c470',accent:'#ff3a24',lingua:'#e83a4a',chifre:'#e8e0c8'}},
   ratuxo:{n:'Ratuxo',t:'Normal',b:{hp:38,atk:50,def:35,spd:70},xp:40,cr:.7,ls:LS.rato,evo:['ratazao',20],pal:GREY,sh:{rx:.5,ry:.5,cy:.64,sp:2,seed:41,nz:.6}},
-  ratazao:{n:'Ratatuile',t:'Normal',b:{hp:62,atk:78,def:56,spd:92},xp:110,cr:.3,ls:LS.rato,pal:GREY,sh:{rx:.72,ry:.7,cy:.57,sp:2,seed:41,nz:.6}},
-  zumbel:{n:'Abelhume',t:'Planta',b:{hp:42,atk:56,def:40,spd:66},xp:50,cr:.6,ls:LS.inseto,pal:{base:'#f2c228',light:'#ffe680',dark:'#2a2420',belly:'#fff2b0',accent:'#e83028',ferrao:'#3a3036'},sh:{rx:.5,ry:.62,cy:.56,sp:2,seed:53,nz:.75}},
+  ratazao:{n:'Ratatuile',t:'Normal',b:{hp:62,atk:78,def:56,spd:92},xp:110,cr:.3,ls:LS.rato,evo:['reiesgoto',36],pal:GREY,sh:{rx:.72,ry:.7,cy:.57,sp:2,seed:41,nz:.6}},
+  zumbel:{n:'Abelhume',t:'Planta',b:{hp:42,atk:56,def:40,spd:66},xp:50,cr:.6,ls:LS.inseto,evo:['abelhote',22],pal:{base:'#f2c228',light:'#ffe680',dark:'#2a2420',belly:'#fff2b0',accent:'#e83028',ferrao:'#3a3036'},sh:{rx:.5,ry:.62,cy:.56,sp:2,seed:53,nz:.75}},
   caramelo:{n:'Caramelo',t:'Normal',b:{hp:55,atk:58,def:48,spd:66},xp:58,cr:.45,ls:LS.cao,evo:['caramelao',24],pal:{base:'#d8914a',light:'#f0bc78',dark:'#a8642c',belly:'#f6e2bc',accent:'#d84040'},sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:7,nz:.5}},
-  caramelao:{n:'Caramelo BR',t:'Normal',b:{hp:82,atk:88,def:68,spd:90},xp:150,cr:.15,ls:LS.cao,pal:{base:'#c98240',light:'#eab06a',dark:'#94562a',belly:'#f4dcb0',accent:'#3a3440'},sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:7,nz:.5}},
+  caramelao:{n:'Caramelo BR',t:'Normal',b:{hp:82,atk:88,def:68,spd:90},xp:150,cr:.15,ls:LS.cao,evo:['caramelomito',38],pal:{base:'#c98240',light:'#eab06a',dark:'#94562a',belly:'#f4dcb0',accent:'#3a3440'},sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:7,nz:.5}},
   zubumafilho:{n:'Zubumafilho',t:'Normal',b:{hp:48,atk:52,def:44,spd:80},xp:62,cr:.4,ls:LS.lemure,evo:['zubumapai',26],pal:{base:'#9a96a2',light:'#c9c5cf',dark:'#3a3640',belly:'#f4f1ea',accent:'#f2a024'},sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:5,nz:.5}},
-  zubumapai:{n:'Zubumapai',t:'Normal',b:{hp:76,atk:84,def:66,spd:102},xp:155,cr:.15,ls:LS.lemure,pal:{base:'#8c8896',light:'#bdb9c4',dark:'#302c36',belly:'#f2eee6',accent:'#f29a1c'},sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:5,nz:.5}},
-  zap:{n:'Zap',t:'Elétrico',b:{hp:54,atk:60,def:50,spd:74},xp:70,cr:.35,ls:LS.zap,pal:{base:'#3ccf6a',light:'#90f0aa',dark:'#1e8a44',belly:'#ffffff',accent:'#4fb8f0'},sh:{rx:.7,ry:.6,cy:.55,sp:0,seed:3,nz:.4}},
+  zubumapai:{n:'Zubumapai',t:'Normal',b:{hp:76,atk:84,def:66,spd:102},xp:155,cr:.15,ls:LS.lemure,evo:['zubumavo',40],pal:{base:'#8c8896',light:'#bdb9c4',dark:'#302c36',belly:'#f2eee6',accent:'#f29a1c'},sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:5,nz:.5}},
+  zap:{n:'Zap',t:'Elétrico',b:{hp:54,atk:60,def:50,spd:74},xp:70,cr:.35,ls:LS.zap,evo:['zapfone',22],pal:{base:'#3ccf6a',light:'#90f0aa',dark:'#1e8a44',belly:'#ffffff',accent:'#4fb8f0'},sh:{rx:.7,ry:.6,cy:.55,sp:0,seed:3,nz:.4}},
   cocozinho:{n:'Procedimento Padrão',t:'Normal',b:{hp:62,atk:46,def:62,spd:34},xp:55,cr:.6,ls:LS.coco,evo:['pericle',24],pal:{base:'#8a5530',light:'#b8804e',dark:'#5a3418',belly:'#ffffff',accent:'#2a2a34'},sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:9,nz:.4}},
-  pericle:{n:'Procedimento Pericle',t:'Normal',b:{hp:92,atk:78,def:90,spd:42},xp:160,cr:.15,ls:LS.coco,sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:9,nz:.4},
+  pericle:{n:'Procedimento Pericle',t:'Normal',b:{hp:92,atk:78,def:90,spd:42},xp:160,cr:.15,ls:LS.coco,evo:['procfatal',40],sh:{rx:.85,ry:.8,cy:.55,sp:0,seed:9,nz:.4},
     pal:{base:'#6e5a26',light:'#9a8440',dark:'#3a2c10',belly:'#d8c860',accent:'#1e1e24',mofo:'#7aa040',fedor:'#a8c860',olho:'#ecec9a',veia:'#d83a3a',dente:'#d8c860',milho:'#f4d23a'}},
   gudang:{n:'Gudang',t:'Fogo',b:{hp:46,atk:64,def:42,spd:60},xp:66,cr:.4,ls:LS.cigarro,evo:['rastafolha',26],pal:{base:'#c8925a',light:'#e8bc84',dark:'#8a5a30',belly:'#f4e8d4',accent:'#e0a040'},sh:{rx:.5,ry:.7,cy:.55,sp:0,seed:13,nz:.4}},
-  rastafolha:{n:'Rastafolha',t:'Planta',b:{hp:70,atk:84,def:58,spd:72},xp:150,cr:.15,ls:LS.rasta,sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:13,nz:.4},
+  rastafolha:{n:'Rastafolha',t:'Planta',b:{hp:70,atk:84,def:58,spd:72},xp:150,cr:.15,ls:LS.rasta,evo:['rastarei',40],sh:{rx:.8,ry:.8,cy:.55,sp:0,seed:13,nz:.4},
     pal:{base:'#7cc85a',belly:'#a8e078',accent:'#f2c03a',dark:'#2a6a2c',light:'#b4ec8c',folha:'#3f9a3c',caule:'#5a9a3a',gorro_v:'#d83a3a',gorro_a:'#f2c03a',gorro_g:'#38a050',faixa:'#2a2226',dread:'#4a2a18'}},
   estagiario:{n:'Estagiário',t:'Normal',b:{hp:40,atk:40,def:35,spd:55},xp:50,cr:.6,ls:LS.escritorio,evo:['puxasaco',20],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:21,nz:.4},
     pal:{base:'#3a6ad8',belly:'#ffffff',accent:'#3a6ad8',dark:'#3a2a22',light:'#9ad4f8',pele:'#f2c8a0',camisa:'#f4f4f8',calca:'#3a4060',cabelo:'#3a2a22',sapato:'#2a2226',copo:'#ffffff',cafe:'#8a5a34',suor:'#9ad4f8'}},
@@ -93,9 +93,9 @@ const SPECIES={
     pal:{base:'#f4ecd8',belly:'#ffffff',accent:'#3a6ad8',dark:'#7a6a50',light:'#fffaf0',envelope:'#f4ecd8',dobra:'#ddd0b2',gravata:'#3a6ad8',selo:'#d83a3a',luz:'#ff3a2a'}},
   alinhamento:{n:'Alinhamento Semanal',t:'Normal',b:{hp:96,atk:86,def:84,spd:46},xp:200,cr:.08,ls:LS.daily,sh:{rx:.85,ry:.85,cy:.55,sp:0,seed:47,nz:.4},
     pal:{base:'#ffffff',belly:'#ffffff',accent:'#d83a3a',dark:'#5a5a66',light:'#ffffff',folha:'#fbfbfe',topo:'#d83a3a',argola:'#5a5a66',grade:'#c4c4d2'}},
-  marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
+  marmitiol:{n:'Marmitiol',t:'Normal',b:{hp:72,atk:58,def:74,spd:38},xp:70,cr:.35,ls:LS.marmita,evo:['lancheriol',22],sh:{rx:.7,ry:.6,cy:.6,sp:0,seed:53,nz:.4},
     pal:{base:'#eef4f6',belly:'#ffffff',accent:'#3a8ad8',dark:'#5a6a7a',light:'#ffffff',pote:'#eaf2f6',tampa:'#3a8ad8',arroz:'#fbf6e8',feijao:'#5a3020',farofa:'#e8c070',tomate:'#e04848',fita:'#f0e0a8'}},
-  texugo:{n:'Texugo',t:'Normal',b:{hp:70,atk:92,def:60,spd:84},xp:120,cr:.18,ls:LS.texugo,sh:{rx:.75,ry:.65,cy:.58,sp:0,seed:59,nz:.5},
+  texugo:{n:'Texugo',t:'Normal',b:{hp:70,atk:92,def:60,spd:84},xp:120,cr:.18,ls:LS.texugo,evo:['texugomilho',26],sh:{rx:.75,ry:.65,cy:.58,sp:0,seed:59,nz:.5},
     pal:{base:'#8e8a94',belly:'#b4b0ba',accent:'#e83a2a',dark:'#1e1a22',light:'#c4c0ca',capa:'#f6f4ee'}},
   cervejinha:{n:'Cervejinha',t:'Água',b:{hp:45,atk:45,def:40,spd:55},xp:52,cr:.55,ls:LS.cerveja,evo:['chopp',22],sh:{rx:.6,ry:.6,cy:.6,sp:0,seed:31,nz:.4},
     pal:{base:'#f2a81c',belly:'#fff8e8',accent:'#ffffff',dark:'#b8700c',light:'#ffd860',vidro:'#e2f0fa',cerveja:'#f2a81c',faceta:'#d88a10',espuma:'#fffaf0'}},
@@ -112,6 +112,36 @@ const PAL={
   Pedra:{base:'#a08a6c',light:'#d0bc98',dark:'#64503c',belly:'#c8b898',accent:'#787c88'},
   Normal:{base:'#b4946c',light:'#e4cca4',dark:'#76583c',belly:'#f4e8d0',accent:'#6c5038'},
 };
+
+// formas novas: herdam cores e golpes da forma anterior, com ajustes (desenhos em SHAPES, sprites.js)
+const novoZ=(k,base,o)=>{SPECIES[k]={...o,ls:o.ls||SPECIES[base].ls,pal:{...(SPECIES[base].pal||{}),...(o.pal||{})},sh:{...SPECIES[base].sh,rx:.9,ry:.88}}};
+novoZ('galinferno','galardente',{n:'Galinferno',t:'Fogo',b:{hp:88,atk:118,def:78,spd:104},xp:230,cr:.05,pal:{base:'#7a1414',dark:'#2a0808',light:'#c83a2a',belly:'#ffc84a',accent:'#ffe14a',crista:'#ffd23a'}});
+novoZ('tromba','zegotinha',{n:"Tromba d'Água",t:'Água',b:{hp:104,atk:96,def:108,spd:72},xp:230,cr:.05,pal:{base:'#183e88',dark:'#0a1c44',light:'#4a8ae0',belly:'#5a9ae8',faixa:'#f2c03a',cinto:'#f2c03a',fivela:'#ffffff',onda:'#9ad8f8'}});
+novoZ('cobrumetriplo','floresko',{n:'Cobrume Triplo',t:'Planta',b:{hp:94,atk:114,def:86,spd:92},xp:230,cr:.05,pal:{base:'#1f5a3a',dark:'#08180e',accent:'#ffd23a',chifre:'#f0e0b8'}});
+novoZ('reiesgoto','ratazao',{n:'Rei do Esgoto',t:'Normal',b:{hp:86,atk:104,def:74,spd:112},xp:210,cr:.06,pal:{base:'#5a4c5e',light:'#8a7a8e',dark:'#2a2030',belly:'#b8aabc',coroa:'#f2c03a',gema:'#e83a5a',capa:'#6a1a7a',forro:'#c8283a',arminho:'#f8f6f0',ouro:'#f2c03a'}});
+novoZ('caramelomito','caramelao',{n:'Caramelo Mito',t:'Normal',b:{hp:102,atk:110,def:86,spd:104},xp:230,cr:.05,pal:{capa:'#1e9a4a',borda:'#f6d32a',ouro:'#f2c03a',gema:'#2a5ad8'}});
+novoZ('zubumavo','zubumapai',{n:'Zubumavô',t:'Normal',b:{hp:98,atk:96,def:92,spd:108},xp:230,cr:.05,pal:{base:'#a8a4b0',light:'#d8d4dc',dark:'#4a4650',barba:'#f8f8f4',bengala:'#8a5a30'}});
+novoZ('procfatal','pericle',{n:'Procedimento Fatal',t:'Normal',b:{hp:120,atk:100,def:112,spd:44},xp:240,cr:.04,pal:{base:'#3e3014',light:'#6e5a26',dark:'#140e06',mofo:'#9ad040',fedor:'#c8f060',olho:'#d8ff6a',poca:'#6a9a30',dente:'#e8d870',chifre:'#cbbd84'}});
+novoZ('rastarei','rastafolha',{n:'Rasta Rei',t:'Planta',b:{hp:92,atk:106,def:84,spd:94},xp:220,cr:.05,pal:{folha:'#2f8a34',coroa:'#f2c03a',violao:'#c8803a',braco:'#6a3a1a',corda:'#f4f0e0'}});
+novoZ('abelhote','zumbel',{n:'Abelhote',t:'Planta',b:{hp:66,atk:82,def:70,spd:88},xp:120,cr:.25,pal:{base:'#f2a828',light:'#ffd870',dark:'#1e1a1c',capacete:'#8a8e9a',penacho:'#e83a3a',lanca:'#8a5a30',escudo:'#c8902a'}});
+novoZ('colmeiona','zumbel',{n:'Colmeiona',t:'Planta',b:{hp:110,atk:104,def:100,spd:70},xp:230,cr:.05,pal:{base:'#f2c228',colmeia:'#e0a83a',dark:'#5a3410',light:'#f8d070',mel:'#f2a81c',coroa:'#f2c03a',accent:'#ff3a2a'}});
+novoZ('zapfone','zap',{n:'Zapfone',t:'Elétrico',b:{hp:72,atk:84,def:72,spd:96},xp:130,cr:.22,pal:{celular:'#26262e',tela:'#cfeee0',trinca:'#ffffff',dark:'#0e0e14'}});
+novoZ('antena5g','zap',{n:'Antenão 5G',t:'Elétrico',b:{hp:104,atk:116,def:94,spd:88},xp:240,cr:.04,pal:{base:'#3ccf6a',metal:'#9aa0ac',dark:'#3a3e48',light:'#d8dce4',luz:'#ff2a1a',sinal:'#34b7f1',caixa:'#2fae5a',painel:'#eef0f4',belly:'#ffffff'}});
+novoZ('lancheriol','marmitiol',{n:'Lancheriol',t:'Normal',b:{hp:94,atk:72,def:96,spd:46},xp:130,cr:.22,pal:{lancheira:'#3a7ad8',bolso:'#2a5aa8',ziper:'#e8e8f0',alca:'#2a2a32',floco:'#ffffff',dark:'#1a2a4a',light:'#8ab8f0'}});
+novoZ('geladeirol','marmitiol',{n:'Geladeirol',t:'Normal',b:{hp:124,atk:96,def:124,spd:40},xp:240,cr:.04,pal:{base:'#eef2f8',geladeira:'#eef2f8',dark:'#5a6070',puxador:'#9aa0ac',ima1:'#e04848',ima2:'#f2c03a',ima3:'#38a050',gelo:'#bfe8f8',belly:'#e0e6f0',light:'#ffffff'}});
+novoZ('texugomilho','texugo',{n:'Texugo do Milho',t:'Normal',b:{hp:88,atk:106,def:78,spd:96},xp:150,cr:.12,pal:{palha:'#e8c870',fita:'#d83a3a',milho:'#f4d23a',folhamilho:'#58a040',xadrez:'#d84848'}});
+novoZ('texugomel','texugo',{n:'Texugo do Mel',t:'Normal',b:{hp:100,atk:130,def:86,spd:110},xp:250,cr:.04,pal:{base:'#4a4650',belly:'#7a7682',dark:'#141016',mel:'#f2a81c',favo:'#f2c03a',abelha:'#f2c228',olhovermelho:'#ff2a1a'}});
+// as formas do meio dos que eram sozinhos também evoluem
+SPECIES.abelhote.evo=['colmeiona',38];SPECIES.zapfone.evo=['antena5g',38];SPECIES.lancheriol.evo=['geladeirol',38];SPECIES.texugomilho.evo=['texugomel',42];
+// ordem da Zoobudex: cada família junta
+(()=>{const ordem=['pintobrasa','galardente','galinferno','gotinho','zegotinha','tromba','brotelo','floresko','cobrumetriplo','ratuxo','ratazao','reiesgoto',
+  'zumbel','abelhote','colmeiona','caramelo','caramelao','caramelomito','zubumafilho','zubumapai','zubumavo','zap','zapfone','antena5g',
+  'cocozinho','pericle','procfatal','gudang','rastafolha','rastarei'];
+  const resto=Object.keys(SPECIES).filter(k=>!ordem.includes(k));
+  for(const k of[...ordem,...resto]){const v=SPECIES[k];delete SPECIES[k];SPECIES[k]=v}
+  for(const x of['marmitiol','lancheriol','geladeirol','texugo','texugomilho','texugomel']){const v=SPECIES[x];delete SPECIES[x];SPECIES[x]=v}
+})();
+
 const ITEMS={
   pocao:{n:'Poção',d:'Cura 25 PV de um zoobumon',price:60,heal:25},
   superp:{n:'Super Poção',d:'Cura 70 PV de um zoobumon',price:180,heal:70},
