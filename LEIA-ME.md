@@ -104,3 +104,7 @@ Depois é só mandar o link pros amigos. Cada um cria a própria conta na tela d
 
 - As batalhas são calculadas no aparelho de cada jogador. Entre amigos tudo bem, mas alguém que entende de programação conseguiria trapacear. Dá pra blindar depois com funções no servidor do Supabase.
 - O plano grátis do Supabase pausa o projeto depois de 1 semana sem ninguém jogar. É só entrar no painel e clicar em *Restore*.
+
+## Atualização obrigatória
+
+O arquivo `versao.txt` guarda o mesmo número do `?v=` dos scripts no `index.html`. Sempre que subir uma mudança, aumente os dois juntos: quem estiver com o jogo aberto na versão velha salva e recarrega sozinho quando voltar pro mapa.
