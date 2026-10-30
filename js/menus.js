@@ -87,7 +87,7 @@ const dexNum=i=>'#'+String(i+1).padStart(3,'0');
 async function dexMenu(){
   let sel=0,msg='';
   while(true){
-    const ids=Object.keys(SPECIES),d=dexOf(),nv=ids.filter(k=>d.v[k]).length,np=ids.filter(k=>d.p[k]).length;
+    const d=dexOf(),ids=Object.keys(SPECIES).filter(k=>!SPECIES[k].hw||d.v[k]||d.p[k]),nv=ids.filter(k=>d.v[k]).length,np=ids.filter(k=>d.p[k]).length;
     const p=showPanel('Zoobudex',{foot:msg||`Vistos ${nv} · Pegos ${np} de ${ids.length}`});
     const items=ids.map((k,i)=>{
       const pego=d.p[k],visto=d.v[k],sp=SPECIES[k];
@@ -113,7 +113,7 @@ async function dexEntry(k,i){
     <div>${chip(sp.t)}</div>
     ${from?`<div>Evolui de ${esc(nomeDe(from))} no nível ${SPECIES[from].evo[1]}</div>`:''}
     ${sp.evo?`<div>Evolui pra ${esc(nomeDe(sp.evo[0]))} no nível ${sp.evo[1]}</div>`:'<div>Não evolui</div>'}
-    <div>Onde achar: ${onde.length?onde.join(', '):'não aparece no mato (só por evolução ou como inicial)'}</div></div></div>
+    <div>Onde achar: ${sp.hw?'só no Halloween (31/10), às vezes no lugar do Zubuma normal':onde.length?onde.join(', '):'não aparece no mato (só por evolução ou como inicial)'}</div></div></div>
     <div class="dexsts">${bar('PV',b.hp)}${bar('ATQ',b.atk)}${bar('DEF',b.def)}${bar('VEL',b.spd)}</div>
     <div class="mvs">${sp.ls.map(([l,m])=>`<div>${chip(MOVES[m].t)} ${MOVES[m].n} <small>Nv ${l} · Poder ${MOVES[m].p}</small></div>`).join('')}</div>`});
   p.body.classList.add('grow');

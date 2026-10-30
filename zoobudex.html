@@ -40,7 +40,7 @@
     for(const[z,list]of Object.entries(ENC))for(const[s,,a,b]of list)(where[s]=where[s]||[]).push(`${ZNAME[z]} (${a}–${b})`);
     const from={};for(const[k,s]of Object.entries(SPECIES))if(s.evo)from[s.evo[0]]=[k,s.evo[1]];
     const starters=['pintobrasa','gotinho','brotelo'];
-    document.getElementById('grid').innerHTML=Object.entries(SPECIES).map(([k,s],i)=>{
+    document.getElementById('grid').innerHTML=Object.entries(SPECIES).filter(([,s])=>!s.hw).map(([k,s],i)=>{
       const sp=SPR(k),b=sp.b.toDataURL();
       const info=[
         starters.includes(k)?'Inicial':'',

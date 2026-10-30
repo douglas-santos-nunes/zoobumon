@@ -3,6 +3,7 @@
 // só no dia 31/10/2026 (data do aparelho): vencer 30 lutas libera escolher UM prêmio, chapéu de bruxa, cabeça de abóbora, máscara de caveira ou do Pânico.
 // quem completou e ainda não escolheu continua vendo a abóbora depois do dia, pra não perder o prêmio.
 const HW_META=30,HW_PREMIOS=['chapeu_bruxa','abobora','caveira','panico'];
+const HW_ZUBUMA=.25;
 const HW_CURTO={chapeu_bruxa:'Bruxa',abobora:'Abóbora',caveira:'Caveira',panico:'Pânico'};
 const hwHoje=()=>{const d=new Date();return d.getFullYear()===2026&&d.getMonth()===9&&d.getDate()===31};
 // pra testar no computador: localhost/?halloween liga o evento em qualquer dia
@@ -17,6 +18,7 @@ async function hwVitoria(){
 }
 function hwBadge(){const b=$('#hwBtn small');if(b)b.textContent=`${Math.min(hwSt().n,HW_META)}/${HW_META}`}
 function hwTick(show){
+  if(show&&hwAvisoPendente())run(hwAviso);
   const el=$('#hwBtn'),vis=show&&hwVisivel();if(el.hidden===vis)el.hidden=!vis;
   if(vis){el.classList.toggle('pronto',hwSt().n>=HW_META);hwBadge()}
 }
@@ -81,4 +83,37 @@ function hwDecorDentro(cx,cy,ts){
   // uma abóbora de cada lado da saída
   const fim=I.rows[I.rows.length-1],e0=fim.indexOf('E'),e1=fim.lastIndexOf('E'),y=(I.rows.length-2)*TS-cy+TS-16;
   hwPumpkin((e0-1)*TS-cx+8,y,ts);hwPumpkin((e1+1)*TS-cx+8,y,ts,1);
+}
+
+/* aviso do evento: aparece uma vez por dia, assim que a pessoa entra no mapa no dia do Halloween */
+const HW_AVISO='zoobumon-hw-aviso';
+let hwAvisando=false;
+function hwAvisoPendente(){
+  if(!hwAtivo()||hwAvisando||!started||mode!=='world'||busy)return false;
+  let visto='';try{visto=localStorage.getItem(HW_AVISO)||''}catch(e){}
+  return visto!==new Date().toDateString()||hwTeste&&!window.hwAvisoTeste;
+}
+async function hwAviso(){
+  hwAvisando=true;window.hwAvisoTeste=1;
+  try{localStorage.setItem(HW_AVISO,new Date().toDateString())}catch(e){}
+  const ab=HWP[0].toDataURL(),mo=HWBAT[0].toDataURL();
+  const zb=['zubumafilhohw','zubumapaihw','zubumavohw'].map(k=>`<figure><img src="${icon(k)}" alt=""><figcaption>${SPECIES[k].n}</figcaption></figure>`).join('');
+  const pr=HW_PREMIOS.map(k=>`<figure><img class="pr" src="${hwPrev(k)}" alt=""><figcaption>${HW_CURTO[k]}</figcaption></figure>`).join('');
+  const el=document.createElement('div');el.id='hwAviso';el.setAttribute('role','dialog');el.setAttribute('aria-label','Evento de Halloween');
+  el.innerHTML=`<div class="hwa">
+    <img class="hwmo m1" src="${mo}" alt=""><img class="hwmo m2" src="${mo}" alt=""><img class="hwmo m3" src="${mo}" alt="">
+    <div class="hwtit"><img src="${ab}" alt="">Noite de Halloween!<img src="${ab}" alt=""></div>
+    <div class="hwsub">Só hoje, 31 de outubro</div>
+    <div class="hwsec"><b>Desafio da Abóbora</b>Vença 30 lutas hoje e escolha <u>um</u> prêmio exclusivo:</div>
+    <div class="hwrow">${pr}</div>
+    <div class="hwsec"><b>Tem coisa estranha no mato…</b>A família Zubuma apareceu fantasiada! Quem tiver sorte encontra um deles:</div>
+    <div class="hwrow zb">${zb}</div>
+    <button type="button" class="hwok">Bora caçar!</button>
+    <div class="hwdica">Toque na abóbora do canto da tela pra ver seu progresso</div>
+  </div>`;
+  $('#game').appendChild(el);sfx('ok');
+  await new Promise(res=>{let pop;const fim=()=>{pop();el.remove();res()};
+    pop=pushH(b=>{if(b==='a'||b==='b'||b==='start')fim()});
+    el.querySelector('.hwok').addEventListener('click',fim);el.querySelector('.hwok').focus()});
+  hwAvisando=false;
 }

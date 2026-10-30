@@ -446,6 +446,23 @@ Object.assign(SHAPES,{
     E(55,42,5.6,6.4,'favo'),E(53.4,40,1.2,1.2,'mel',{noLine:1}),E(56.6,40,1.2,1.2,'mel',{noLine:1}),E(55,43.4,1.2,1.2,'mel',{noLine:1}),E(53.4,46,1.2,1.2,'mel',{noLine:1}),E(56.6,46,1.2,1.2,'mel',{noLine:1}),
     E(4.6,8.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(7.4,8.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(6,10,2.2,1.5,'abelha'),Cp(6,8.8,6,11.2,.35,'dark',{noLine:1}),E(4.6,9.7,.35,.35,'pupil',{noLine:1}),E(56.6,6.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(59.4,6.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(58,8,2.2,1.5,'abelha'),Cp(58,6.8,58,9.2,.35,'dark',{noLine:1}),E(56.6,7.7,.35,.35,'pupil',{noLine:1}),E(10.6,2.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(13.4,2.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(12,4,2.2,1.5,'abelha'),Cp(12,2.8,12,5.2,.35,'dark',{noLine:1}),E(10.6,3.7,.35,.35,'pupil',{noLine:1}),E(46.6,24.4,1.6,1.1,'wing',{rot:-.5,noLine:1}),E(49.4,24.4,1.6,1.1,'wing',{rot:.5,noLine:1}),E(48,26,2.2,1.5,'abelha'),Cp(48,24.8,48,27.2,.35,'dark',{noLine:1}),E(46.6,25.7,.35,.35,'pupil',{noLine:1})],
 });
+// Halloween: Zubumafilho com cabeça de abóbora, Zubumapai bruxo de chapéu, capa e vassoura, Zubumavô Drácula de dentadura
+Object.assign(SHAPES,{
+  zubumafilhohw:[...SHAPES.zubumafilho,
+    E(23.6,29.4,7.6,9.6,'abob'),E(40.4,29.4,7.6,9.6,'abob'),E(32,28.8,8.6,10.8,'abob'),
+    Cp(32,19,34.6,15,1.7,'cabo'),E(37.4,16.4,2.6,1.3,'folha',{rot:-.4}),
+    Tr(22.6,30,26.4,23.6,30,30,'glow',M),E(26.4,28.4,1,1.2,'pupil',M),
+    E(32,35.2,7,2.6,'glow'),Tr(28.6,33,30.8,33,29.7,35.6,'abob',{noLine:1}),Tr(33.2,33,35.4,33,34.3,35.6,'abob',{noLine:1}),Tr(30.8,37.6,33.2,37.6,32,35.2,'abob',{noLine:1})],
+  zubumapaihw:[E(17.4,47,7.6,15.4,'capa',{m:1,rot:.2}),E(19.6,48,4.6,12.6,'forro',{m:1,rot:.2,noLine:1}),Tr(19.6,32.6,12.6,28.4,23.6,36.6,'capa',M),...SHAPES.zubumapai,
+    Cp(6.6,20,12.6,37,1.25,'vassoura'),Cp(12.6,37,18.4,51.6,1.25,'vassoura'),E(7,19.6,1.5,1.3,'vassoura'),Tr(16.2,50.4,21.4,49,27.6,63.6,'palha'),Tr(16.2,50.4,10.6,62.4,21,63.8,'palha'),E(19.6,58.6,5.4,5,'palha'),Cp(18.6,54,15.4,63,.3,'palhad',{noLine:1}),Cp(19.8,54,20.4,63.6,.3,'palhad',{noLine:1}),Cp(21,53.6,25.4,62.8,.3,'palhad',{noLine:1}),Cp(15.8,51.6,22,49.8,1.05,'faixa'),
+    E(32,15.6,14.6,3,'chapeu'),Tr(23.4,14.6,40.6,14.6,36.6,2.4,'chapeu'),Tr(34.4,4.6,37.4,2,44.6,5.4,'chapeu'),
+    Cp(24.4,13.2,39.6,13.2,1.3,'faixa'),E(32,13.2,1.7,1.5,'fivela')],
+  zubumavohw:[Tr(23.4,33,7,8,27,21,'capa',M),Tr(23.4,31.6,10.4,11.6,26,22.6,'forro',{m:1,noLine:1}),
+    E(16.6,47.6,8,16,'capa',{m:1,rot:.2}),E(18.8,48.6,5,13,'forro',{m:1,rot:.2,noLine:1}),...SHAPES.zubumavo,
+    Tr(22.4,15.4,41.6,15.4,32,22.4,'cabelo'),E(32,15.2,9.4,2.4,'cabelo'),Cp(26,14.6,30.4,16.4,.35,'light',{noLine:1}),Cp(33.6,16.4,38,14.6,.35,'light',{noLine:1}),
+    Tr(28.8,40.6,31.2,40.6,30,47.4,'presa'),Tr(32.8,40.6,35.2,40.6,34,47.4,'presa'),E(32,40.4,4.2,2.9,'barba',{f:1}),
+    Cp(24,47,32,51.6,.35,'ouro',M),E(32,52,2.4,2.4,'ouro'),E(32,52,1.1,1.1,'forro',{noLine:1})]
+});
 function speciesColors(sp){
   const pal={...PAL[sp.t],...(sp.pal||{})},o={};
   for(const k of['base','belly','accent','dark','light'])o[k]=ramp(pal[k]);

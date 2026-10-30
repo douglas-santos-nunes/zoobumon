@@ -121,7 +121,12 @@ novoZ('tromba','zegotinha',{n:"Tromba d'Água",t:'Água',b:{hp:104,atk:96,def:10
 novoZ('cobrumetriplo','floresko',{n:'Cobrume Triplo',t:'Planta',b:{hp:94,atk:114,def:86,spd:92},xp:230,cr:.05,pal:{base:'#1f5a3a',dark:'#08180e',accent:'#ffd23a',chifre:'#f0e0b8'}});
 novoZ('reiesgoto','ratazao',{n:'Rei do Esgoto',t:'Normal',b:{hp:86,atk:104,def:74,spd:112},xp:210,cr:.06,pal:{base:'#5a4c5e',light:'#8a7a8e',dark:'#2a2030',belly:'#b8aabc',coroa:'#f2c03a',gema:'#e83a5a',capa:'#6a1a7a',forro:'#c8283a',arminho:'#f8f6f0',ouro:'#f2c03a'}});
 novoZ('caramelomito','caramelao',{n:'Caramelo Mito',t:'Normal',b:{hp:102,atk:110,def:86,spd:104},xp:230,cr:.05,pal:{capa:'#1e9a4a',borda:'#f6d32a',ouro:'#f2c03a',gema:'#2a5ad8'}});
+// edição especial de Halloween (só aparece no dia 31/10): mesmos números da família Zubuma
+novoZ('zubumafilhohw','zubumafilho',{...SPECIES.zubumafilho,n:'Zubumafilho Abóbora',evo:['zubumapaihw',26],hw:1,pal:{abob:'#f08a1c',glow:'#ffd23a',cabo:'#3a7a2a',folha:'#5aa83a'}});
+novoZ('zubumapaihw','zubumapai',{...SPECIES.zubumapai,n:'Zubumapai Bruxo',evo:['zubumavohw',40],hw:1,pal:{chapeu:'#3a2a5a',faixa:'#8a3ac8',fivela:'#f2c03a',capa:'#4a2a6a',forro:'#8a3ac8',vassoura:'#7a4a24',palha:'#e8c060',palhad:'#b88a30'}});
 novoZ('zubumavo','zubumapai',{n:'Zubumavô',t:'Normal',b:{hp:98,atk:96,def:92,spd:108},xp:230,cr:.05,pal:{base:'#a8a4b0',light:'#d8d4dc',dark:'#4a4650',barba:'#f8f8f4',bengala:'#8a5a30'}});
+novoZ('zubumavohw','zubumavo',{...SPECIES.zubumavo,n:'Zubumavô Drácula',hw:1,pal:{capa:'#1c1824',forro:'#c81e32',cabelo:'#26222c',presa:'#fffdf0',ouro:'#f2c03a',accent:'#e8283a'}});
+for(const[k,b]of[['zubumafilhohw','zubumafilho'],['zubumapaihw','zubumapai'],['zubumavohw','zubumavo']])SPECIES[k].sh={...SPECIES[b].sh};
 novoZ('procfatal','pericle',{n:'Procedimento Fatal',t:'Normal',b:{hp:120,atk:100,def:112,spd:44},xp:240,cr:.04,pal:{base:'#3e3014',light:'#6e5a26',dark:'#140e06',mofo:'#9ad040',fedor:'#c8f060',olho:'#d8ff6a',poca:'#6a9a30',dente:'#e8d870',chifre:'#cbbd84'}});
 novoZ('rastarei','rastafolha',{n:'Rasta Rei',t:'Planta',b:{hp:92,atk:106,def:84,spd:94},xp:220,cr:.05,pal:{folha:'#2f8a34',coroa:'#f2c03a',violao:'#c8803a',braco:'#6a3a1a',corda:'#f4f0e0'}});
 novoZ('abelhote','zumbel',{n:'Abelhote',t:'Planta',b:{hp:66,atk:82,def:70,spd:88},xp:120,cr:.25,pal:{base:'#f2a828',light:'#ffd870',dark:'#1e1a1c',capacete:'#8a8e9a',penacho:'#e83a3a',lanca:'#8a5a30',escudo:'#c8902a'}});
@@ -141,6 +146,8 @@ SPECIES.abelhote.evo=['colmeiona',38];SPECIES.zapfone.evo=['antena5g',38];SPECIE
   const resto=Object.keys(SPECIES).filter(k=>!ordem.includes(k));
   for(const k of[...ordem,...resto]){const v=SPECIES[k];delete SPECIES[k];SPECIES[k]=v}
   for(const x of['marmitiol','lancheriol','geladeirol','texugo','texugomilho','texugomel']){const v=SPECIES[x];delete SPECIES[x];SPECIES[x]=v}
+  // edição de Halloween sempre no fim, pra não mudar o número de ninguém na Zoobudex
+  for(const x of Object.keys(SPECIES).filter(k=>SPECIES[k].hw)){const v=SPECIES[x];delete SPECIES[x];SPECIES[x]=v}
 })();
 
 const ITEMS={
