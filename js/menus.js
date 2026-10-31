@@ -113,7 +113,7 @@ async function dexEntry(k,i){
     <div>${chip(sp.t)}</div>
     ${from?`<div>Evolui de ${esc(nomeDe(from))} no nível ${SPECIES[from].evo[1]}</div>`:''}
     ${sp.evo?`<div>Evolui pra ${esc(nomeDe(sp.evo[0]))} no nível ${sp.evo[1]}</div>`:'<div>Não evolui</div>'}
-    <div>Onde achar: ${sp.hw?'só no Halloween (31/10), às vezes no lugar do Zubuma normal':onde.length?onde.join(', '):'não aparece no mato (só por evolução ou como inicial)'}</div></div></div>
+    <div>Onde achar: ${sp.hw?'só no Halloween (31/10), no lugar do Zubuma normal':onde.length?onde.join(', '):'não aparece no mato (só por evolução ou como inicial)'}</div></div></div>
     <div class="dexsts">${bar('PV',b.hp)}${bar('ATQ',b.atk)}${bar('DEF',b.def)}${bar('VEL',b.spd)}</div>
     <div class="mvs">${sp.ls.map(([l,m])=>`<div>${chip(MOVES[m].t)} ${MOVES[m].n} <small>Nv ${l} · Poder ${MOVES[m].p}</small></div>`).join('')}</div>`});
   p.body.classList.add('grow');

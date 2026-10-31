@@ -3,7 +3,8 @@
 // só no dia 31/10/2026 (data do aparelho): vencer 30 lutas libera escolher UM prêmio, chapéu de bruxa, cabeça de abóbora, máscara de caveira ou do Pânico.
 // quem completou e ainda não escolheu continua vendo a abóbora depois do dia, pra não perder o prêmio.
 const HW_META=30,HW_PREMIOS=['chapeu_bruxa','abobora','caveira','panico'];
-const HW_ZUBUMA=.25;
+// no dia do evento todo Zubuma do mato vem fantasiado
+const HW_ZUBUMA=1;
 const HW_CURTO={chapeu_bruxa:'Bruxa',abobora:'Abóbora',caveira:'Caveira',panico:'Pânico'};
 const hwHoje=()=>{const d=new Date();return d.getFullYear()===2026&&d.getMonth()===9&&d.getDate()===31};
 // pra testar no computador: localhost/?halloween liga o evento em qualquer dia
@@ -106,7 +107,7 @@ async function hwAviso(){
     <div class="hwsub">Só hoje, 31 de outubro</div>
     <div class="hwsec"><b>Desafio da Abóbora</b>Vença 30 lutas hoje e escolha <u>um</u> prêmio exclusivo:</div>
     <div class="hwrow">${pr}</div>
-    <div class="hwsec"><b>Tem coisa estranha no mato…</b>A família Zubuma apareceu fantasiada! Quem tiver sorte encontra um deles:</div>
+    <div class="hwsec"><b>Tem coisa estranha no mato…</b>A família Zubuma apareceu fantasiada! Hoje todo Zubuma do mato vem assim:</div>
     <div class="hwrow zb">${zb}</div>
     <button type="button" class="hwok">Bora caçar!</button>
     <div class="hwdica">Toque na abóbora do canto da tela pra ver seu progresso</div>

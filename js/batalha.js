@@ -300,7 +300,7 @@ async function startWild(){
   // cada região tem a sua faixa de nível fixa (é a que o Prof. Ipê fala); pra treinar mais, vá pra região seguinte
   const lv=ri(pk[2],pk[3]);
   let sp=pk[0];while(SPECIES[sp].evo&&lv>=SPECIES[sp].evo[1])sp=SPECIES[sp].evo[0];
-  // dia 31/10: 25% de chance do Zubuma vir na edição de Halloween
+  // dia 31/10: o Zubuma vem na edição de Halloween
   if(SPECIES[sp+'hw']&&hwAtivo()&&rnd()<HW_ZUBUMA)sp+='hw';
   await fight({team:[mkMon(sp,lv)],wild:true,bg:z});
 }
