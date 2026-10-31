@@ -119,7 +119,28 @@ async function dexEntry(k,i){
   p.body.classList.add('grow');
   await choose([{label:'Voltar'}],{root:p.list});
 }
-// PC da UPA: retirar e guardar
+// o professor fica com o zoobumon pra estudar e paga uma ajuda de custo pelo nível; a Zoobudex continua marcando que você pegou
+const valorProf=m=>10+m.lv*3;
+async function enviarProfessor(){
+  const lista=[...S.party.map((m,j)=>({m,de:'time',j})),...S.box.map((m,j)=>({m,de:'pc',j}))];
+  if(lista.length<=1)return'Você só tem 1 zoobumon. Pegue outros antes de mandar algum pro professor.';
+  const q=showPanel('Enviar ao Prof. Ipê',{foot:'Quem vai pro professor não volta mais.'});
+  const k=await choose(lista.map(x=>({html:monRow(x.m).replace('</b>',` <small>${x.de==='time'?'· no time':'· no PC'}</small></b>`)+`<span class="r">+${valorProf(x.m)} moedas</span>`})),{root:q.list});
+  if(k<0)return'';
+  const x=lista[k];
+  if(x.de==='time'){
+    if(S.party.length<=1)return'Você precisa andar com pelo menos 1 zoobumon. Retire um do PC antes.';
+    if(S.party.filter((m,j)=>j!==x.j&&m.hp>0).length===0)return'Fique com pelo menos 1 zoobumon que ainda consegue lutar.';
+  }
+  hidePanel();
+  await say(`Mandar ${nameOf(x.m)} (Nv ${x.m.lv}) pro Prof. Ipê? Ele não volta mais.`);
+  if(await choose([{label:'Sim, enviar'},{label:'Não'}],{cls:'side'})!==0){hideText();return''}
+  (x.de==='time'?S.party:S.box).splice(x.j,1);
+  const v=valorProf(x.m);S.coins+=v;sfx('ok');
+  await say(`Prof. Ipê: Obrigado, ${S.name}! Vou cuidar bem de ${nameOf(x.m)}. Toma ${v} moedas pela ajuda na pesquisa.`);hideText();
+  return`${nameOf(x.m)} foi pro Prof. Ipê. +${v} moedas.`;
+}
+// PC da UPA: retirar, guardar e mandar pro Prof. Ipê os que você não quer mais
 async function pcMenu(){
   await say(`${S.name} ligou o PC. Sistema de guarda de zoobumons aberto.`);hideText();
   let msg='';
@@ -128,8 +149,10 @@ async function pcMenu(){
     const i=await choose([
       {html:'<div class="pinfo"><b>Retirar zoobumon</b><small>Trazer um zoobumon guardado pro time</small></div>'},
       {html:'<div class="pinfo"><b>Guardar zoobumon</b><small>Deixar um zoobumon do time guardado aqui</small></div>'},
+      {html:'<div class="pinfo"><b>Enviar ao Prof. Ipê</b><small>Mandar pro professor um zoobumon que você não quer mais</small></div>'},
       {label:'Desligar o PC'}],{root:p.list});
-    if(i<0||i===2){hidePanel();return}
+    if(i<0||i===3){hidePanel();return}
+    if(i===2){msg=await enviarProfessor();save();continue}
     if(i===0){
       if(!S.box.length){msg='Não tem nenhum zoobumon guardado.';continue}
       if(S.party.length>=6){msg='Seu time já tem 6. Guarde um antes de retirar outro.';continue}
