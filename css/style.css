@@ -344,3 +344,5 @@ input,textarea,select{font-size:max(16px,1em)}
 #hwAviso .m1{left:8px;top:-12px}#hwAviso .m2{right:10px;top:-14px;animation-delay:.8s}#hwAviso .m3{right:58px;top:-6px;width:26px;height:14px;animation-delay:1.5s}
 @keyframes hwvoa{0%,100%{transform:translate(0,0)}50%{transform:translate(4px,-6px)}}
 @media (prefers-reduced-motion:reduce){#hwAviso .hwmo,#hwAviso .hwtit img{animation:none}}
+#hwAviso figcaption small{display:block;margin-top:3px;font-size:12px;color:#ffd23a}
+#hwAviso .hwrow.zb figure{width:96px}

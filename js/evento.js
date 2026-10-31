@@ -5,6 +5,8 @@
 const HW_META=30,HW_PREMIOS=['chapeu_bruxa','abobora','caveira','panico'];
 // no dia do evento todo Zubumafilho do mato vem de abóbora; pai e vô às vezes vêm fantasiados
 const HW_ZUBUMA={zubumafilho:1,zubumapai:.25,zubumavo:.25};
+// onde a versão normal aparece no mato, do lugar com mais chance pro de menos (a de Halloween sai no mesmo lugar)
+const hwOnde=k=>{const base=k.replace(/hw$/,'');return Object.entries(ENC).map(([z,l])=>{const t=l.reduce((a,e)=>a+e[1],0),e=l.find(e=>e[0]===base);return e&&[ZNAME[z],e[1]/t]}).filter(Boolean).sort((a,b)=>b[1]-a[1]).map(x=>x[0])};
 const HW_CURTO={chapeu_bruxa:'Bruxa',abobora:'Abóbora',caveira:'Caveira',panico:'Pânico'};
 const hwHoje=()=>{const d=new Date();return d.getFullYear()===2026&&d.getMonth()===9&&d.getDate()===31};
 // pra testar no computador: localhost/?halloween liga o evento em qualquer dia
@@ -87,7 +89,8 @@ function hwDecorDentro(cx,cy,ts){
 }
 
 /* aviso do evento: aparece uma vez por dia, assim que a pessoa entra no mapa no dia do Halloween */
-const HW_AVISO='zoobumon-hw-aviso';
+// trocar o nome da chave faz o aviso aparecer de novo pra quem já tinha visto (v2: com os locais dos Zubumas)
+const HW_AVISO='zoobumon-hw-aviso-2';
 let hwAvisando=false;
 function hwAvisoPendente(){
   if(!hwAtivo()||hwAvisando||!started||mode!=='world'||busy)return false;
@@ -98,7 +101,7 @@ async function hwAviso(){
   hwAvisando=true;window.hwAvisoTeste=1;
   try{localStorage.setItem(HW_AVISO,new Date().toDateString())}catch(e){}
   const ab=HWP[0].toDataURL(),mo=HWBAT[0].toDataURL();
-  const zb=['zubumafilhohw','zubumapaihw','zubumavohw'].map(k=>`<figure><img src="${icon(k)}" alt=""><figcaption>${SPECIES[k].n}</figcaption></figure>`).join('');
+  const zb=['zubumafilhohw','zubumapaihw','zubumavohw'].map(k=>`<figure><img src="${icon(k)}" alt=""><figcaption>${SPECIES[k].n}<small>${hwOnde(k).join(' · ')}</small></figcaption></figure>`).join('');
   const pr=HW_PREMIOS.map(k=>`<figure><img class="pr" src="${hwPrev(k)}" alt=""><figcaption>${HW_CURTO[k]}</figcaption></figure>`).join('');
   const el=document.createElement('div');el.id='hwAviso';el.setAttribute('role','dialog');el.setAttribute('aria-label','Evento de Halloween');
   el.innerHTML=`<div class="hwa">
